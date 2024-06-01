@@ -31,34 +31,3 @@ function makeTableVisible(id) {
 //     }
 // }
 
-function sequencer(shiftKey) {
-    makeTableVisible("sequencerTable");
-}
-
-function pattern(shiftKey) {
-    makeTableVisible("patternTable");
-}
-
-function automate(shiftKey) {
-    alert('automate clicked. shiftKey=' + shiftKey);
-}
-
-function project(shiftKey) {
-    alert('project clicked. shiftKey=' + shiftKey);
-}
-
-function upArrow(shiftKey) {
-    alert('upArrow clicked. shiftKey=' + shiftKey);
-}
-
-function downArrow(shiftKey) {
-    alert('downArrow clicked. shiftKey=' + shiftKey);
-}
-
-function leftArrow(shiftKey) {
-    alert('leftArrow clicked. shiftKey=' + shiftKey);
-}
-
-function rightArrow(shiftKey) {
-    alert('rightArrow clicked. shiftKey=' + shiftKey);
-}

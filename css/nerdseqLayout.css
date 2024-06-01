@@ -1,0 +1,112 @@
+/* Must match the NerdSeq module picture, including its size,  being used. 
+   Specifies the location and size of the screen and theh buttons on the 
+   module.
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+}
+
+/* Sets the location of all the virtual screens */
+.virtualScreen {
+  position: absolute;
+  top: 188px;
+  left: 281px;
+  width: 750px;
+  height: 490px;
+}
+
+/* Make the buttons look the same */
+.squareButton {
+  position: absolute;
+  border-color: rgba(230, 0, 0, 1.0);
+  background: rgba(255, 255, 255, 0.1);;        
+  width: 145px;
+  height: 146px;
+}
+
+.rectangleButton {
+  position: absolute;
+  border-color: rgba(230, 0, 0, 1.0);
+  background: rgba(255, 255, 255, 0.1);;        
+  width: 156px;
+  height: 83px;        
+}
+
+/* set location of virtual buttons */
+#sequencer {
+  top: 745px;
+  left: 165px;
+}
+
+#pattern {
+  top: 745px;
+  left: 323px;        
+}
+
+#patch {
+  top: 745px;
+  left: 478px;        
+}
+
+#table {
+  top: 747px;
+  left: 673px;
+}
+
+#automate {
+  top: 748px;
+  left: 831px;
+}
+
+#project {
+  top: 749px;
+  left: 991px;
+}
+
+#start {
+  top: 887px;
+  left: 179px;
+}
+
+#stop {
+  top: 886px;
+  left: 332px;
+}
+
+#up {
+  top: 885px;
+  left: 484px;
+}
+
+#ok {
+  top: 1035px;
+  left: 332px;
+}
+
+#down {
+  top: 1035px;
+  left: 483px;
+}
+
+#upArrow {
+  top: 890px;
+  left: 833px;
+}
+
+#downArrow {
+  top: 1037px;
+  left: 830px;
+}
+
+#leftArrow {
+  top: 1035px;
+  left: 675px;
+}
+
+#rightArrow {
+  top: 1040px;
+  left: 985px;
+}
