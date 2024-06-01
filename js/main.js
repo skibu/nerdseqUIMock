@@ -11,25 +11,25 @@ function makeTableVisible(id) {
     table.style.visibility = "visible";
 }
 
-var times = 0;
-function createPatternTable() {
-    // Get the DOM table
-    var table = $("#sequencerTable")[0];
+// var times = 0;
+// function createPatternTable() {
+//     // Get the DOM table
+//     var table = $("#patternTable")[0];
 
-    // Clear out any old rows
-    while (table.rows.length > 0)
-        table.deleteRow(0);
+//     // Clear out any old rows
+//     while (table.rows.length > 0)
+//         table.deleteRow(0);
 
-    // Add new rows    
-    times++;
-        for (var r=0; r<times; ++r) {
-        var firstRow = table.insertRow();
-        for (var i=0; i<5; ++i) {
-            var td = firstRow.insertCell();
-            td.innerHTML = i;
-        }
-    }
-}
+//     // Add new rows    
+//     times++;
+//         for (var r=0; r<times; ++r) {
+//         var firstRow = table.insertRow();
+//         for (var i=0; i<5; ++i) {
+//             var td = firstRow.insertCell();
+//             td.innerHTML = i;
+//         }
+//     }
+// }
 
 function sequencer(shiftKey) {
     makeTableVisible("sequencerTable");

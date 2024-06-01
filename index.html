@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     
     <style>
+      :root {
+        --borderColor: cyan;
+        --tableBackgroundColor: black;
+      }
+      
       body {
         margin: 0;
         padding: 0;
@@ -23,9 +28,7 @@
         font-weight: 400;
         font-style: normal;
         font-size: 28px;
-      }
 
-      #text {
         color: white;
         background: green;
         position: absolute;
@@ -34,18 +37,56 @@
       }
 
       .table {
+        font-family: "VT323", monospace;
+        letter-spacing: 5px;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 28px;
+
         position: absolute;
         top: 156px;
         left: 232px;
         width: 600px;
         height: 410px;
-        background: black;
-        color: white;
-        border: 4px solid white;
-        visibility:hidden;
+        background: var(--tableBackgroundColor);
+        color: white; /* font color */
+        border: 4px solid var(--borderColor);
+        border-spacing: 0px; /* needed to remove extra padding */
+        visibility: hidden;
       }
 
+      /* Every cell, except those overridden */
+      td {
+        border-right: 1px solid var(--borderColor);
+        border-bottom: 1px solid var(--borderColor);
+        margin: -8px;
+        margin-top: -4px;
+        padding: 0px;
+        text-align: center;
+        background-color: blue;
+      }
+
+      #sequencerTable td {
+        width: 58px;
+      }
+
+      #sequencesTable td {
+       width: 58px;
+      }
+
+      #topLeftCell {
+        border-right: 2px solid var(--borderColor);
+      }
       
+      .sequenceNumber  {
+        border-right: 2px solid var(--borderColor);
+        border-bottom: 0px;
+      }
+
+      .sequenceCell  {
+        border-right: 1px solid var(--borderColor);
+        border-bottom: 0px;
+      }
 
       /* Make the buttons look the same */
       .squareButton {
@@ -115,7 +156,44 @@
                    A SOME MORE TEXT TEMPLATE SEQUENCER</div>
 
     <!-- Create the tables that will be the virtual screens for the NerdSeq -->
-    <table id='sequencerTable' class='table'></table>
+    <table id='sequencerTable' class='table'>
+      <tr>
+        <td id='topLeftCell'>xx</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>SEQUENCER</td>
+      </tr>
+      <tr>
+        <td colspan='9'><table id='sequencesTable'></table></td><td><table id='sequencerSideTable'></table></td>
+      </tr>  
+      <tr>
+        <td id='sequencerHelp' colspan='9'>This is where help goes</td><td></td>
+      </tr>
+    </table>
+    
+    <script>
+      // Fill in the sequences table
+      const seqTbl = $('#sequencesTable')[0];
+      for (let i=0; i<20; ++i) {
+        // Create row
+        let row = seqTbl.insertRow();
+        row.id = 'sequenceRow' + i;
+
+        // Only first 16 rows should be visible
+        if (i>=16)
+          row.style.display = 'none';
+
+        // Create sequence number cell
+        let td = row.insertCell();
+        td.innerHTML = (i<10 ? '0' : '') + i;
+        td.className = 'sequenceNumber';
+
+        // Create sequence cell for each track
+        for (let c=1; c<=8; ++c) {
+          let td = row.insertCell();
+          td.innerHTML = '--';
+          td.id = 'sequenceCell' + c;
+          td.className = 'sequenceCell';
+        }
+      }
+    </script>
 
     <table id='patternTable' class='table'>
       <tr>
@@ -192,9 +270,7 @@
   </body>
 
   <script>
-    createPatternTable();
-
-    // Do it again to show that it can get rid of old one
-    createPatternTable();
+    // Start by making visible the sequencer table
+    sequencer();
   </script>
 <html>
