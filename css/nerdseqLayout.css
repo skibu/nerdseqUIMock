@@ -3,6 +3,7 @@
    module.
 */
 
+/* For background of the page */
 body {
   margin: 0;
   padding: 0;
@@ -22,6 +23,7 @@ body {
 .squareButton {
   position: absolute;
   border-color: rgba(230, 0, 0, 1.0);
+  /* Make the virtual bustons mostly transparent so can see physical button */
   background: rgba(255, 255, 255, 0.1);;        
   width: 145px;
   height: 146px;

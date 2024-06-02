@@ -1,0 +1,12 @@
+/* Set the color variables for each element */
+:root {
+  --tableBackgroundColor: black;
+  --borderColor: cyan;
+  --titleColor: yellow;
+  --labelColor: greenyellow;
+  --columnHeaderColor: orange;
+  --rowHeaderColor: lime;
+  --helpColor: grey;
+  --rowHighlightColor: rgb(46, 46, 46);
+}
+
