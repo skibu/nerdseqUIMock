@@ -1,8 +1,8 @@
 
 /* Hides all tables and then makes the table with the specified id visible */
 function makeTableVisible(id) {
-    // Hide all the NerdSeq tables    v
-    var allTables = $(".table");
+    // Hide all the NerdSeq screens 
+    var allTables = $(".virtualScreen");
     Array.from(allTables).forEach(function(domTable) { 
         domTable.style.visibility = "hidden";});
 
