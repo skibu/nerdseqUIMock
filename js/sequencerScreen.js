@@ -1,5 +1,10 @@
-/* For the Sequencer window. Javascript is used to create main part of the 
+/* For the Sequencer screen. Javascript is used to create main part of the 
    window since the rows are so repetitive. */
+
+function sequencer(shiftKey) {
+    currentScreen = sequencerObject;
+    makeScreenVisible("sequencerTable");
+}
 
 let sequencerObject = {
   STEPS: 255,
@@ -8,9 +13,9 @@ let sequencerObject = {
   // When to use hightlight background color
   highlightNthLine: 4,
 
-  // Defines which cell cursor is on
-  cursorTracks: 0,
-  cursorSteps: 0,
+  // Defines which cell cursor is on. Uses base zero.
+  cursorStep: 0,
+  cursorTrack: 0,
 
   // Keeps track of each cells html element 
   MAX_TRACKS: 8,
@@ -62,17 +67,54 @@ let sequencerObject = {
     }
 
     // Display the current cell as being selected
-    this.moveCursor(this.cursorSteps, this.cursorTracks);
+    this.moveCursor(this.cursorStep, this.cursorTrack);
   },
 
   /* Displays the specified cell as being selected. First changes the old cell so that is not selected. */
   moveCursor: function(newStep, newTrack) {
     // Determine the HTML element of cell that was selected. Then remove 'selected' class from it
-    let oldTd = this.cells[this.cursorSteps][this.cursorTracks];
+    let oldTd = this.cells[this.cursorStep][this.cursorTrack];
     oldTd.classList.remove('selected');
 
+    // Make sure not exceeding limits
+    if (newStep < 0) newStep = 0;
+    if (newStep >= this.MAX_STEPS) newStep = this.MAX_STEPS - 1;
+    if (newTrack < 0) newTrack = 0;
+    if (newTrack >= this.MAX_TRACKS) newTrack = this.MAX_TRACKS - 1;
+    
     // Determine the new element to be selected and add 'selected' class to it
     let newTd = this.cells[newStep][newTrack];
     newTd.classList.add('selected');
-  }
-}
+
+    // Store new cursor location
+    this.cursorStep = newStep;
+    this.cursorTrack =  newTrack;
+  },
+
+  leftArrowClicked: function(shift) {
+    this.moveCursor(this.cursorStep, this.cursorTrack - 1);
+  },
+
+  rightArrowClicked: function(shift) {
+    this.moveCursor(this.cursorStep, this.cursorTrack + 1);
+  },
+
+  upArrowClicked: function(shift) {
+    this.moveCursor(this.cursorStep - 1, this.cursorTrack);
+  },
+
+  downArrowClicked: function(shift) {
+    this.moveCursor(this.cursorStep + 1, this.cursorTrack);
+  },
+
+  upClicked: function(shift) {
+    alert('sequencerScreen up clicked shift=' + shift);
+  },
+
+  downClicked: function(shift) {
+    alert('sequencerScreen down clicked shift=' + shift);
+  },
+
+  okClicked: function(shift) {
+    alert('sequencerScreen ok clicked shift=' + shift);
+  },}

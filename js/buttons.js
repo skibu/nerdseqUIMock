@@ -1,14 +1,6 @@
 /* For the physical buttons on the NerdSeq */
 
 /* Rectangular buttons */
-function sequencer(shiftKey) {
-    makeTableVisible("sequencerTable");
-}
-
-function pattern(shiftKey) {
-    makeTableVisible("patternTable");
-}
-
 function patch(shiftKey) {
     alert('PATCH clicked. shiftKey=' + shiftKey);
 }
@@ -25,43 +17,13 @@ function project(shiftKey) {
     alert('PROJECT clicked. shiftKey=' + shiftKey);
 }
 
-/* lower left square buttons */
+/* Lower left square buttons */
 function start(shiftKey) {
     alert('START clicked. shiftKey=' + shiftKey);
 }
 
 function stop(shiftKey) {
     alert('STOP clicked. shiftKey=' + shiftKey);
-}
-
-function up(shiftKey) {
-    alert('UP clicked. shiftKey=' + shiftKey);
-}
-
-function ok(shiftKey) {
-    alert('OK clicked. shiftKey=' + shiftKey);
-}
-
-function down(shiftKey) {
-    alert('DOWN clicked. shiftKey=' + shiftKey);
-}
-
-
-/* Array buttons */
-function upArrow(shiftKey) {
-    alert('UP ARROW clicked. shiftKey=' + shiftKey);
-}
-
-function downArrow(shiftKey) {
-    alert('DOWN ARROW clicked. shiftKey=' + shiftKey);
-}
-
-function leftArrow(shiftKey) {
-    alert('LEFT ARROW clicked. shiftKey=' + shiftKey);
-}
-
-function rightArrow(shiftKey) {
-    alert('RIGHT ARROW clicked. shiftKey=' + shiftKey);
 }
 
 /* The low-level button click calls. They simply process shift key
@@ -109,29 +71,36 @@ function stopClicked(ev) {
 }
 
 function upClicked(ev) {
-  up(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.upClicked(shiftKeyState);
 }
 
 function okClicked(ev) {
-  ok(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.okClicked(shiftKeyState);
 }
 
 function downClicked(ev) {
-  down(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.downArrowClicked(shiftKeyState);
 }
 
 function upArrowClicked(ev) {
-  upArrow(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.upArrowClicked(shiftKeyState);
 }
 
 function downArrowClicked(ev) {
-  downArrow(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.downArrowClicked(shiftKeyState);
 }
 
 function leftArrowClicked(ev) {
-  leftArrow(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.leftArrowClicked(shiftKeyState);
 }
 
 function rightArrowClicked(ev) {
-  rightArrow(shiftKey(ev));
+  const shiftKeyState = shiftKey(ev);
+  currentScreen.rightArrowClicked(shiftKeyState);
 }
