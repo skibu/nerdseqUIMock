@@ -29,6 +29,20 @@
   color: var(--labelColor);
 }
 
+/* For properties that user can directly change */
+.configurable {
+  color: var(--configurableFontColor);
+  background-color: var(--configurableBackgroundColor);
+}
+
+.selected {
+  /* Since other classes might set the colors and since cannot set order of the way
+     classes are maintained in the classList, which is actually a set, need to mark
+     these styles as !important so that they take precedence. */
+  color: var(--selectedFontColor) !important;
+  background-color: var(--selectedBackgroundColor) !important;
+}
+
 .columnHeader {
   color: var(--columnHeaderColor);
   padding-left: 6px; /* even with text-align: center some left padding is needed to truly center */
