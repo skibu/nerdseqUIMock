@@ -14,6 +14,28 @@ function makeScreenVisible(id) {
     screen.style.visibility = "visible";
 }
 
+// Allow use of arrow keys on keyboard in place of the virtual arrow buttons on the NerdSeq.
+// Using the keyboard can be faster and more like using the mechanical buttons of the NerdSeq.
+document.addEventListener('keydown', function(event) {
+    console.log('keydown');
+    const shiftKeyState = shiftKey(event);
+    
+    switch (event.key) {
+    case "ArrowLeft":
+        currentScreen.leftArrowClicked(shiftKeyState);
+        break;
+    case "ArrowRight":
+        currentScreen.rightArrowClicked(shiftKeyState);
+        break;
+    case "ArrowUp":
+        currentScreen.upArrowClicked(shiftKeyState);
+        break;
+    case "ArrowDown":
+        currentScreen.downArrowClicked(shiftKeyState);
+        break;
+}
+});
+
 // var times = 0;
 // function createPatternTable() {
 //     // Get the DOM table
