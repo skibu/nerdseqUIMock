@@ -99,7 +99,7 @@ let sequencerObject = {
         console.log('making visible step ' + step);
         // Make that row visible
         let rowToHide = this.rows[step];
-        rowToHide.style.display = 'inline';  
+        rowToHide.style.display = 'table-row';  
       }
 
       // Remember where scrolled to
@@ -121,7 +121,7 @@ let sequencerObject = {
         console.log('making visible step ' + step);
         // Make that row visible
         let rowToHide = this.rows[step];
-        rowToHide.style.display = 'inline';  
+        rowToHide.style.display = 'table-row';  
       }
 
       // Remember where scrolled to
