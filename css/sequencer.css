@@ -1,5 +1,65 @@
 /* CSS for the Sequencer Screen */
 
+#sequencerTable {
+    /* Trying to get cells to use specified width instead of computing width */  
+    table-layout: fixed;
+}
+
+#sequencerTable tr {
+  /* trying to get all rows to have small height */
+  line-height: 33px;
+}
+
+/* Every cell, except those overridden */
+#sequencerTable td {
+  box-sizing: border-box;
+  border-right: 1px solid var(--borderColor);
+  padding: 0px;
+  text-align: center;
+  /* If wanted horizontal borders then uncomment following line */  
+  /* border-bottom: 1px solid var(--borderColor); */
+}
+
+#sequencesTable {
+  /* Trying to get cells to use specified width instead of computing width */  
+  table-layout: fixed;
+  width: 100%;
+    
+  /* So that can specify borders for entire rows in this table */
+  border-collapse: collapse;
+
+  /* set for each table to eliminate spacing */
+  border-spacing: 0px;
+}
+
+/* For sequences screen all cells will be this width unless overridden. 
+   Note that cannot just do this for #sequencerTable because the title
+   would get the width set and the table layout algo would them simply
+   divide the table width into even cells, which would make them all wrong. */
+#sequencesTable td {
+  width: 56px;
+}
+#sequencerTable .columnHeader {
+  width: 56px;
+}
+
+/* For sequencerTable the first column is a bit wider */
+#sequencerTable .rowHeader {
+  width: 68px;
+}
+
+#sequencesTable tr {
+  /* the secret to making cells have small height */
+  line-height: 26px; 
+}
+
+#sequencerTable #topLeftCell {
+    border-right: 2px solid var(--borderColor);
+    /* For some strange reason need to make this cell slightly larger
+    to get everything to line up properly */
+    width: 69px;
+}
+
 #sequencerHelp {
     border-right-width: 2px;
 }

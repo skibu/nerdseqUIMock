@@ -19,65 +19,8 @@
     <link rel="stylesheet" type="text/css" href="css/colors.css">
     <link rel="stylesheet" type="text/css" href="css/allScreens.css">
     <link rel="stylesheet" type="text/css" href="css/sequencer.css">
-    
-    <style>
-
-      /* For sequencerTable the first column is a bit wider */
-      #sequencerTable .rowHeader {
-        width: 68px;
-      }
-      
-      /* Every cell, except those overridden */
-      td {
-        box-sizing: border-box;
-        border-right: 1px solid var(--borderColor);
-        border-bottom: 1px solid var(--borderColor);
-        padding: 0px;
-        text-align: center;
-      }
-
-      /* For sequences screen all cells will be this width unless overridden. 
-         Note that cannot just do this for #sequencerTable because the title
-         would get the width set and the table layout algo would them simply
-         divide the table width into even cells, which would make them all wrong. */
-      #sequencesTable td {
-        width: 56px;
-      }
-      .columnHeader {
-        width: 56px;
-      }
-
-      #sequencesTable {
-        border-spacing: 0px; /* set for each table to eliminate spacing */
-      }
-
-      #sequencesTable tr {
-        /* the secret to making cells have small height */
-        line-height: 26px; 
-      }
-
-      tr {
-        /* trying to get all rows to have small height */
-        line-height: 33px;
-      }
-      
-      #topLeftCell {
-        border-right: 2px solid var(--borderColor);
-      }
-      
-      .sequenceNumber  {
-        border-right: 2px solid var(--borderColor);
-        border-bottom: 0px;
-      }
-
-      .sequenceCell  {
-        border-right: 1px solid var(--borderColor);
-        border-bottom: 0px;
-      }
-
-    </style>
-    
   </header>
+  
   <body>
     <!-- Display picture of Nerdseq. The width of course affects where the virtual buttons need to be located -->
     <image src='images/fullNerdseqModule.jpg' style='width:1500px; min-width:1500px'/>
@@ -100,7 +43,7 @@
         <td colspan='9'><table id='sequencesTable'></table></td><td><table id='sequencerSideTable'></table></td>
       </tr>  
       <tr>
-        <td id='sequencerHelp' class='help' colspan='9'>This is help area</td>
+        <td id='sequencerHelp' class='help widerBorderOnRight' colspan='9'>This is help area</td>
         <td id='clock' class='label'>Stopped</td>
       </tr>
     </table>

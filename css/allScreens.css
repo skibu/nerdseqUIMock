@@ -5,7 +5,7 @@
   font-family: "Space Mono", monospace;
   /* font-weight: bold; */ /* Though bold matches zoomed in picture, normal weight looks better */
   font-style: normal;
-  font-size: 30px;
+  font-size: 28px;
 
   /* Even using bold, need to add letter spacing to Space Mono to match the actual NerdSeq display */
   letter-spacing: 4px;
@@ -45,12 +45,19 @@
 
 .columnHeader {
   color: var(--columnHeaderColor);
-  padding-left: 6px; /* even with text-align: center some left padding is needed to truly center */
+  
+  /* even with text-align: center some left padding is needed to truly center */
+  padding-left: 6px !important;
 }
 
 .rowHeader {
   color: var(--rowHeaderColor);
-  padding-left: 6px; /* even with text-align: center some left padding is needed to truly center */
+  
+  /* even with text-align: center some left padding is needed to truly center */
+  padding-left: 6px;
+
+  /* Make border on right wider */
+  border-right: 2px solid var(--borderColor) !important;
 }
 
 .rowToHighlight {
@@ -59,15 +66,25 @@
 
 .help {
   color: var(--helpColor);
-  text-align: left;
-  padding-left: 4px;
-  padding-bottom: 2px;
+  text-align: left !important;
+  padding-left: 4px !important;
+  padding-bottom: 2px !important;
 }
 
 .widerBorderOnBottom {
-  border-bottom: 2px solid var(--borderColor);;
+  border-bottom: 2px solid var(--borderColor) !important;
 }
 
 .widerBorderOnRight {
-  border-right: 2px solid var(--borderColor);;
+  border-right: 2px solid var(--borderColor) !important;
+}
+
+.sequenceNumber  {
+  border-right: 2px solid var(--borderColor);
+  border-bottom: 0px;
+}
+
+.sequenceCell  {
+  border-right: 1px solid var(--borderColor);
+  border-bottom: 0px;
 }
