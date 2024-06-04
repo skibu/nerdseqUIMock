@@ -72,15 +72,23 @@
 }
 
 .widerBorderOnBottom {
-  border-bottom: 4px solid var(--borderColor) !important;
+  border-bottom: 4px solid var(--borderColor) ;
 }
 
 .widerBorderOnTop {
-  border-top: 4px solid var(--borderColor) !important;
+  border-top: 4px solid var(--borderColor) ;
 }
 
 .widerBorderOnRight {
   border-right: 4px solid var(--borderColor) !important;
+}
+
+.borderIndicatingCanScrollUp {
+  border-top-style: dotted;
+}
+
+.borderIndicatingCanScrollDown {
+  border-bottom-style: dotted;
 }
 
 .sequenceNumber  {

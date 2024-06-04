@@ -7,6 +7,7 @@ function sequencer(shiftKey) {
 }
 
 let sequencerObject = {
+  TRACKS: 8,
   STEPS: 255,
   VISIBLE_STEPS: 16,
   
@@ -20,10 +21,6 @@ let sequencerObject = {
   // For handling scrolling
   stepOfFirstRow: 0,
   
-  // Keeps track of each cells html element 
-  MAX_TRACKS: 8,
-  MAX_STEPS: 64,
-  
   // Note that the constants are not yet set when cells is created. So need to create
   // the array in a constructor method. The null is just a placeholder.
   cells: null,
@@ -34,16 +31,16 @@ let sequencerObject = {
   // Fill in the sequences table
   createSequences: function() {
     // Initialize cells in this method so that constants are available
-    this.cells = Array.from(Array(this.MAX_STEPS), () => new Array(this.MAX_TRACKS));
+    this.cells = Array.from(Array(this.STEPS), () => new Array(this.TRACKS));
 
     // Also create array of rows so that can control their visibility when scrolling
-    this.rows = new Array(this.MAX_STEPS);
+    this.rows = new Array(this.STEPS);
     
     // Get the table for the sequences (not the full sequencer)
     const seqTbl = $('#sequencesTable')[0];
 
     // For each step add a row of cells
-    for (let step=0; step<this.MAX_STEPS; ++step) {
+    for (let step=0; step<this.STEPS; ++step) {
       // Create row
       let row = seqTbl.insertRow();
       this.rows[step] = row;
@@ -77,6 +74,9 @@ let sequencerObject = {
 
     // Display the current cell as being selected
     this.moveCursor(this.cursorStep, this.cursorTrack);
+
+    // Make sure everything to do with scrolling is set
+    this.displayScrollingHints(this.stepOfFirstRow);
   },
 
   /* After cursor is moved then need to possibly scroll the screen */
@@ -101,7 +101,7 @@ let sequencerObject = {
         let rowToHide = this.rows[step];
         rowToHide.style.display = 'table-row';  
       }
-
+      
       // Remember where scrolled to
       this.stepOfFirstRow = newStepOfFirstRow;  
     } else if (newStep < this.stepOfFirstRow) {
@@ -127,6 +127,26 @@ let sequencerObject = {
       // Remember where scrolled to
       this.stepOfFirstRow = newStepOfFirstRow;  
     }
+
+    // Update UI to indicate whether can scroll sequences window
+    this.displayScrollingHints(this.stepOfFirstRow);
+  },
+
+  /* For displaying info indicating whether can scroll up or down */
+  displayScrollingHints: function(newStep) {
+    const seqTbl = $('#sequencesTable')[0];
+
+    // Handle whether cqn scroll up
+    if (newStep != 0)
+      seqTbl.classList.add('borderIndicatingCanScrollUp');
+    else
+      seqTbl.classList.remove('borderIndicatingCanScrollUp');
+
+    // Handle whether can scroll down
+    if (newStep < this.STEPS - this.VISIBLE_STEPS)
+      seqTbl.classList.add('borderIndicatingCanScrollDown');
+    else
+      seqTbl.classList.remove('borderIndicatingCanScrollDown');
   },
     
   /* Displays the specified cell as being selected. First changes the old cell so that is not selected. */
@@ -137,9 +157,9 @@ let sequencerObject = {
 
     // Make sure not exceeding limits
     if (newStep < 0) newStep = 0;
-    if (newStep >= this.MAX_STEPS) newStep = this.MAX_STEPS - 1;
+    if (newStep >= this.STEPS) newStep = this.STEPS - 1;
     if (newTrack < 0) newTrack = 0;
-    if (newTrack >= this.MAX_TRACKS) newTrack = this.MAX_TRACKS - 1;
+    if (newTrack >= this.TRACKS) newTrack = this.TRACKS - 1;
     
     // Determine the new element to be selected and add 'selected' class to it
     let newTd = this.cells[newStep][newTrack];
