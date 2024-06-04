@@ -7,7 +7,7 @@
 
 #sequencerTable tr {
   /* trying to get all rows to have small height */
-  line-height: 33px;
+  line-height: 30px;
 }
 
 /* Every cell, except those overridden */
@@ -54,10 +54,9 @@
 }
 
 #sequencerTable #topLeftCell {
-    border-right: 2px solid var(--borderColor);
     /* For some strange reason need to make this cell slightly larger
     to get everything to line up properly */
-    width: 69px;
+    width: 70px;
 }
 
 #sequencerHelp {
@@ -66,4 +65,11 @@
 
 #clock {
     padding-bottom: 2px;
+}
+
+/* To take full available space */
+#sequencerSideTable {
+    width: 100%;
+    height: 100%;
+    /* background-color: maroon; */ /* FIXME just for debugging */
 }

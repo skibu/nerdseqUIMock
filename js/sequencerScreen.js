@@ -17,6 +17,9 @@ let sequencerObject = {
   cursorStep: 0,
   cursorTrack: 0,
 
+  // For handling scrolling
+  stepOfFirstRow: 0,
+  
   // Keeps track of each cells html element 
   MAX_TRACKS: 8,
   MAX_STEPS: 64,
@@ -24,12 +27,17 @@ let sequencerObject = {
   // Note that the constants are not yet set when cells is created. So need to create
   // the array in a constructor method. The null is just a placeholder.
   cells: null,
+
+  rows: null,
   
 
   // Fill in the sequences table
   createSequences: function() {
     // Initialize cells in this method so that constants are available
     this.cells = Array.from(Array(this.MAX_STEPS), () => new Array(this.MAX_TRACKS));
+
+    // Also create array of rows so that can control their visibility when scrolling
+    this.rows = new Array(this.MAX_STEPS);
     
     // Get the table for the sequences (not the full sequencer)
     const seqTbl = $('#sequencesTable')[0];
@@ -38,6 +46,7 @@ let sequencerObject = {
     for (let step=0; step<this.MAX_STEPS; ++step) {
       // Create row
       let row = seqTbl.insertRow();
+      this.rows[step] = row;
       row.id = 'sequenceRow' + step;
   
       // Only first VISIBLE_STEPS rows/steps should be visible
@@ -70,6 +79,56 @@ let sequencerObject = {
     this.moveCursor(this.cursorStep, this.cursorTrack);
   },
 
+  /* After cursor is moved then need to possibly scroll the screen */
+  scrollScreenIfNeeded: function(newStep) {
+    // If need to scroll down
+    if (newStep >= this.stepOfFirstRow + this.VISIBLE_STEPS) {
+      // Scroll down. First determine how many steps to scroll
+      let newStepOfFirstRow = newStep - this.VISIBLE_STEPS + 1;
+
+      // Hide the top rows that were visible but no longer should be
+      for (var step = this.stepOfFirstRow; step < newStepOfFirstRow; ++step) {
+        console.log('hiding step ' + step);
+        // Hide that row
+        let rowToHide = this.rows[step];
+        rowToHide.style.display = 'none';
+      }
+
+      // Make visible the bottom rows that were not visible but now should be
+      for (var step = this.stepOfFirstRow + this.VISIBLE_STEPS; step <= newStep; ++step) {
+        console.log('making visible step ' + step);
+        // Make that row visible
+        let rowToHide = this.rows[step];
+        rowToHide.style.display = 'inline';  
+      }
+
+      // Remember where scrolled to
+      this.stepOfFirstRow = newStepOfFirstRow;  
+    } else if (newStep < this.stepOfFirstRow) {
+      // scroll up
+      let newStepOfFirstRow = newStep;
+
+      // Hide the bottom rows
+      for (var step = newStep + this.VISIBLE_STEPS; step < this.stepOfFirstRow + this.VISIBLE_STEPS; ++step) {
+        console.log('hiding step ' + step);
+        // Hide that row
+        let rowToHide = this.rows[step];
+        rowToHide.style.display = 'none';
+      }
+
+      // Make visible the top rows
+      for (var step = newStep; step < this.stepOfFirstRow; ++step) {
+        console.log('making visible step ' + step);
+        // Make that row visible
+        let rowToHide = this.rows[step];
+        rowToHide.style.display = 'inline';  
+      }
+
+      // Remember where scrolled to
+      this.stepOfFirstRow = newStepOfFirstRow;  
+    }
+  },
+    
   /* Displays the specified cell as being selected. First changes the old cell so that is not selected. */
   moveCursor: function(newStep, newTrack) {
     // Determine the HTML element of cell that was selected. Then remove 'selected' class from it
@@ -85,6 +144,10 @@ let sequencerObject = {
     // Determine the new element to be selected and add 'selected' class to it
     let newTd = this.cells[newStep][newTrack];
     newTd.classList.add('selected');
+
+    // Handle scrolling
+    if (newStep != this.cursorStep)
+      this.scrollScreenIfNeeded(newStep);
 
     // Store new cursor location
     this.cursorStep = newStep;

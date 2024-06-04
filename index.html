@@ -27,7 +27,7 @@
 
     <!-- Create the tables that will be the virtual screens for the NerdSeq -->
     <table id='sequencerTable' class='virtualScreen'>
-      <tr class='widerBorderOnBottom'>
+      <tr>
         <td id='topLeftCell' class='topCell columnHeader rowHeader'></td>
         <td class='columnHeader'>1</td>
         <td class='columnHeader'>2</td>
@@ -39,8 +39,20 @@
         <td class='columnHeader widerBorderOnRight'>8</td>
         <td class='screenTitle'>Sequencer</td>
       </tr>
-      <tr class='widerBorderOnBottom'>
-        <td colspan='9'><table id='sequencesTable'></table></td><td><table id='sequencerSideTable'></table></td>
+      <tr>
+        <td colspan='9'>
+          <table id='sequencesTable' class='widerBorderOnBottom widerBorderOnTop widerBorderOnRight'></table>
+        </td>
+        <td>
+          <table id='sequencerSideTable' class='widerBorderOnBottom widerBorderOnTop'>
+            <tr>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>1</td>
+            </tr>
+          </table>
+        </td>
       </tr>  
       <tr>
         <td id='sequencerHelp' class='help widerBorderOnRight' colspan='9'>This is help area</td>
