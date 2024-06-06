@@ -13,11 +13,8 @@
 /* Every cell, except those overridden */
 #sequencerTable td {
   box-sizing: border-box;
-  border-right: 1px solid var(--borderColor);
   padding: 0px;
   text-align: center;
-  /* If wanted horizontal borders then uncomment following line */  
-  /* border-bottom: 1px solid var(--borderColor); */
 }
 
 #sequencesTable {
@@ -38,6 +35,9 @@
    divide the table width into even cells, which would make them all wrong. */
 #sequencesTable td {
   width: 56px;
+  border-right: 1px solid var(--borderColor);
+  /* If wanted horizontal borders then uncomment following line */  
+  /* border-bottom: 1px solid var(--borderColor); */
 }
 #sequencerTable .columnHeader {
   width: 56px;
@@ -71,5 +71,74 @@
 #sequencerSideTable {
     width: 100%;
     height: 100%;
+
+    /* So that can specify borders for entire rows in this table */
+    border-collapse: collapse;
+
+    /* set for each table to eliminate spacing */
+    border-spacing: 0px;
+    
     /* background-color: maroon; */ /* FIXME just for debugging */
+}
+
+#sequencerSideTable tr {
+    line-height: 26px;
+}
+
+/* Can be needed for side table */
+#sequencerSideTable .smallerLineHeight {
+    line-height: 25px;
+}
+
+#sequencerSideTable .alignedLabel {
+    text-align: right;
+}
+
+#sequencerSideTable .alignedChangeable {
+    text-align: left;
+}
+
+#sequencerSideTable .trackHeader {
+    padding-left: 4px;
+}
+
+#sequencerSideTable .note {
+    text-align: left;
+}
+
+#sequencerSideTable .modBackground {
+    background-color: grey;
+    width: 44px;
+    height: 14px;
+    padding: 2px;
+}
+
+#sequencerSideTable .modForeground {
+    background-color: yellow;
+    height: 100%;
+    width: 0%;
+}
+
+/* The width should be set via javascript according to the value of the mod output */
+#sequencerSideTable #mod1 {
+    width: 70%; 
+}
+#sequencerSideTable #mod3 {
+    width: 30%; 
+}
+
+/* For the trigger column in the right sidebar */
+#sequencerSideTable .trigger {
+    padding-left: 2px;
+    max-width: 10px;
+}
+
+#sequencerSideTable .waveImage {
+    border-right: 2px solid var(--borderColor);
+    border-left: 2px solid var(--borderColor);
+    border-bottom: 2px solid var(--borderColor);
+}
+
+#sequencerSideTable .clockDiv {
+    text-align: right;
 }

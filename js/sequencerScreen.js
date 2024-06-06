@@ -175,19 +175,23 @@ let sequencerObject = {
   },
 
   leftArrowClicked: function(shift) {
-    this.moveCursor(this.cursorStep, this.cursorTrack - 1);
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorStep, this.cursorTrack - increment);
   },
 
   rightArrowClicked: function(shift) {
-    this.moveCursor(this.cursorStep, this.cursorTrack + 1);
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorStep, this.cursorTrack + increment);
   },
 
   upArrowClicked: function(shift) {
-    this.moveCursor(this.cursorStep - 1, this.cursorTrack);
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorStep - increment, this.cursorTrack);
   },
 
   downArrowClicked: function(shift) {
-    this.moveCursor(this.cursorStep + 1, this.cursorTrack);
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorStep + increment, this.cursorTrack);
   },
 
   upClicked: function(shift) {

@@ -8,7 +8,7 @@
   font-size: 28px;
 
   /* Even using bold, need to add letter spacing to Space Mono to match the actual NerdSeq display */
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   
   background: var(--tableBackgroundColor);
   color: white; /* default font color. Should be overridden with a variable color */
@@ -20,6 +20,17 @@
   border-collapse: collapse;
 }
 
+/* For the symbols like play/stop/record need to adjust how they are displayed 
+   so they match the font used. List of symbols that can be used is at 
+   https://fonts.google.com/icons?icon.category=Audio%26Video . Remember that
+   icons are specified not by a character code but by a string like 'home' in
+   the inner html. Key icons are 'play_arrow', 'pause', 'stop', 'fiber_manual_record',
+   'pause_circle', 'play_circle', 'stop_circle', 'musical_note' */
+.material-symbols-outlined {
+  font-size: 30px;
+  vertical-align: bottom;
+}
+
 .screenTitle {
   color: var(--titleColor);
   text-transform: uppercase;
@@ -29,10 +40,15 @@
   color: var(--labelColor);
 }
 
+/* For text that is changeable, but not directly editable. The changing of the value happens elsewhere */
+.changeable {
+  color: var(--changeableColor);
+}
+
 /* For properties that user can directly change */
-.configurable {
-  color: var(--configurableFontColor);
-  background-color: var(--configurableBackgroundColor);
+.editable {
+  color: var(--editableColor);
+  background-color: var(--editableBackgroundColor);
 }
 
 .selected {
@@ -43,8 +59,16 @@
   background-color: var(--selectedBackgroundColor) !important;
 }
 
+.trackHeader {
+  color: var(--trackHeaderColor);
+}
+
+.trigger {
+  color: var(--triggerColor);
+}
+
 .columnHeader {
-  color: var(--columnHeaderColor);
+  border-right: 1px solid var(--borderColor);
   
   /* even with text-align: center some left padding is needed to truly center */
   padding-left: 6px !important;
@@ -71,12 +95,15 @@
   padding-bottom: 2px !important;
 }
 
+.borderOnBottom {
+  border-bottom: 2px solid var(--borderColor);
+}
 .widerBorderOnBottom {
-  border-bottom: 4px solid var(--borderColor) ;
+  border-bottom: 4px solid var(--borderColor);
 }
 
 .widerBorderOnTop {
-  border-top: 4px solid var(--borderColor) ;
+  border-top: 4px solid var(--borderColor);
 }
 
 .widerBorderOnRight {
