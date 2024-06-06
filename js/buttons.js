@@ -39,7 +39,10 @@ function shiftKey(ev) {
 }
 
 function sequencerClicked(ev) {
-  sequencer(shiftKey(ev));
+  if (!shiftKey(ev))
+    displaySequencerWindow();
+  else
+    currentScreen.markClicked();
 }
 
 function patternClicked(ev) {

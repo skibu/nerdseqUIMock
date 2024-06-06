@@ -1,25 +1,25 @@
 /* For the Sequencer screen. Javascript is used to create main part of the 
    window since the rows are so repetitive. */
 
-function sequencer(shiftKey) {
+function displaySequencerWindow() {
     currentScreen = sequencerObject;
     makeScreenVisible("sequencerTable");
 }
 
 let sequencerObject = {
   TRACKS: 8,
-  STEPS: 255,
-  VISIBLE_STEPS: 16,
+  ROWS: 255,
+  VISIBLE_ROWS: 16,
   
   // When to use hightlight background color
-  highlightNthLine: 4,
+  highlightNthRow: 4,
 
   // Defines which cell cursor is on. Uses base zero.
-  cursorStep: 0,
+  cursorRow: 0,
   cursorTrack: 0,
 
   // For handling scrolling
-  stepOfFirstRow: 0,
+  rowNumOfFirstRow: 0,
   
   // Note that the constants are not yet set when cells is created. So need to create
   // the array in a constructor method. The null is just a placeholder.
@@ -31,167 +31,170 @@ let sequencerObject = {
   // Fill in the sequences table
   createSequences: function() {
     // Initialize cells in this method so that constants are available
-    this.cells = Array.from(Array(this.STEPS), () => new Array(this.TRACKS));
+    this.cells = Array.from(Array(this.ROWS), () => new Array(this.TRACKS));
 
     // Also create array of rows so that can control their visibility when scrolling
-    this.rows = new Array(this.STEPS);
+    this.rows = new Array(this.ROWS);
     
     // Get the table for the sequences (not the full sequencer)
     const seqTbl = $('#sequencesTable')[0];
 
-    // For each step add a row of cells
-    for (let step=0; step<this.STEPS; ++step) {
+    // For each row add a row of cells
+    for (let row=0; row<this.ROWS; ++row) {
       // Create row
-      let row = seqTbl.insertRow();
-      this.rows[step] = row;
-      row.id = 'sequenceRow' + step;
+      let rowElement = seqTbl.insertRow();
+      this.rows[row] = rowElement;
+      rowElement.id = 'sequenceRow' + row;
   
-      // Only first VISIBLE_STEPS rows/steps should be visible
-      if (step >= this.VISIBLE_STEPS)
-        row.style.display = 'none';
+      // Only first VISIBLE_ROWS rows should be visible
+      if (row >= this.VISIBLE_ROWS)
+        rowElement.style.display = 'none';
   
-      let shouldHighlight = (step % sequencerObject.highlightNthLine) == 0;
+      let shouldHighlight = (row % sequencerObject.highlightNthRow) == 0;
       
       // Create sequence number cell, which is the rowHeader
-      let td = row.insertCell();
-      td.innerHTML = (step<10 ? '0' : '') + step;
+      let td = rowElement.insertCell();
+      td.innerHTML = (row<10 ? '0' : '') + row;
       td.classList.add('rowHeader', 'sequenceNumber'); 
       if (shouldHighlight)
         td.classList.add('rowToHighlight');
       
       // Create sequence cell for each track
       for (let track=1; track<=8; ++track) {
-        let td = row.insertCell();
+        let td = rowElement.insertCell();
         td.innerHTML = '--';
-        td.id = 'sequenceCell_' + step + '_' + track;
+        td.id = 'sequenceCell_' + row + '_' + track;
         td.classList.add('sequenceCell');
         if (shouldHighlight)
           td.classList.add('rowToHighlight');
 
-        this.cells[step][track-1] = td; 
+        this.cells[row][track-1] = td;
       }
     }
 
     // Display the current cell as being selected
-    this.moveCursor(this.cursorStep, this.cursorTrack);
+    this.moveCursor(this.cursorRow, this.cursorTrack);
 
     // Make sure everything to do with scrolling is set
-    this.displayScrollingHints(this.stepOfFirstRow);
+    this.displayScrollingHints(this.rowNumOfFirstRow);
   },
 
   /* After cursor is moved then need to possibly scroll the screen */
-  scrollScreenIfNeeded: function(newStep) {
+  scrollScreenIfNeeded: function(newRow) {
     // If need to scroll down
-    if (newStep >= this.stepOfFirstRow + this.VISIBLE_STEPS) {
-      // Scroll down. First determine how many steps to scroll
-      let newStepOfFirstRow = newStep - this.VISIBLE_STEPS + 1;
+    if (newRow >= this.rowNumOfFirstRow + this.VISIBLE_ROWS) {
+      // Scroll down. First determine how many rows to scroll
+      let newRowOfFirstRow = newRow - this.VISIBLE_ROWS + 1;
 
       // Hide the top rows that were visible but no longer should be
-      for (var step = this.stepOfFirstRow; step < newStepOfFirstRow; ++step) {
-        console.log('hiding step ' + step);
+      for (var row = this.rowNumOfFirstRow; row < newRowOfFirstRow; ++row) {
+        console.log('hiding row ' + row);
         // Hide that row
-        let rowToHide = this.rows[step];
+        let rowToHide = this.rows[row];
         rowToHide.style.display = 'none';
       }
 
       // Make visible the bottom rows that were not visible but now should be
-      for (var step = this.stepOfFirstRow + this.VISIBLE_STEPS; step <= newStep; ++step) {
-        console.log('making visible step ' + step);
+      for (var row = this.rowNumOfFirstRow + this.VISIBLE_ROWS; row <= newRow; ++row) {
+        console.log('making visible row ' + row);
         // Make that row visible
-        let rowToHide = this.rows[step];
+        let rowToHide = this.rows[row];
         rowToHide.style.display = 'table-row';  
       }
       
       // Remember where scrolled to
-      this.stepOfFirstRow = newStepOfFirstRow;  
-    } else if (newStep < this.stepOfFirstRow) {
+      this.rowNumOfFirstRow = newRowOfFirstRow;  
+    } else if (newRow < this.rowNumOfFirstRow) {
       // scroll up
-      let newStepOfFirstRow = newStep;
+      let newRowOfFirstRow = newRow;
 
       // Hide the bottom rows
-      for (var step = newStep + this.VISIBLE_STEPS; step < this.stepOfFirstRow + this.VISIBLE_STEPS; ++step) {
-        console.log('hiding step ' + step);
+      for (var row = newRow + this.VISIBLE_ROWS; row < this.rowNumOfFirstRow + this.VISIBLE_ROWS; ++row) {
+        console.log('hiding row ' + row);
         // Hide that row
-        let rowToHide = this.rows[step];
+        let rowToHide = this.rows[row];
         rowToHide.style.display = 'none';
       }
 
       // Make visible the top rows
-      for (var step = newStep; step < this.stepOfFirstRow; ++step) {
-        console.log('making visible step ' + step);
+      for (var row = newRow; row < this.rowNumOfFirstRow; ++row) {
+        console.log('making visible row ' + row);
         // Make that row visible
-        let rowToHide = this.rows[step];
+        let rowToHide = this.rows[row];
         rowToHide.style.display = 'table-row';  
       }
 
       // Remember where scrolled to
-      this.stepOfFirstRow = newStepOfFirstRow;  
+      this.rowNumOfFirstRow = newRowOfFirstRow;  
     }
 
     // Update UI to indicate whether can scroll sequences window
-    this.displayScrollingHints(this.stepOfFirstRow);
+    this.displayScrollingHints(this.rowNumOfFirstRow);
   },
 
   /* For displaying info indicating whether can scroll up or down */
-  displayScrollingHints: function(newStep) {
+  displayScrollingHints: function(newRow) {
     const seqTbl = $('#sequencesTable')[0];
 
     // Handle whether cqn scroll up
-    if (newStep != 0)
+    if (newRow != 0)
       seqTbl.classList.add('borderIndicatingCanScrollUp');
     else
       seqTbl.classList.remove('borderIndicatingCanScrollUp');
 
     // Handle whether can scroll down
-    if (newStep < this.STEPS - this.VISIBLE_STEPS)
+    if (newRow < this.ROWS - this.VISIBLE_ROWS)
       seqTbl.classList.add('borderIndicatingCanScrollDown');
     else
       seqTbl.classList.remove('borderIndicatingCanScrollDown');
   },
     
   /* Displays the specified cell as being selected. First changes the old cell so that is not selected. */
-  moveCursor: function(newStep, newTrack) {
+  moveCursor: function(newRow, newTrack) {
     // Determine the HTML element of cell that was selected. Then remove 'selected' class from it
-    let oldTd = this.cells[this.cursorStep][this.cursorTrack];
+    let oldTd = this.cells[this.cursorRow][this.cursorTrack];
     oldTd.classList.remove('selected');
 
     // Make sure not exceeding limits
-    if (newStep < 0) newStep = 0;
-    if (newStep >= this.STEPS) newStep = this.STEPS - 1;
+    if (newRow < 0) newRow = 0;
+    if (newRow >= this.ROWS) newRow = this.ROWS - 1;
     if (newTrack < 0) newTrack = 0;
     if (newTrack >= this.TRACKS) newTrack = this.TRACKS - 1;
     
     // Determine the new element to be selected and add 'selected' class to it
-    let newTd = this.cells[newStep][newTrack];
+    let newTd = this.cells[newRow][newTrack];
     newTd.classList.add('selected');
 
     // Handle scrolling
-    if (newStep != this.cursorStep)
-      this.scrollScreenIfNeeded(newStep);
+    if (newRow != this.cursorRow)
+      this.scrollScreenIfNeeded(newRow);
 
     // Store new cursor location
-    this.cursorStep = newStep;
+    this.cursorRow = newRow;
     this.cursorTrack =  newTrack;
+
+    // Handling marking mode
+    this.updateCellsIfMarking(newRow, newTrack);
   },
 
   leftArrowClicked: function(shift) {
     const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorStep, this.cursorTrack - increment);
+    this.moveCursor(this.cursorRow, this.cursorTrack - increment);
   },
 
   rightArrowClicked: function(shift) {
     const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorStep, this.cursorTrack + increment);
+    this.moveCursor(this.cursorRow, this.cursorTrack + increment);
   },
 
   upArrowClicked: function(shift) {
     const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorStep - increment, this.cursorTrack);
+    this.moveCursor(this.cursorRow - increment, this.cursorTrack);
   },
 
   downArrowClicked: function(shift) {
     const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorStep + increment, this.cursorTrack);
+    this.moveCursor(this.cursorRow + increment, this.cursorTrack);
   },
 
   upClicked: function(shift) {
@@ -204,4 +207,132 @@ let sequencerObject = {
 
   okClicked: function(shift) {
     alert('sequencerScreen ok clicked shift=' + shift);
-  },}
+  },
+
+  /* For marking cells */
+  marking: false,
+  markingInitialRow: null,
+  markingInitialTrack: null,
+  markingFinalRow: null,
+  markingFinalTrack: null,
+
+  /* Unmarks all the cells that are currently marked */
+  unmarkCells: function() {
+    const lowestRow = Math.min(this.markingInitialRow, this.markingFinalRow);
+    const highestRow = Math.max(this.markingInitialRow, this.markingFinalRow);
+    const lowestTrack = Math.min(this.markingInitialTrack, this.markingFinalTrack);
+    const highestTrack = Math.max(this.markingInitialTrack, this.markingFinalTrack);
+  
+    for (let row=lowestRow; row <= highestRow; ++row) {
+      for (let track=lowestTrack; track <= highestTrack; ++track) {
+        const cell = this.cells[row][track];
+        cell.classList.remove('selected');
+      }
+    }    
+  },
+    
+  /* Called when user clicks on the mark button. It toggles the marking mode state */
+  markClicked: function() {
+    const sequencerTable = $('#sequencerTable')[0];
+    
+    if (!this.marking) {
+      // Wasn't marking but now is. Display border in marking color
+      sequencerTable.classList.add('markingBorderColor');
+
+      // Remember that now marking
+      this.markingInitialRow = this.cursorRow;
+      this.markingInitialTrack = this.cursorTrack;
+      this.marking = true;
+    } else {
+      // Was marking but now isn't. Display border in regular color
+      sequencerTable.classList.remove('markingBorderColor');
+
+      // Unmark all the cells that were selected
+      this.unmarkCells();
+      
+      // Remember not marking anymore
+      this.marking = false;
+
+      // But mark the currently selected cell
+      this.moveCursor(this.cursorRow, this.cursorTrack);
+
+      // Update the help info to indicate that successfully marked. But only do so 
+      // for 2500 msec while the info is still relevant.
+      this.helpStr('Copied to clipboard');
+      setTimeout(() => {this.helpStr('&nbsp;')}, 2500);
+    }
+  },
+
+  /* Displays specified string in the help window */
+  helpStr: function(str) {
+      const helpElement = $('#sequencerHelp')[0];
+      helpElement.innerHTML = str;    
+  },
+    
+  /* To be called when cursor moved. Redraws the cells to indicate which are now marked. */
+  updateCellsIfMarking: function(newRow, newTrack) {
+    // If not in marking state then don't do anything
+    if (!this.marking) 
+      return;
+
+    // Unmark all the cells that were previously marked. This is important
+    // since user might be reducing area being marked, which is complicated.
+    this.unmarkCells();
+    
+    // Mark all the cells that have been selected
+    const lowestRow = Math.min(this.markingInitialRow, newRow);
+    const highestRow = Math.max(this.markingInitialRow, newRow);
+    const lowestTrack = Math.min(this.markingInitialTrack, newTrack);
+    const highestTrack = Math.max(this.markingInitialTrack, newTrack);
+    
+    for (let row=lowestRow; row <= highestRow; ++row) {
+      for (let track=lowestTrack; track <= highestTrack; ++track) {
+        const cell = this.cells[row][track];
+        cell.classList.add('selected');
+      }
+    }
+
+    // Update help info
+    this.updateHelpInfoWithCellsMarked(newRow, newTrack);
+    
+    // Remember extent of marking
+    this.markingFinalRow = newRow;
+    this.markingFinalTrack = newTrack;
+  },
+
+  /* Displays in the help window which rows and tracks are currently selected */
+  updateHelpInfoWithCellsMarked: function(newRow, newTrack) {
+    // So can display rows and tracks as increasing values
+    const r1 = Math.min(this.markingInitialRow, newRow);
+    const r2 = Math.max(this.markingInitialRow, newRow);
+    const t1 = Math.min(this.markingInitialTrack, newTrack);
+    const t2 = Math.max(this.markingInitialTrack, newTrack);
+
+    // Determine the string to display
+    let str = 'Mark Row:';
+
+    if (r1 === r2) {
+      if (r2 < 10)
+        str += '0';
+      str += r2;
+    } else {
+      if (r1 < 10)
+        str += '0';
+      str += r1;
+      str += '-';
+      
+      if (r2 < 10)
+        str += '0';
+      str += r2;
+    }
+    
+    str += ' Trk:';
+    if (t1 === t2)
+      str += t2 + 1;
+    else
+      str += (t1+1) + '-' + (t2+1);
+
+    // Set the help element with the created string
+    this.helpStr(str);
+  }
+}

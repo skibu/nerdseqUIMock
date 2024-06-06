@@ -91,8 +91,12 @@
 .help {
   color: var(--helpColor);
   text-align: left !important;
-  padding-left: 4px !important;
+  padding-left: 5px !important;
   padding-bottom: 2px !important;
+  white-space: nowrap;
+  
+  /* So that can fit only as many characers as in the actual Nerdseq */
+  letter-spacing: 5px;
 }
 
 .borderOnBottom {
@@ -126,4 +130,8 @@
 .sequenceCell  {
   border-right: 1px solid var(--borderColor);
   border-bottom: 0px;
+}
+
+.markingBorderColor {
+  border-color: var(--selectedColor);
 }

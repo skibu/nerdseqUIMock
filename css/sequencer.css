@@ -59,6 +59,7 @@
     width: 70px;
 }
 
+/* Note, the actual Nerdseq can display 23 characters in help element */
 #sequencerHelp {
     border-right-width: 2px;
 }
@@ -77,8 +78,6 @@
 
     /* set for each table to eliminate spacing */
     border-spacing: 0px;
-    
-    /* background-color: maroon; */ /* FIXME just for debugging */
 }
 
 #sequencerSideTable tr {
