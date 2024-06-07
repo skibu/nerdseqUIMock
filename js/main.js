@@ -1,3 +1,27 @@
+// How long to display temporary help info for 
+const helpTempDisplayMsec = 2500;
+
+// The various track types and their corresponding strings for the UI
+const TrackTypeModular = 'Modular';
+const TrackTypeAudio = 'Audio';
+const TrackTypeTrigger16 = 'Trigger16';
+const TrackTypeCV16 = 'CV16';
+const TrackTypeMidi = 'Midi';
+const TrackTypeI2c = 'I2C';
+const TrackTypeUnkown = 'Unknown';
+
+// Initialize type of each track
+var trackTypes = [TrackTypeModular, TrackTypeModular, 
+                  TrackTypeModular, TrackTypeModular, 
+                  TrackTypeModular, TrackTypeModular,
+                  TrackTypeAudio, TrackTypeAudio];
+
+/* Returns the string specifying the current type of the track. 
+   trackNum is zero based (0-7). */
+function getTrackType(trackNum) {
+    return trackTypes[trackNum];
+}
+
 // Keeps track of which is the currenet screen so that
 // button clicks can be sent to it.
 var currentScreen;
@@ -35,6 +59,15 @@ document.addEventListener('keydown', function(event) {
         break;
 }
 });
+
+/* Returns zero padded string */
+function zeroPad(value) {
+    // Convert to string if necessary
+    const str = '' + value; 
+
+    // Return zero padded string
+    return str.padStart(2, '0');
+}
 
 // var times = 0;
 // function createPatternTable() {

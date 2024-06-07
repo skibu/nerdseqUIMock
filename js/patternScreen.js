@@ -1,5 +1,5 @@
 /* For the Pattern screen */
-function pattern(shiftKey) {
+function displayPatternScreen(pattern) {
     currentScreen = patternObject;
     makeScreenVisible("patternTable");
 }

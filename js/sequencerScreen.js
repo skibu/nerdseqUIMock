@@ -1,11 +1,25 @@
 /* For the Sequencer screen. Javascript is used to create main part of the 
    window since the rows are so repetitive. */
 
-function displaySequencerWindow() {
+function displaySequencerScreen() {
     currentScreen = sequencerObject;
     makeScreenVisible("sequencerTable");
 }
 
+/* Defines info associated with a pattern */
+class Pattern {
+  constructor(id, trackType) {
+    this.id = id;
+    this.trackType = trackType;
+  }
+
+  // Creates a copy of the pattern, but with a new pattern ID
+  clone(newId) {
+    return new Pattern(newId, this.trackType);
+  }
+}
+
+// The object that keeps track of everything for the Sequencer Screen  
 let sequencerObject = {
   TRACKS: 8,
   ROWS: 255,
@@ -21,12 +35,19 @@ let sequencerObject = {
   // For handling scrolling
   rowNumOfFirstRow: 0,
   
-  // Note that the constants are not yet set when cells is created. So need to create
-  // the array in a constructor method. The null is just a placeholder.
+  // Note that the constants are not yet set when the arrays are created. So need to create
+  // the arrays in a constructor method. The nulls are just a placeholders.
+  // The html td elements
   cells: null,
 
+  // The html tr elements
   rows: null,
-  
+
+  // 2D array. Contains the pattern info
+  patterns: null, 
+
+  // Keeps track of which patterns taken
+  maxPatternId: -1,
 
   // Fill in the sequences table
   createSequences: function() {
@@ -35,6 +56,9 @@ let sequencerObject = {
 
     // Also create array of rows so that can control their visibility when scrolling
     this.rows = new Array(this.ROWS);
+
+    // And create 2D array of the patterns
+    this.patterns = Array.from(Array(this.ROWS), () => new Array(this.TRACKS));
     
     // Get the table for the sequences (not the full sequencer)
     const seqTbl = $('#sequencesTable')[0];
@@ -148,7 +172,26 @@ let sequencerObject = {
     else
       seqTbl.classList.remove('borderIndicatingCanScrollDown');
   },
-    
+
+  /* updates the help info to display info for the selected pattern */
+  displayHelpInfoForCell() {
+    // The track info
+    var str = 'T' + (this.cursorTrack+1) + '(' + getTrackType(this.cursorTrack) + ')';
+
+    // Add pattern info to the string
+    const pattern = this.patterns[this.cursorRow][this.cursorTrack];
+    if (pattern) {
+      // Use track and pattern info
+      str += ' pattern ' + zeroPad(pattern.id);
+    } else {
+      // No pattern currently so just use track info
+      str += ' no pattern';
+    }
+
+    // Actually display the string as the help info
+    this.helpStr(str);
+  },
+  
   /* Displays the specified cell as being selected. First changes the old cell so that is not selected. */
   moveCursor: function(newRow, newTrack) {
     // Determine the HTML element of cell that was selected. Then remove 'selected' class from it
@@ -175,38 +218,8 @@ let sequencerObject = {
 
     // Handling marking mode
     this.updateCellsIfMarking(newRow, newTrack);
-  },
 
-  leftArrowClicked: function(shift) {
-    const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorRow, this.cursorTrack - increment);
-  },
-
-  rightArrowClicked: function(shift) {
-    const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorRow, this.cursorTrack + increment);
-  },
-
-  upArrowClicked: function(shift) {
-    const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorRow - increment, this.cursorTrack);
-  },
-
-  downArrowClicked: function(shift) {
-    const increment = shift ? 8 : 1;
-    this.moveCursor(this.cursorRow + increment, this.cursorTrack);
-  },
-
-  upClicked: function(shift) {
-    alert('sequencerScreen up clicked shift=' + shift);
-  },
-
-  downClicked: function(shift) {
-    alert('sequencerScreen down clicked shift=' + shift);
-  },
-
-  okClicked: function(shift) {
-    alert('sequencerScreen ok clicked shift=' + shift);
+    this.displayHelpInfoForCell(newRow, newTrack);
   },
 
   /* For marking cells */
@@ -257,16 +270,20 @@ let sequencerObject = {
       this.moveCursor(this.cursorRow, this.cursorTrack);
 
       // Update the help info to indicate that successfully marked. But only do so 
-      // for 2500 msec while the info is still relevant.
+      // temporarily while the info is still relevant.
       this.helpStr('Copied to clipboard');
-      setTimeout(() => {this.helpStr('&nbsp;')}, 2500);
+      setTimeout(() => {this.helpStr('')}, helpTempDisplayMsec);
     }
   },
 
   /* Displays specified string in the help window */
   helpStr: function(str) {
+      // If blank string used that can cause the html element to resize. Therefore use
+      // '&nbsp;' for that situation
+      const strToUse = (str == null || str === '') ? '&nbsp;' : str;
+    
       const helpElement = $('#sequencerHelp')[0];
-      helpElement.innerHTML = str;    
+      helpElement.innerHTML = strToUse;    
   },
     
   /* To be called when cursor moved. Redraws the cells to indicate which are now marked. */
@@ -334,5 +351,83 @@ let sequencerObject = {
 
     // Set the help element with the created string
     this.helpStr(str);
-  }
+  },
+
+  /* Set the specified pattern for the currently selected cell */
+  setPattern: function(pattern) {
+    // Sets the pattern
+    this.patterns[this.cursorRow][this.cursorTrack] = pattern;
+
+    // Updates the screen to show the new pattern
+    const cell = this.cells[this.cursorRow][this.cursorTrack];
+    cell.innerHTML = zeroPad(pattern.id);
+  },
+
+  /* Increments and returns the next available pattern ID to use */
+  getNextPatternId: function() {
+    return ++this.maxPatternId;
+  },
+    
+  /* For when OK button hit. If cell empty then creates a pattern. If pattern exists
+     then will go to pattern window for that pattern if shift not down. If shift down
+     then clones that pattern. */
+  createOrClonePattern: function(shift) {
+    const existingPattern = this.patterns[this.cursorRow][this.cursorTrack];
+    if (!existingPattern) {
+      // No existing pattern so create one
+      const newPattern = new Pattern(this.getNextPatternId(), getTrackType(this.cursorTrack));
+      this.setPattern(newPattern);
+
+      // Temporarily display info indicating that new pattern created
+      this.helpStr('New pattern ' + zeroPad(newPattern.id) + ' created');
+    } else {
+      // A pattern already exists
+      if (!shift) {
+        // Shift button is not set so display the Pattern Screen for the corresponding pattern
+        displayPatternScreen(existingPattern);
+      } else {
+        // Shift button was set so clone the pattern
+        let clonedPattern = existingPattern.clone(this.getNextPatternId());
+        this.setPattern(clonedPattern);
+
+        // Display info indicating that pattern cloned
+        this.helpStr('Pattern ' + zeroPad(existingPattern.id) + ' cloned as ' + zeroPad(clonedPattern.id));
+      }
+    }
+  },
+
+  /* All the low-level button handlers */
+  leftArrowClicked: function(shift) {
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorRow, this.cursorTrack - increment);
+  },
+
+  rightArrowClicked: function(shift) {
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorRow, this.cursorTrack + increment);
+  },
+
+  upArrowClicked: function(shift) {
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorRow - increment, this.cursorTrack);
+  },
+
+  downArrowClicked: function(shift) {
+    const increment = shift ? 8 : 1;
+    this.moveCursor(this.cursorRow + increment, this.cursorTrack);
+  },
+
+  upClicked: function(shift) {
+    alert('sequencerScreen up clicked shift=' + shift);
+  },
+
+  downClicked: function(shift) {
+    alert('sequencerScreen down clicked shift=' + shift);
+  },
+
+  okClicked: function(shift) {
+    this.createOrClonePattern(shift);
+  },
+
+
 }

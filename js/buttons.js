@@ -40,13 +40,13 @@ function shiftKey(ev) {
 
 function sequencerClicked(ev) {
   if (!shiftKey(ev))
-    displaySequencerWindow();
+    displaySequencerScreen();
   else
     currentScreen.markClicked();
 }
 
 function patternClicked(ev) {
-  pattern(shiftKey(ev));
+  displayPatternScreen();
 }
 
 function patchClicked(ev) {
