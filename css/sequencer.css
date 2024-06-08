@@ -113,7 +113,7 @@
 }
 
 #sequencerSideTable .modForeground {
-    background-color: yellow;
+    background-color: var(--changeableColor);
     height: 100%;
     width: 0%;
 }
