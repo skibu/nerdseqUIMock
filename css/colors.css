@@ -2,6 +2,7 @@
 :root {
   --tableBackgroundColor: black;
   --borderColor: cyan;
+  --menuBorderColor: rgb(200, 50, 50);
   --titleColor: yellow;
   --labelColor: greenyellow;
   --changeableColor: aquamarine;

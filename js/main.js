@@ -22,20 +22,51 @@ function getTrackType(trackNum) {
     return trackTypes[trackNum];
 }
 
-// Keeps track of which is the currenet screen so that
-// button clicks can be sent to it.
-var currentScreen;
+// Keeps track of which is the currenet screen or menu so that
+// button clicks can be sent to it
+var currentUiObject;
 
-/* Hides all tables and then makes the table with the specified id visible */
-function makeScreenVisible(id) {
+// For keeping track of last screen so that when a menu is closed the UI 
+// events can be directed to the screen again
+var lastScreenObject;
+
+/* Hides all screens and then makes the table with the specified id visible */
+function makeScreenVisible(uiObject) {
+    currentUiObject = uiObject;
+    lastScreenObject = uiObject;
+    
     // Hide all the NerdSeq screens 
-    var allScreens = $(".virtualScreen");
+    var allScreens = $(".virtualScreenContainer");
     Array.from(allScreens).forEach(function(domTable) { 
         domTable.style.visibility = "hidden";});
 
-    // Make the table with the specified id visible
-    var screen = $("#" + id)[0];
+    // Make the element with the specified id visible
+    const screen = $("#" + uiObject.elementId)[0];
     screen.style.visibility = "visible";
+}
+
+/* A menu is different because want to still display the screen underneath it to
+   convey that will be returning to that screen when done with the menu. Therefore
+   doesn't first hide all screens. But should hide all menus */
+function makeMenuVisible(uiObject) {
+    currentUiObject = uiObject;
+    
+    // Hide any other menus that are being displayed (but don't hide screens)
+    var allMenus = $(".menuContainer");
+    Array.from(allMenus).forEach(function(domTable) { 
+        domTable.style.visibility = "hidden";});
+
+    // Make the element with the specified id visible
+    const menu = $("#" + uiObject.elementId)[0];
+    menu.style.visibility = "visible";
+}
+
+/* For when done with a menu. So that UI events are sent to the screen object again */
+function closeMenuAndRestoreScreen(menuObject) {
+    currentUiObject = lastScreenObject;
+
+    const menu = $('#' + menuObject.elementId)[0];
+    menu.style.visibility = 'hidden';
 }
 
 // Allow use of arrow keys on keyboard in place of the virtual arrow buttons on the NerdSeq.
@@ -46,16 +77,16 @@ document.addEventListener('keydown', function(event) {
     
     switch (event.key) {
     case "ArrowLeft":
-        currentScreen.leftArrowClicked(shiftKeyState);
+        currentUiObject.leftArrowClicked(shiftKeyState);
         break;
     case "ArrowRight":
-        currentScreen.rightArrowClicked(shiftKeyState);
+        currentUiObject.rightArrowClicked(shiftKeyState);
         break;
     case "ArrowUp":
-        currentScreen.upArrowClicked(shiftKeyState);
+        currentUiObject.upArrowClicked(shiftKeyState);
         break;
     case "ArrowDown":
-        currentScreen.downArrowClicked(shiftKeyState);
+        currentUiObject.downArrowClicked(shiftKeyState);
         break;
 }
 });

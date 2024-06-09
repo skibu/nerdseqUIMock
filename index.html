@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="css/colors.css">
     <link rel="stylesheet" type="text/css" href="css/allScreens.css">
     <link rel="stylesheet" type="text/css" href="css/sequencer.css">
+    <link rel="stylesheet" type="text/css" href="css/projectMenu.css">
   </header>
 
   
@@ -83,7 +84,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Sequencer Screen -->
   <!--------------------------------------------------------------------------------->
-  <table id='sequencerScreen' class='virtualScreen'>
+  <table id='sequencerScreen' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td id='topLeftCell' class='topCell columnHeader rowHeader'></td>
       <td class='columnHeader trackHeader'>1</td>
@@ -174,7 +175,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Sequencer Screen Context Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='sequencerScreenContextMenu' class='virtualScreen'>
+  <table id='sequencerScreenContextMenu' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td>Sequencer Screen Context Menu</td><td>F-9</td><td>C#-4</td>
     </tr>
@@ -188,7 +189,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Pattern Screen -->
   <!--------------------------------------------------------------------------------->
-  <table id='patternScreen' class='virtualScreen'>
+  <table id='patternScreen' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td>Pattern Screen</td><td>F-9</td><td>C#-4</td>
     </tr>
@@ -201,7 +202,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Pattern Screen Context Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='patternScreenContextMenu' class='virtualScreen'>
+  <table id='patternScreenContextMenu' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td>Pattern Screen Context Menu</td><td>F-9</td><td>C#-4</td>
     </tr>
@@ -214,7 +215,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the ScreenSelect Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='screenSelectMenu' class='virtualScreen'>
+  <table id='screenSelectMenu' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td>Screen Select Menu</td><td>F-9</td><td>C#-4</td>
     </tr>
@@ -227,20 +228,33 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Project Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='projectMenu' class='virtualScreen'>
-    <tr>
-      <td>Project Menu</td><td>F-9</td><td>C#-4</td>
-    </tr>
-    <tr>
-      <td>21</td><td>F-9</td><td>C#-4</td>
-    </tr>
-  </table>
-
+  <div id='projectMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+      <tr id='titleRow'>
+        <td class='screenTitle'>Project Menu</td><td id='projectName' class='changeable'><span id='projectLabel' class='label'>Proj:</span>unnamed</td>
+      </tr>
+  
+      <tr><td class='label'>Load Project</td><td id='tempo' class='editable'>--></td></tr>
+      <tr><td class='label'>Save Project</td><td id='tempo' class='editable'>--></td></tr>
+      <tr class='endOfGroup'><td class='label'>Clear Project data</td><td id='tempo' class='editable'>--></td></tr>
+  
+      
+      <tr><td class='label'>Tempo</td><td id='tempo' class='editable'>999 BPM</td></tr>
+      <tr><td class='label'>Swing</td><td id='swing' class='editable'>---</td></tr>
+      <tr class='endOfGroup'><td class='label'>Main Clock</td><td id='mainClock' class='editable'>64 steps</td></tr>
+      <tr><td class='label'>Live Cue-points</td><td id='liveCuePoints' class='editable'>16 steps</td></tr>
+      <tr><td class='label'>Clock IN</td><td id='clockIn' class='editable'>Internal</td></tr>
+      <tr><td class='label'>Clock OUT</td><td id='clockOut' class='editable'>MOD 1/16</td></tr>
+      <tr><td class='label'>Transpose</td><td id='transpose' class='editable'>--- > ---</td></tr>
+      <tr class='endOfGroup'><td class='label'>Scale</td><td id='scale' class='editable'>00:Chromatic</td></tr>
+      <tr><td class='label'>Editing</td><td id='editing' class='editable'>Enabled</td></tr>
+    </table>
+  </div>
   
   <!--------------------------------------------------------------------------------->
   <!-- the System Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='systemMenu' class='virtualScreen'>
+  <table id='systemMenu' class='virtualScreen virtualScreenContainer'>
     <tr>
       <td>System Menu</td><td>F-9</td><td>C#-4</td>
     </tr>

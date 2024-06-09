@@ -1,6 +1,7 @@
 function displayContextMenu() {
-    //currentScreen = contextMenuObject;
-    makeScreenVisible("contextMenu");
+    makeMenuVisible(contextMenuObject);
 }
 
-let contextMenuObject = {};
+let contextMenuObject = {
+    elementId: 'contextMenu',
+};

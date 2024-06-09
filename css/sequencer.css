@@ -1,7 +1,8 @@
 /* CSS for the Sequencer Screen */
 
 #sequencerScreen {
-    /* Trying to get cells to use specified width instead of computing width */  
+    /* Trying to get cells to use specified width instead of computing width.
+       FIXME - see if can remove this now. */  
     table-layout: fixed;
 }
 

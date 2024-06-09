@@ -14,10 +14,31 @@
   color: white; /* default font color. Should be overridden with a variable color */
   border: 4px solid var(--borderColor); /* The border around the table, not inside */
   border-spacing: 0px; /* needed to remove extra padding */
-  visibility: hidden; /* default is to hide all tables */
 
   /* So that can specify borders for entire rows in the table */
   border-collapse: collapse;
+}
+
+/* For all menus */
+.menu {
+  border: 4px solid var(--menuBorderColor);
+
+}
+
+/* For strange reason need to specify border color for rows of menus explicitly */
+.menu tr {
+  border-color: var(--menuBorderColor) !important;
+}
+
+.menuContainer .menu {
+  /* center the menu within the div */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menuContainer {
+  /* For menus still displaying the previous window. But grey it out */
+  background-color: rgb(0,0,0,0.84);
 }
 
 /* For the symbols like play/stop/record need to adjust how they are displayed 

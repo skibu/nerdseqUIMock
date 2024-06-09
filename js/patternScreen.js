@@ -1,11 +1,10 @@
 /* For the Pattern screen */
 function displayPatternScreen(pattern) {
-    currentScreen = patternObject;
-    makeScreenVisible("patternScreen");
+    makeScreenVisible(patternObject);
 }
 
 let patternObject = {
-  NOTHING_YET: 0,
+  elementId: 'patternScreen',
 
   /* Displays the context menu for the Pattern Screen */
   displayContextMenu: function() {

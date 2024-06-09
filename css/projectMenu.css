@@ -1,0 +1,41 @@
+/* css for the Project Menu */
+
+#projectMenu {
+    border-color: var(--menuBorderColor) !important;
+}
+#projectMenu .screenTitle {
+    text-align: center;
+    border-right: 3px solid var(--menuBorderColor);
+}
+
+#projectMenu #titleRow {
+    border-bottom: 3px solid;
+}
+
+#projectMenu .endOfGroup{
+    border-bottom: 1px solid;    
+}
+
+#projectMenu .label {
+    border-right: 3px solid var(--menuBorderColor);
+}
+
+/* projectLabel is special case where don't want border */
+#projectMenu #projectLabel {
+    border-right: 0px;
+}
+
+#projectMenu tr {
+  /* trying to get all rows to have small height */
+  line-height: 30px;
+}
+
+#projectMenu .label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+#projectMenu .editable {
+    padding-left: 8px;
+    padding-right: 4px;
+}

@@ -11,12 +11,15 @@ body {
 }
 
 /* Sets the location of all the virtual screens */
-.virtualScreen {
+.virtualScreenContainer{
   position: absolute;
-  top: 188px;
+  top: 186px;
   left: 281px;
-  width: 750px;
-  height: 490px;
+  width: 752px;
+  height: 494px;
+
+  /* Initially hide all screens and menus */
+  visibility: hidden;
 }
 
 /* Make the buttons look the same */

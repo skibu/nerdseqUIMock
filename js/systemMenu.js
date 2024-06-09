@@ -1,10 +1,11 @@
 function displaySystemMenu() {
-    currentScreen = systemMenuObject;
-    makeScreenVisible("systemMenu");
+     makeMenuVisible(systemMenuObject);
 }
 
 let systemMenuObject = {
-  /* There is no context menu for the System Menu so do nothing */
-  displayContextMenu: function() {
-  },
+    elementId: 'systemMenu',
+    
+    /* There is no context menu for the System Menu so do nothing */
+    displayContextMenu: function() {
+    },
 };

@@ -2,8 +2,7 @@
    window since the rows are so repetitive. */
 
 function displaySequencerScreen() {
-    currentScreen = sequencerObject;
-    makeScreenVisible("sequencerScreen");
+    makeScreenVisible(sequencerObject);
 }
 
 /* Defines info associated with a pattern */
@@ -38,6 +37,8 @@ class Pattern {
 
 // The object that keeps track of everything for the Sequencer Screen  
 let sequencerObject = {
+  elementId: 'sequencerScreen',
+  
   TRACKS: 8,
   ROWS: 255,
   VISIBLE_ROWS: 16,

@@ -34,7 +34,7 @@ function sequencerClicked(ev) {
   if (!shiftKey(ev))
     displaySequencerScreen();
   else
-    currentScreen.markClicked();
+    currentUiObject.markClicked();
 }
 
 function patternClicked(ev) {
@@ -55,7 +55,7 @@ function automateClicked(ev) {
   if (!shiftKey(ev))
     displayScreenSelectMenu();  // Automate button
   else
-    currentScreen.displayContextMenu(); // Nerd button
+    currentUiObject.displayContextMenu(); // Nerd button
 }
 
 /* Handles the Project/Setup button press. */
@@ -76,35 +76,35 @@ function stopClicked(ev) {
 
 function upClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.upClicked(shiftKeyState);
+  currentUiObject.upClicked(shiftKeyState);
 }
 
 function okClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.okClicked(shiftKeyState);
+  currentUiObject.okClicked(shiftKeyState);
 }
 
 function downClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.downArrowClicked(shiftKeyState);
+  currentUiObject.downArrowClicked(shiftKeyState);
 }
 
 function upArrowClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.upArrowClicked(shiftKeyState);
+  currentUiObject.upArrowClicked(shiftKeyState);
 }
 
 function downArrowClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.downArrowClicked(shiftKeyState);
+  currentUiObject.downArrowClicked(shiftKeyState);
 }
 
 function leftArrowClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.leftArrowClicked(shiftKeyState);
+  currentUiObject.leftArrowClicked(shiftKeyState);
 }
 
 function rightArrowClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentScreen.rightArrowClicked(shiftKeyState);
+  currentUiObject.rightArrowClicked(shiftKeyState);
 }
