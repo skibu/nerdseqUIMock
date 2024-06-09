@@ -4,7 +4,7 @@ const helpTempDisplayMsec = 2500;
 // The various track types and their corresponding strings for the UI
 const TrackTypeModular = 'Modular';
 const TrackTypeAudio = 'Audio';
-const TrackTypeTrigger16 = 'Trigger16';
+const TrackTypeTrigger16 = 'Trig16';
 const TrackTypeCV16 = 'CV16';
 const TrackTypeMidi = 'Midi';
 const TrackTypeI2c = 'I2C';
@@ -68,24 +68,3 @@ function zeroPad(value) {
     // Return zero padded string
     return str.padStart(2, '0');
 }
-
-// var times = 0;
-// function createPatternTable() {
-//     // Get the DOM table
-//     var table = $("#patternTable")[0];
-
-//     // Clear out any old rows
-//     while (table.rows.length > 0)
-//         table.deleteRow(0);
-
-//     // Add new rows    
-//     times++;
-//         for (var r=0; r<times; ++r) {
-//         var firstRow = table.insertRow();
-//         for (var i=0; i<5; ++i) {
-//             var td = firstRow.insertCell();
-//             td.innerHTML = i;
-//         }
-//     }
-// }
-

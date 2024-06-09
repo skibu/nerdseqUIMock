@@ -1,12 +1,19 @@
 
 <!DOCTYPE html>
 <html>
+  <!--------------------------------------------------------------------------------->
+  <!-- the header has all the includes -->
+  <!--------------------------------------------------------------------------------->
   <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
     <script src="js/buttons.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/sequencerScreen.js"></script>    
     <script src="js/patternScreen.js"></script>    
+    <script src="js/contextMenu.js"></script>    
+    <script src="js/screenSelectMenu.js"></script>    
+    <script src="js/projectMenu.js"></script>    
+    <script src="js/systemMenu.js"></script>    
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,107 +32,15 @@
     <link rel="stylesheet" type="text/css" href="css/allScreens.css">
     <link rel="stylesheet" type="text/css" href="css/sequencer.css">
   </header>
+
   
   <body>
+    <!--------------------------------------------------------------------------------->
+    <!-- the virtual Nerdseq -->
+    <!--------------------------------------------------------------------------------->
+
     <!-- Display picture of Nerdseq. The width of course affects where the virtual buttons need to be located -->
     <image src='images/fullNerdseqModule.jpg' style='width:1500px; min-width:1500px'/>
-
-    <!-- Create the tables that will be the virtual screens for the NerdSeq -->
-    <table id='sequencerTable' class='virtualScreen'>
-      <tr>
-        <td id='topLeftCell' class='topCell columnHeader rowHeader'></td>
-        <td class='columnHeader trackHeader'>1</td>
-        <td class='columnHeader trackHeader'>2</td>
-        <td class='columnHeader trackHeader'>3</td>
-        <td class='columnHeader trackHeader'>4</td>
-        <td class='columnHeader trackHeader'>5</td>
-        <td class='columnHeader trackHeader'>6</td>
-        <td class='columnHeader trackHeader'>7</td>
-        <td class='columnHeader trackHeader widerBorderOnRight'>8</td>
-        <td class='screenTitle'>Sequencer</td>
-      </tr>
-      <tr>
-        <td colspan='9'>
-          <!-- The sequencesTable is created via javascript -->
-          <table id='sequencesTable' class='widerBorderOnBottom widerBorderOnTop widerBorderOnRight'></table>
-        </td>
-        <td>
-          <!-- The sequencerSideTable -->
-          <table id='sequencerSideTable' class='widerBorderOnBottom widerBorderOnTop'>
-            <!-- Display SEQUENCER as screen name, and the Project name -->
-            <tr class='smallerLineHeight'>
-              <td id='projectLabel' class='label alignedLabel' colspan=3>Project:</td><td colspan=2></td>
-            </tr>
-            <tr class='borderOnBottom'>
-              <td id='projectName' class='changeable' colspan=5>TEMPLATE</td>
-            </tr>
-
-            <!-- Display BPM, Pitch, and Edit -->
-            <tr>
-              <td class='label alignedLabel' colspan=3>BPM:</td><td colspan=2 id='bpm' class='changeable alignedChangeable'>136</td>
-            </tr>
-            <tr>
-              <td id='tpsLabel' class='label alignedLabel' colspan=3>Pitch:<td colspan=2 id='pitch' class='changeable alignedChangeable'>+4</td>
-            </tr>
-            <tr class='borderOnBottom'>
-              <td id='editOffLabel' class='label alignedLabel' colspan=3>Edit:<td colspan=2 id='editOff' class='changeable alignedChangeable'>off</span></td>
-            </tr>
-
-            <!-- Display of current note info per track -->
-            <tr class='smallerLineHeight'>
-              <td class='trackHeader'>1</td><td id='note1' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod1' class='modForeground'></div></div></td><td class='trigger'>t</td><td class='changeable clockDiv'>/7</td>
-            </tr>
-            <tr>
-              <td class='trackHeader'>2</td><td id='note2' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod2' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/7</td>
-            </tr>
-            <tr>
-              <td class='trackHeader'>3</td><td id='note3' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod3' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            <tr>
-              <td class='trackHeader'>4</td><td id='note4' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod4' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            <tr>
-              <td class='trackHeader'>5</td><td id='note5' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod5' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            <tr class='borderOnBottom'>
-              <td class='trackHeader'>6</td><td id='note6' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod6' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            
-            <tr>
-              <td class='trackHeader'>7</td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            <tr class='borderOnBottom'>
-              <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
-            </tr>
-            <tr>
-              <td class='trackHeader'>8</td><td id='note8' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
-            </tr>
-            <tr class='borderOnBottom'>
-              <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
-            </tr>
-          </table>
-        </td>
-      </tr>  
-      <tr>
-        <td id='sequencerHelp' class='help widerBorderOnRight' colspan='9'>This is help area</td>
-        <td id='clock' class='label'>
-          <span id='stopPlayRecordIcon' class='material-symbols-outlined'>stop_circle</span>&nbsp;Stopped
-        </td>
-      </tr>
-    </table>
-    
-    <script>
-      sequencerObject.createSequences();
-    </script>
-
-    <table id='patternTable' class='virtualScreen'>
-      <tr>
-        <td>21</td><td>F-9</td><td>C#-4</td>
-      </tr>
-      <tr>
-        <td>21</td><td>F-9</td><td>C#-4</td>
-      </tr>
-    </table>
 
     <!-- Create mostly transparent html buttons over physical buttons so can get click events -->
     <button id='sequencer' class='rectangleButton' 
@@ -162,6 +77,182 @@
       onclick='rightArrowClicked(event)' oncontextmenu='rightArrowClicked(event)'></button>     
   </body>
 
+
+  <!-- Create all the tables that will be the virtual screens for the NerdSeq -->
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Sequencer Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='sequencerScreen' class='virtualScreen'>
+    <tr>
+      <td id='topLeftCell' class='topCell columnHeader rowHeader'></td>
+      <td class='columnHeader trackHeader'>1</td>
+      <td class='columnHeader trackHeader'>2</td>
+      <td class='columnHeader trackHeader'>3</td>
+      <td class='columnHeader trackHeader'>4</td>
+      <td class='columnHeader trackHeader'>5</td>
+      <td class='columnHeader trackHeader'>6</td>
+      <td class='columnHeader trackHeader'>7</td>
+      <td class='columnHeader trackHeader widerBorderOnRight'>8</td>
+      <td class='screenTitle'>Sequencer</td>
+    </tr>
+    <tr>
+      <td colspan='9'>
+        <!-- The sequencesTable is created via javascript -->
+        <table id='sequencesTable' class='widerBorderOnBottom widerBorderOnTop widerBorderOnRight'></table>
+      </td>
+      <td>
+        <!-- The sequencerSideTable -->
+        <table id='sequencerSideTable' class='widerBorderOnBottom widerBorderOnTop'>
+          <!-- Display SEQUENCER as screen name, and the Project name -->
+          <tr class='smallerLineHeight'>
+            <td id='projectLabel' class='label alignedLabel' colspan=3>Project:</td><td colspan=2></td>
+          </tr>
+          <tr class='borderOnBottom'>
+            <td id='projectName' class='changeable' colspan=5>TEMPLATE</td>
+          </tr>
+
+          <!-- Display BPM, Pitch, and Edit -->
+          <tr>
+            <td class='label alignedLabel' colspan=3>BPM:</td><td colspan=2 id='bpm' class='changeable alignedChangeable'>136</td>
+          </tr>
+          <tr>
+            <td id='tpsLabel' class='label alignedLabel' colspan=3>Pitch:<td colspan=2 id='pitch' class='changeable alignedChangeable'>+4</td>
+          </tr>
+          <tr class='borderOnBottom'>
+            <td id='editOffLabel' class='label alignedLabel' colspan=3>Edit:<td colspan=2 id='editOff' class='changeable alignedChangeable'>off</span></td>
+          </tr>
+
+          <!-- Display of current note info per track -->
+          <tr class='smallerLineHeight'>
+            <td class='trackHeader'>1</td><td id='note1' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod1' class='modForeground'></div></div></td><td class='trigger'>t</td><td class='changeable clockDiv'>/7</td>
+          </tr>
+          <tr>
+            <td class='trackHeader'>2</td><td id='note2' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod2' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/7</td>
+          </tr>
+          <tr>
+            <td class='trackHeader'>3</td><td id='note3' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod3' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          <tr>
+            <td class='trackHeader'>4</td><td id='note4' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod4' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          <tr>
+            <td class='trackHeader'>5</td><td id='note5' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod5' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          <tr class='borderOnBottom'>
+            <td class='trackHeader'>6</td><td id='note6' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod6' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          
+          <tr>
+            <td class='trackHeader'>7</td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          <tr class='borderOnBottom'>
+            <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
+          </tr>
+          <tr>
+            <td class='trackHeader'>8</td><td id='note8' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
+          </tr>
+          <tr class='borderOnBottom'>
+            <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
+          </tr>
+        </table>
+      </td>
+    </tr>  
+    <tr>
+      <td id='sequencerHelp' class='help widerBorderOnRight' colspan='9'>This is help area</td>
+      <td id='clock' class='label'>
+        <span id='stopPlayRecordIcon' class='material-symbols-outlined'>stop_circle</span>&nbsp;Stopped
+      </td>
+    </tr>
+  </table>
+  
+  <script>
+    sequencerObject.createSequences();
+  </script>
+
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Sequencer Screen Context Menu -->
+  <!--------------------------------------------------------------------------------->
+  <table id='sequencerScreenContextMenu' class='virtualScreen'>
+    <tr>
+      <td>Sequencer Screen Context Menu</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+  
+
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Pattern Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='patternScreen' class='virtualScreen'>
+    <tr>
+      <td>Pattern Screen</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Pattern Screen Context Menu -->
+  <!--------------------------------------------------------------------------------->
+  <table id='patternScreenContextMenu' class='virtualScreen'>
+    <tr>
+      <td>Pattern Screen Context Menu</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the ScreenSelect Menu -->
+  <!--------------------------------------------------------------------------------->
+  <table id='screenSelectMenu' class='virtualScreen'>
+    <tr>
+      <td>Screen Select Menu</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+  
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Project Menu -->
+  <!--------------------------------------------------------------------------------->
+  <table id='projectMenu' class='virtualScreen'>
+    <tr>
+      <td>Project Menu</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the System Menu -->
+  <!--------------------------------------------------------------------------------->
+  <table id='systemMenu' class='virtualScreen'>
+    <tr>
+      <td>System Menu</td><td>F-9</td><td>C#-4</td>
+    </tr>
+    <tr>
+      <td>21</td><td>F-9</td><td>C#-4</td>
+    </tr>
+  </table>
+
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- Startup. Display the Sequencer Screen -->
+  <!--------------------------------------------------------------------------------->
   <script>
     // Start by making visible the Sequencer Screen
     displaySequencerScreen();

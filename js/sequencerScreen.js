@@ -3,19 +3,36 @@
 
 function displaySequencerScreen() {
     currentScreen = sequencerObject;
-    makeScreenVisible("sequencerTable");
+    makeScreenVisible("sequencerScreen");
 }
 
 /* Defines info associated with a pattern */
 class Pattern {
-  constructor(id, trackType) {
+  constructor(id, name, trackType) {
     this.id = id;
+    this.name = name;
     this.trackType = trackType;
   }
 
   // Creates a copy of the pattern, but with a new pattern ID
   clone(newId) {
     return new Pattern(newId, this.trackType);
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  getId() {
+    return this.id;
+  }
+  
+  getName() {
+    return this.name ? this.name : "unnamed";
+  }
+
+  getTrackType() {
+    return this.trackType;
   }
 }
 
@@ -176,13 +193,13 @@ let sequencerObject = {
   /* updates the help info to display info for the selected pattern */
   displayHelpInfoForCell() {
     // The track info
-    var str = 'T' + (this.cursorTrack+1) + '(' + getTrackType(this.cursorTrack) + ')';
+    var str = 'T' + (this.cursorTrack+1) + '-' + getTrackType(this.cursorTrack);
 
     // Add pattern info to the string
     const pattern = this.patterns[this.cursorRow][this.cursorTrack];
     if (pattern) {
       // Use track and pattern info
-      str += ' pattern ' + zeroPad(pattern.id);
+      str += ' P' + zeroPad(pattern.id) + '-'+ pattern.getName();
     } else {
       // No pattern currently so just use track info
       str += ' no pattern';
@@ -246,11 +263,11 @@ let sequencerObject = {
     
   /* Called when user clicks on the mark button. It toggles the marking mode state */
   markClicked: function() {
-    const sequencerTable = $('#sequencerTable')[0];
+    const sequencerScreen = $('#sequencerScreen')[0];
     
     if (!this.marking) {
       // Wasn't marking but now is. Display border in marking color
-      sequencerTable.classList.add('markingBorderColor');
+      sequencerScreen.classList.add('markingBorderColor');
 
       // Remember that now marking
       this.markingInitialRow = this.cursorRow;
@@ -258,7 +275,7 @@ let sequencerObject = {
       this.marking = true;
     } else {
       // Was marking but now isn't. Display border in regular color
-      sequencerTable.classList.remove('markingBorderColor');
+      sequencerScreen.classList.remove('markingBorderColor');
 
       // Unmark all the cells that were selected
       this.unmarkCells();
@@ -375,7 +392,7 @@ let sequencerObject = {
     const existingPattern = this.patterns[this.cursorRow][this.cursorTrack];
     if (!existingPattern) {
       // No existing pattern so create one
-      const newPattern = new Pattern(this.getNextPatternId(), getTrackType(this.cursorTrack));
+      const newPattern = new Pattern(this.getNextPatternId(), null, getTrackType(this.cursorTrack));
       this.setPattern(newPattern);
 
       // Temporarily display info indicating that new pattern created
@@ -396,6 +413,11 @@ let sequencerObject = {
     }
   },
 
+  /* Displays the context menu for the Sequencer Screen */
+  displayContextMenu: function() {
+    makeScreenVisible("sequencerScreenContextMenu");
+  },
+    
   /* All the low-level button handlers */
   leftArrowClicked: function(shift) {
     const increment = shift ? 8 : 1;

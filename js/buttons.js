@@ -9,14 +9,6 @@ function table(shiftKey) {
     alert('TABLE clicked. shiftKey=' + shiftKey);
 }
 
-function automate(shiftKey) {
-    alert('AUTOMATe clicked. shiftKey=' + shiftKey);
-}
-
-function project(shiftKey) {
-    alert('PROJECT clicked. shiftKey=' + shiftKey);
-}
-
 /* Lower left square buttons */
 function start(shiftKey) {
     alert('START clicked. shiftKey=' + shiftKey);
@@ -57,12 +49,21 @@ function tableClicked(ev) {
   table(shiftKey(ev));
 }
 
+/* Handles the Automate/Nerd button press. Displays either the Screen Select
+   or the current screen's Conext menu */
 function automateClicked(ev) {
-  automate(shiftKey(ev));
+  if (!shiftKey(ev))
+    displayScreenSelectMenu();  // Automate button
+  else
+    currentScreen.displayContextMenu(); // Nerd button
 }
 
+/* Handles the Project/Setup button press. */
 function projectClicked(ev) {
-  project(shiftKey(ev));
+  if (!shiftKey(ev))
+    displayProjectMenu();
+  else
+    displaySystemMenu();
 }
 
 function startClicked(ev) {

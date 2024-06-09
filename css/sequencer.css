@@ -1,17 +1,17 @@
 /* CSS for the Sequencer Screen */
 
-#sequencerTable {
+#sequencerScreen {
     /* Trying to get cells to use specified width instead of computing width */  
     table-layout: fixed;
 }
 
-#sequencerTable tr {
+#sequencerScreen tr {
   /* trying to get all rows to have small height */
   line-height: 30px;
 }
 
 /* Every cell, except those overridden */
-#sequencerTable td {
+#sequencerScreen td {
   box-sizing: border-box;
   padding: 0px;
   text-align: center;
@@ -30,7 +30,7 @@
 }
 
 /* For sequences screen all cells will be this width unless overridden. 
-   Note that cannot just do this for #sequencerTable because the title
+   Note that cannot just do this for #sequencerScreen because the title
    would get the width set and the table layout algo would them simply
    divide the table width into even cells, which would make them all wrong. */
 #sequencesTable td {
@@ -39,12 +39,12 @@
   /* If wanted horizontal borders then uncomment following line */  
   /* border-bottom: 1px solid var(--borderColor); */
 }
-#sequencerTable .columnHeader {
+#sequencerScreen .columnHeader {
   width: 56px;
 }
 
-/* For sequencerTable the first column is a bit wider */
-#sequencerTable .rowHeader {
+/* For sequencerScreen the first column is a bit wider */
+#sequencerScreen .rowHeader {
   width: 68px;
 }
 
@@ -53,7 +53,7 @@
   line-height: 26px; 
 }
 
-#sequencerTable #topLeftCell {
+#sequencerScreen #topLeftCell {
     /* For some strange reason need to make this cell slightly larger
     to get everything to line up properly */
     width: 70px;
