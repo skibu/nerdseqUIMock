@@ -1,3 +1,4 @@
+/* JS for the System Menu */
 function displaySystemMenu() {
      makeMenuVisible(systemMenuObject);
 }

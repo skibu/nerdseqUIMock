@@ -86,7 +86,7 @@ function okClicked(ev) {
 
 function downClicked(ev) {
   const shiftKeyState = shiftKey(ev);
-  currentUiObject.downArrowClicked(shiftKeyState);
+  currentUiObject.downClicked(shiftKeyState);
 }
 
 function upArrowClicked(ev) {

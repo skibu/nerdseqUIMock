@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/projectData.js"></script>
     <script src="js/sequencerScreen.js"></script>    
     <script src="js/patternScreen.js"></script>    
     <script src="js/contextMenu.js"></script>    
@@ -110,12 +111,12 @@
             <td id='projectLabel' class='label alignedLabel' colspan=3>Project:</td><td colspan=2></td>
           </tr>
           <tr class='borderOnBottom'>
-            <td id='projectName' class='changeable' colspan=5>TEMPLATE</td>
+            <td class='projectName changeable' colspan=5></td>
           </tr>
 
           <!-- Display BPM, Pitch, and Edit -->
           <tr>
-            <td class='label alignedLabel' colspan=3>BPM:</td><td colspan=2 id='bpm' class='changeable alignedChangeable'>136</td>
+            <td class='label alignedLabel' colspan=3>BPM:</td><td colspan=2 class='tempo changeable alignedChangeable'></td>
           </tr>
           <tr>
             <td id='tpsLabel' class='label alignedLabel' colspan=3>Pitch:<td colspan=2 id='pitch' class='changeable alignedChangeable'>+4</td>
@@ -231,23 +232,26 @@
   <div id='projectMenu' class='virtualScreenContainer menuContainer'>
     <table class='virtualScreen menu'>
       <tr id='titleRow'>
-        <td class='screenTitle'>Project Menu</td><td id='projectName' class='changeable'><span id='projectLabel' class='label'>Proj:</span>unnamed</td>
+        <td class='screenTitle'>Project Menu</td><td><span id='projectLabel' class='label'>Proj:</span><span class='projectName changeable'></span></td>
       </tr>
   
-      <tr><td class='label'>Load Project</td><td id='tempo' class='editable'>--></td></tr>
-      <tr><td class='label'>Save Project</td><td id='tempo' class='editable'>--></td></tr>
-      <tr class='endOfGroup'><td class='label'>Clear Project data</td><td id='tempo' class='editable'>--></td></tr>
+      <tr><td class='label'>Load Project</td><td><span id='loadProject' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Save Project</td><td><span id='saveProject' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Clear Project data</td><td><span id='clearProject' class='editable'>--></span></td></tr>
   
+      <tr><td class='label'>Tempo</td><td><span id='tempo' class='tempo editable'></span> BPM</td></tr>
+      <tr><td class='label'>Swing</td><td><span id='swing' class='swing editable'></span></td></tr>
+      <tr><td class='label'>Main Clock</td><td><span id='mainClock' class='mainClock editable'></span> steps</td></tr>
+      <tr><td class='label'>Live Cue-points</td><td><span id='liveCuePoints' class='liveCuePoints editable'> steps</td></tr>
+      <tr><td class='label'>Clock IN</td><td><span id='clockIn' class='clockIn editable'></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Clock OUT</td><td><span id='clockOut' class='clockOut editable'></span></td></tr>
       
-      <tr><td class='label'>Tempo</td><td id='tempo' class='editable'>999 BPM</td></tr>
-      <tr><td class='label'>Swing</td><td id='swing' class='editable'>---</td></tr>
-      <tr class='endOfGroup'><td class='label'>Main Clock</td><td id='mainClock' class='editable'>64 steps</td></tr>
-      <tr><td class='label'>Live Cue-points</td><td id='liveCuePoints' class='editable'>16 steps</td></tr>
-      <tr><td class='label'>Clock IN</td><td id='clockIn' class='editable'>Internal</td></tr>
-      <tr><td class='label'>Clock OUT</td><td id='clockOut' class='editable'>MOD 1/16</td></tr>
-      <tr><td class='label'>Transpose</td><td id='transpose' class='editable'>--- > ---</td></tr>
-      <tr class='endOfGroup'><td class='label'>Scale</td><td id='scale' class='editable'>00:Chromatic</td></tr>
-      <tr><td class='label'>Editing</td><td id='editing' class='editable'>Enabled</td></tr>
+      <tr><td class='label'>Transpose</td><td><span id='transpose' class='transpose editable'></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Scale</td><td><span id='scale' class='scale editable'></span</td></tr>
+      
+      <tr class='endOfGroup'><td class='label'>Editing</td><td><span id='editing' class='editing editable'></span</td></tr>
+      
+      <tr><td class='label'></td><td id='closeMenu' class='editable'>Close Menu</td></tr>
     </table>
   </div>
   
@@ -268,6 +272,9 @@
   <!-- Startup. Display the Sequencer Screen -->
   <!--------------------------------------------------------------------------------->
   <script>
+    // Display the current values of the project data
+    _project.updateUI();
+    
     // Start by making visible the Sequencer Screen
     displaySequencerScreen();
   </script>

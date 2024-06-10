@@ -121,6 +121,7 @@ let sequencerObject = {
     this.displayScrollingHints(this.rowNumOfFirstRow);
   },
 
+    
   /* After cursor is moved then need to possibly scroll the screen */
   scrollScreenIfNeeded: function(newRow) {
     // If need to scroll down
@@ -289,7 +290,7 @@ let sequencerObject = {
 
       // Update the help info to indicate that successfully marked. But only do so 
       // temporarily while the info is still relevant.
-      this.helpStr('Copied to clipboard');
+      this.helpStr('Marked cells copied');
       setTimeout(() => {this.helpStr('')}, helpTempDisplayMsec);
     }
   },
