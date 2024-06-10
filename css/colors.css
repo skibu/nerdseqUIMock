@@ -3,18 +3,19 @@
   --tableBackgroundColor: black;
   --borderColor: cyan;
   --menuBorderColor: rgb(200, 50, 50);
+  --menuSelectedItemBackgroundColor: rgb(60, 60, 60);
   --titleColor: yellow;
   --labelColor: greenyellow;
   --changeableColor: aquamarine;
   --editableColor: white;
   --editableBackgroundColor: var(--tableBackgroundColor);
   --selectedFontColor: white;
-  --selectedBackgroundColor: red;
+  --selectedBackgroundColor: rgb(195, 0, 0);
   --trackHeaderColor: orange;
   --rowHeaderColor: lime;
   --helpColor: silver;
   --rowHighlightColor: rgb(46, 46, 46);
-  --selectedColor: red;
+  --markingBorderColor: red;
   --triggerColor: red;
 }
 

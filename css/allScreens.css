@@ -41,6 +41,11 @@
   background-color: rgb(0,0,0,0.84);
 }
 
+/* For highlighting menu row of currently selected item */
+.menuSelectedItem {
+  background-color: var(--menuSelectedItemBackgroundColor);
+}
+
 /* For the symbols like play/stop/record need to adjust how they are displayed 
    so they match the font used. List of symbols that can be used is at 
    https://fonts.google.com/icons?icon.category=Audio%26Video . Remember that
@@ -69,7 +74,7 @@
 /* For properties that user can directly change */
 .editable {
   color: var(--editableColor);
-  background-color: var(--editableBackgroundColor);
+  /* not needed FIXME background-color: var(--editableBackgroundColor); */
 }
 
 .selected {
@@ -154,5 +159,5 @@
 }
 
 .markingBorderColor {
-  border-color: var(--selectedColor);
+  border-color: var(--markingBorderColor);
 }
