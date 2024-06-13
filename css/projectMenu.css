@@ -45,7 +45,13 @@
     padding-right: 4px;
 }
 
+#projectMenu td {
+    /* To make the .editable elements have proper height when using selected color need to hide the overflow */
+    overflow: hidden;
+}
+
 #projectMenu .editable {
+    /* Having bit of horizontal padding makes it look much nicer */
     padding-left: 8px;
-    padding-right: 4px;
+    padding-right: 2px;
 }

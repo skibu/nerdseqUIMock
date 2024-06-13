@@ -1,11 +1,5 @@
 /* CSS for the Sequencer Screen */
 
-#sequencerScreen {
-    /* Trying to get cells to use specified width instead of computing width.
-       FIXME - see if can remove this now. */  
-    table-layout: fixed;
-}
-
 #sequencerScreen tr {
   /* trying to get all rows to have small height */
   line-height: 30px;
