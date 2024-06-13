@@ -119,6 +119,9 @@ let sequencerObject = {
 
     // Make sure everything to do with scrolling is set
     this.displayScrollingHints(this.rowNumOfFirstRow);
+
+    // Handle visibility of special elements in the right side panel
+    this.elementChangedSoUpdateVisibility();
   },
 
     
@@ -192,8 +195,29 @@ let sequencerObject = {
       seqTbl.classList.remove('borderIndicatingCanScrollDown');
   },
 
+  /* Updates visibility of special project params in the right sidebar */
+  elementChangedSoUpdateVisibility: function() {
+    // Note: changing 'visibility' instead of 'display' so that elements don't 
+    // take different size and cause and cause other elements to jump around.
+
+    // Update visibility of the transpose/pitch row. Only show it if transpose is != 0
+    if (_project.transpose == 0) {
+      $('#transposeRow').css('visibility', 'hidden');
+    } else {
+      $('#transposeRow').css('visibility', 'visible');
+    }
+    
+    // Update visibility of the editable row. Only show it if editable is false
+    if (_project.editing) {
+      $('#editingRow').css('visibility', 'hidden');
+    } else {
+      $('#editingRow').css('visibility', 'visible');
+    }
+  },
+
+
   /* updates the help info to display info for the selected pattern */
-  displayHelpInfoForCell() {
+  displayHelpInfoForCell: function() {
     // The track info
     var str = 'T' + (this.cursorTrack+1) + '-' + getTrackType(this.cursorTrack);
 
@@ -295,14 +319,13 @@ let sequencerObject = {
     }
   },
 
-  /* Displays specified string in the help window */
+  /* Displays specified string in the help element */
   helpStr: function(str) {
       // If blank string used that can cause the html element to resize. Therefore use
       // '&nbsp;' for that situation
       const strToUse = (str == null || str === '') ? '&nbsp;' : str;
     
-      const helpElement = $('#sequencerHelp')[0];
-      helpElement.innerHTML = strToUse;    
+      $('#sequencerHelp').html(strToUse); 
   },
     
   /* To be called when cursor moved. Redraws the cells to indicate which are now marked. */

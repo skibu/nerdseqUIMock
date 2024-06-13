@@ -1,15 +1,25 @@
 /* css for the Project Menu */
 
-#projectMenu {
+#projectMenu .virtualScreen {
     border-color: var(--menuBorderColor) !important;
+
+    /* wide enough so can handle laegest values without changing size */
+    width: 701px;
 }
 #projectMenu .screenTitle {
     text-align: center;
     border-right: 3px solid var(--menuBorderColor);
 }
 
-#projectMenu #titleRow {
+#projectMenu .titleRow {
     border-bottom: 3px solid;
+    line-height: 28px;
+}
+
+#projectMenu .helpRow{
+    border-top: 3px solid;
+    /* So help row takes proper height even when no info to display */
+    height: 32px;
 }
 
 #projectMenu .endOfGroup{
@@ -17,7 +27,7 @@
 }
 
 #projectMenu .label {
-    border-right: 3px solid var(--menuBorderColor);
+    border-right: 1px solid var(--menuBorderColor);
 }
 
 /* projectLabel is special case where don't want border */
@@ -26,8 +36,8 @@
 }
 
 #projectMenu tr {
-  /* trying to get all rows to have small height */
-  line-height: 30px;
+  /* to get all rows to have small height */
+  line-height: 24px;
 }
 
 #projectMenu .label {

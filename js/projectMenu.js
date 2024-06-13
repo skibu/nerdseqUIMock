@@ -1,7 +1,7 @@
 /* JS for the project menu */
 
 function displayProjectMenu() {
-    // Initialize object. This includes setting the editable values to their current value
+    // Initialize object
     projectMenuObject.initialize();
 
     // Make Project Menu visible
@@ -17,24 +17,17 @@ let projectMenuObject = {
     initialize: function() {
         // Make sure a row is highlighted
         this.selectRow();
-
-        // Set the current values of the editables
-        /* this.getAndDisplayCurrentValues(); // FIXME this should go away */
     },
 
-    getAndDisplayCurrentValues: function() {
-        // Set the current values of the editables
-        // FIXME this should always be done in projectData.js
-        $('#swing')[0].innerHTML = _project.getSwingStr();
-        $('#mainClock')[0].innerHTML = _project.getMainClockStr();
-        $('#liveCuePoints')[0].innerHTML = _project.getLiveCuePointsStr();
-        $('#clockIn')[0].innerHTML = _project.getClockInStr();
-        $('#clockOut')[0].innerHTML = _project.getClockOutStr();
-        $('#transpose')[0].innerHTML = _project.getTransposeStr();
-        $('#scale')[0].innerHTML = _project.getScaleStr();
-        $('#editing')[0].innerHTML = _project.getEditingStr();
+      /* Displays specified string in the help element */
+    helpStr: function(str) {
+      // If blank string used that can cause the html element to resize. Therefore use
+      // '&nbsp;' for that situation
+      const strToUse = (str == null || str === '') ? '&nbsp;' : str;
+    
+      $('#projectMenuHelp').html(strToUse); 
     },
-
+    
     // Makes the specified row the active one
     selectRow: function (rowNum) {
         // If haven't used menu before then set
@@ -54,8 +47,8 @@ let projectMenuObject = {
         // Get the row html elements of the table
         const rowElements = $('#projectMenu tr');
 
-        // Limit row number to valid range of 1 - numberOfRows
-        rowNum = Math.min(rowElements.length - 1, Math.max(1, rowNum));
+        // Limit row number to valid range of 1 <> numberOfRows-1
+        rowNum = Math.min(rowElements.length - 2, Math.max(1, rowNum));
 
         // If row is changing then ...
         if (rowNum != this.currentRow) {
@@ -75,22 +68,62 @@ let projectMenuObject = {
         }
     },
 
-
-    swingValues: ['swing', 'swung'],
-
     handleTempoChange: function(increment, shiftKey) {
         // Set the new value and update UI
         _project.setTempo(_project.getTempo() + increment * (!shiftKey ? 1 : 10));
     },
 
     handleSwingChange: function(increment, shiftKey) {
-        // FIXME
+        // Can only set swing if ClockIn is set to Internal
+        if (_project.getClockIn() !== 'Internal') {
+            this.helpStr('Clock In must be Internal');
+            // Clear help message after 2.5 seconds
+            setTimeout(() => { this.helpStr(''); }, 2500);
+            return;
+        }
+        
+        // Set the new value and update UI
+        _project.setSwing(_project.getSwing() + increment * (!shiftKey ? 1 : 5));
     },
 
     handleMainClockChange: function(increment, shiftKey) {
-        _project.setMainClockIndex(_project.getMainClockIndex() + increment);
+        _project.incrementMainClock(increment);
     },
-    
+
+    handleLiveCuePointsChange: function(increment, shiftKey) {
+        _project.setLiveCuePoints(_project.getLiveCuePoints() + increment * (!shiftKey ? 1 : 5));
+    },
+
+    handleClockInChange: function(increment, shiftKey) {
+        _project.incrementClockIn(increment);
+    },
+
+    handleClockOutChange: function(increment, shiftKey) {
+        _project.incrementClockOut(increment);
+    },
+
+    handleTransposeChange: function(increment, shiftKey) {
+        _project.setTranspose(_project.getTranspose() + increment * (!shiftKey ? 1 : 12));
+
+        // The sequencer window also displays the this info, but changes visibility of
+        // the item. So call its own display method for this param.
+        sequencerObject.elementChangedSoUpdateVisibility();
+    },
+
+    handleScaleChange: function(increment, shiftKey) {
+        _project.incrementScale(increment * (!shiftKey ? 1 : 5));
+    },
+
+    handleEditingChange: function(increment, shiftKey) {
+        // Toggle the value
+        _project.setEditing(!_project.getEditing());
+
+        // The sequencer window also displays the this info, but changes visibility of
+        // the item. So call its own display method for this param.
+        sequencerObject.elementChangedSoUpdateVisibility();
+    },
+
+    /* Returns id of the html element that is currently being edited */
     idOfEditableElement: function() {
         // Determine current editable value and its ID.
         const rowElements = $('#projectMenu tr');
@@ -115,6 +148,24 @@ let projectMenuObject = {
                 break;
             case 'mainClock':
                 this.handleMainClockChange(increment, shiftKey);
+                break;
+            case 'liveCuePoints':
+                this.handleLiveCuePointsChange(increment, shiftKey);
+                break;
+            case 'clockIn':
+                this.handleClockInChange(increment, shiftKey);
+                break;
+            case 'clockOut':
+                this.handleClockOutChange(increment, shiftKey);
+                break;
+            case 'transpose':
+                this.handleTransposeChange(increment, shiftKey);
+                break;
+            case 'scale':
+                this.handleScaleChange(increment, shiftKey);
+                break;
+            case 'editElement':
+                this.handleEditingChange(increment, shiftKey);
                 break;
             default:
                 alert("projectMenu.js error: Don't have list of values for id=" + id);

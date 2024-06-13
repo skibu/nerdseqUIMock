@@ -90,8 +90,13 @@
     line-height: 25px;
 }
 
-#sequencerSideTable .alignedLabel {
+#sequencerSideTable #projectLabel {
+    text-align: left;
+}
+
+#sequencerSideTable .rightAlignedLabel {
     text-align: right;
+    padding-left: 10px;
 }
 
 #sequencerSideTable .alignedChangeable {
