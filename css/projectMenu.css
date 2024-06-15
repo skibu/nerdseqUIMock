@@ -6,14 +6,8 @@
     /* wide enough so can handle laegest values without changing size */
     width: 701px;
 }
-#projectMenu .screenTitle {
-    text-align: center;
+#projectMenu #projectLabelId {
     border-right: 3px solid var(--menuBorderColor);
-}
-
-#projectMenu .titleRow {
-    border-bottom: 3px solid;
-    line-height: 28px;
 }
 
 #projectMenu .helpRow{

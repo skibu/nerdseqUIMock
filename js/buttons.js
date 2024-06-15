@@ -1,14 +1,5 @@
 /* For the physical buttons on the NerdSeq */
 
-/* Rectangular buttons */
-function patch(shiftKey) {
-    alert('PATCH clicked. shiftKey=' + shiftKey);
-}
-
-function table(shiftKey) {
-    alert('TABLE clicked. shiftKey=' + shiftKey);
-}
-
 /* Lower left square buttons */
 function start(shiftKey) {
     alert('START clicked. shiftKey=' + shiftKey);
@@ -31,22 +22,42 @@ function shiftKey(ev) {
 }
 
 function sequencerClicked(ev) {
-  if (!shiftKey(ev))
+  if (!shiftKey(ev)) {
     displaySequencerScreen();
-  else
-    currentUiObject.markClicked();
+  } else {
+    if (currentUiObject.markClicked)
+      currentUiObject.markClicked();
+  }
 }
 
 function patternClicked(ev) {
-  displayPatternScreen();
+  if (!shiftKey(ev)) {
+    displayPatternScreen();
+  } else {
+    // Handle copy/paste button click
+    if (currentUiObject.pasteClicked)
+      currentUiObject.pasteClicked();
+  }
 }
 
 function patchClicked(ev) {
-  patch(shiftKey(ev));
+  if (!shiftKey(ev)) {
+    displayPatchScreen();
+  } else {
+    // Handle delete button click
+    if (currentUiObject.deleteClicked)
+      currentUiObject.deleteClicked();
+  }
 }
 
 function tableClicked(ev) {
-  table(shiftKey(ev));
+  if (!shiftKey(ev)) {
+    displayTableScreen();
+  } else {
+    // Handle record button click
+    if (currentUiObject.recordClicked)
+      currentUiObject.recordClicked();
+  }
 }
 
 /* Handles the Automate/Nerd button press. Displays either the Screen Select

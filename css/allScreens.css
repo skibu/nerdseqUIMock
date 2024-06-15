@@ -58,9 +58,17 @@
   vertical-align: bottom;
 }
 
+.titleRow {
+    border-bottom: 3px solid;
+    line-height: 28px;
+    height: 28px;
+}
 .screenTitle {
   color: var(--titleColor);
   text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  border-left: 3px solid var(--borderColor);
 }
 
 .label {
