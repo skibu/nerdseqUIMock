@@ -63,6 +63,7 @@
     line-height: 28px;
     height: 28px;
 }
+
 .screenTitle {
   color: var(--titleColor);
   text-transform: uppercase;

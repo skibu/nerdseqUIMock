@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="css/nerdseqLayout.css">
     <link rel="stylesheet" type="text/css" href="css/colors.css">
     <link rel="stylesheet" type="text/css" href="css/allScreens.css">
+    <link rel="stylesheet" type="text/css" href="css/allMenus.css">
     <link rel="stylesheet" type="text/css" href="css/sequencer.css">
     <link rel="stylesheet" type="text/css" href="css/projectMenu.css">
   </header>
@@ -244,17 +245,25 @@
 
   
   <!--------------------------------------------------------------------------------->
-  <!-- the ScreenSelect Menu -->
+  <!-- the ScreenSelect Menu (via the repurposed Automate button) -->
   <!--------------------------------------------------------------------------------->
-  <table id='screenSelectMenu' class='virtualScreen virtualScreenContainer'>
-    <tr>
-      <td>Screen Select Menu</td><td>F-9</td><td>C#-4</td>
-    </tr>
-    <tr>
-      <td>21</td><td>F-9</td><td>C#-4</td>
-    </tr>
-  </table>
-  
+  <div id='screenSelectMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+      <tr class='titleRow'>
+        <td id='projectLabelId'><span id='projectLabel' class='label'>Project:</span><span class='projectName changeable'></span></td><td class='screenTitle'>Screen Select Menu</td>
+      </tr>
+
+      <tr><td class='label'>Automate Screen</td><td><span id='automateScreen' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Patch Screen</td><td><span id='patchScreen' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Pattern Screen</td><td><span id='patternScreen' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Sequencer Screen</td><td><span id='sequencerScreen' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Table Screen</td><td><span id='tableScreen' class='editable'>--></span></td></tr>
+      
+      <tr><td class='label'></td><td id='closeMenu' class='editable'>Close Menu</td></tr>
+
+      <tr class='helpRow'><td id='screenSelectMenuHelp' class='help' colspan='2'></td></tr>
+    </table>
+  </div>
 
   <!--------------------------------------------------------------------------------->
   <!-- the Project Menu -->

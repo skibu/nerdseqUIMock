@@ -6,49 +6,6 @@
     /* wide enough so can handle laegest values without changing size */
     width: 701px;
 }
-#projectMenu #projectLabelId {
-    border-right: 3px solid var(--menuBorderColor);
-}
-
-#projectMenu .helpRow{
-    border-top: 3px solid;
-    /* So help row takes proper height even when no info to display */
-    height: 32px;
-}
-
-#projectMenu .endOfGroup{
-    border-bottom: 1px solid;    
-}
-
-#projectMenu .label {
-    border-right: 1px solid var(--menuBorderColor);
-}
-
-/* projectLabel is special case where don't want border */
-#projectMenu #projectLabel {
-    border-right: 0px;
-}
-
-#projectMenu tr {
-  /* to get all rows to have small height */
-  line-height: 24px;
-}
-
-#projectMenu .label {
-    padding-left: 8px;
-    padding-right: 4px;
-}
-
-#projectMenu td {
-    /* To make the .editable elements have proper height when using selected color need to hide the overflow */
-    overflow: hidden;
-}
-
-#projectMenu .editable {
-    /* Having bit of horizontal padding makes it look much nicer */
-    padding-left: 8px;
-    padding-right: 2px;
-}
 
 #projectMenu #tempoTd {
     /* Need to set the max width of the td for the tempo since it changes size and don't want the whole table to be adjusted */

@@ -23,8 +23,10 @@ function shiftKey(ev) {
 
 function sequencerClicked(ev) {
   if (!shiftKey(ev)) {
+    // Shift key not down so display sequencer screen
     displaySequencerScreen();
   } else {
+    // If shift key then it is a mark event
     if (currentUiObject.markClicked)
       currentUiObject.markClicked();
   }
@@ -32,6 +34,7 @@ function sequencerClicked(ev) {
 
 function patternClicked(ev) {
   if (!shiftKey(ev)) {
+    // Shift key not down so display pattern screen
     displayPatternScreen();
   } else {
     // Handle copy/paste button click

@@ -1,0 +1,48 @@
+/* css for all the menus */
+
+.menuContainer .screenTitle  {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.menuContainer .endOfGroup{
+    border-bottom: 1px solid;    
+}
+
+/* projectLabel is special case where don't want border */
+.menuContainer #projectLabel {
+    border-right: 0px;
+}
+
+.menuContainer tr {
+  /* to get all rows to have small height */
+  line-height: 24px;
+}
+
+.menuContainer td {
+    /* To make the .editable elements have proper height when using selected color need to hide the overflow */
+    overflow: hidden;
+}
+
+.menuContainer .editable {
+    /* Having bit of horizontal padding makes it look much nicer */
+    padding-left: 8px;
+    padding-right: 2px;
+}
+
+.menuContainer .helpRow{
+    border-top: 3px solid;
+    /* So help row takes proper height even when no info to display */
+    height: 32px;
+}
+
+.menuContainer #projectLabelId {
+    border-right: 3px solid var(--menuBorderColor);
+}
+
+.menuContainer .label {
+    padding-left: 8px;
+    padding-right: 4px;
+
+    border-right: 1px solid var(--menuBorderColor);
+}
