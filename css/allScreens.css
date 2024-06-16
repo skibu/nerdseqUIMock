@@ -72,6 +72,11 @@
   border-left: 3px solid var(--borderColor);
 }
 
+.menu .screenTitle {
+  /* Use different color for menu titles */
+  color: var(--menuTitleColor);
+}
+
 .label {
   color: var(--labelColor);
 }

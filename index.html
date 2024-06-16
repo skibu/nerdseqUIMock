@@ -12,7 +12,8 @@
     <script src="js/sequencerScreen.js"></script>    
     <script src="js/patternScreen.js"></script>    
     <script src="js/patchScreen.js"></script>    
-    <script src="js/tableScreen.js"></script>    
+    <script src="js/tableScreen.js"></script>   
+    <script src="js/automateScreen.js"></script> 
     <script src="js/contextMenu.js"></script>    
     <script src="js/screenSelectMenu.js"></script>    
     <script src="js/projectMenu.js"></script>    
@@ -193,7 +194,6 @@
   </table>
   
 
-
   <!--------------------------------------------------------------------------------->
   <!-- the Pattern Screen -->
   <!--------------------------------------------------------------------------------->
@@ -207,31 +207,6 @@
   </table>
 
   <!--------------------------------------------------------------------------------->
-  <!-- the Pattern Screen -->
-  <!--------------------------------------------------------------------------------->
-  <table id='patchScreen' class='virtualScreen virtualScreenContainer'>
-    <tr class='widerBorderOnBottom titleRow'>
-      <td></td><td class='screenTitle'>Patch Screen</td>
-    </tr>
-    <tr style='height=100%'>
-      <td>This is where the content will go</td><td></td>
-    </tr>
-  </table>
-
-  <!--------------------------------------------------------------------------------->
-  <!-- the Pattern Screen -->
-  <!--------------------------------------------------------------------------------->
-  <table id='tableScreen' class='virtualScreen virtualScreenContainer'>
-    <tr class='widerBorderOnBottom titleRow'>
-      <td></td><td class='screenTitle'>Table Screen</td>
-    </tr>
-    <tr style='height=100%'>
-      <td>This is where the content will go</td><td></td>
-    </tr>
-  </table>
-
-
-  <!--------------------------------------------------------------------------------->
   <!-- the Pattern Screen Context Menu -->
   <!--------------------------------------------------------------------------------->
   <table id='patternScreenContextMenu' class='virtualScreen virtualScreenContainer'>
@@ -243,21 +218,56 @@
     </tr>
   </table>
 
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Patch Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='patchScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Patch Screen</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+
   
   <!--------------------------------------------------------------------------------->
-  <!-- the ScreenSelect Menu (via the repurposed Automate button) -->
+  <!-- the Table Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='tableScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Table Screen</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Screen Select Menu (via the repurposed Automate button) -->
   <!--------------------------------------------------------------------------------->
   <div id='screenSelectMenu' class='virtualScreenContainer menuContainer'>
     <table class='virtualScreen menu'>
       <tr class='titleRow'>
-        <td id='projectLabelId'><span id='projectLabel' class='label'>Project:</span><span class='projectName changeable'></span></td><td class='screenTitle'>Screen Select Menu</td>
+        <td id='projectLabelId'><span id='projectLabel' class='label'>Project:</span><span class='projectName changeable'></span></td><td class='screenTitle'>Screen Menu</td>
       </tr>
 
-      <tr><td class='label'>Automate Screen</td><td><span id='automateScreen' class='editable'>--></span></td></tr>
-      <tr><td class='label'>Patch Screen</td><td><span id='patchScreen' class='editable'>--></span></td></tr>
-      <tr><td class='label'>Pattern Screen</td><td><span id='patternScreen' class='editable'>--></span></td></tr>
-      <tr><td class='label'>Sequencer Screen</td><td><span id='sequencerScreen' class='editable'>--></span></td></tr>
-      <tr class='endOfGroup'><td class='label'>Table Screen</td><td><span id='tableScreen' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Patch</td><td><span id='patch' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Pattern</td><td><span id='pattern' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Sequencer</td><td><span id='sequencer' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Table</td><td><span id='table' class='editable'>--></span></td></tr>
+      
+      <tr><td class='label'>Automate Setup</td><td><span id='automate' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Envelope Setup</td><td><span id='envelope' class='editable'>--></span></td></tr>
+      <tr><td class='label'>I2C Setup</td><td><span id='i2c' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Input/Record Setup</td><td><span id='inputRecord' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Mapping Setup</td><td><span id='mapping' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Midi Setup</td><td><span id='midi' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Random Setup</td><td><span id='random' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Scale/Quantize Setup</td><td><span id='scaleQuantize' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Track Setup</td><td><span id='track' class='editable'>--></span></td></tr>
       
       <tr><td class='label'></td><td id='closeMenu' class='editable'>Close Menu</td></tr>
 
@@ -299,11 +309,12 @@
       <tr class='helpRow'><td id='projectMenuHelp' class='help' colspan='2'></td></tr>
     </table>
   </div>
+
   
   <!--------------------------------------------------------------------------------->
   <!-- the System Menu -->
   <!--------------------------------------------------------------------------------->
-  <table id='systemMenu' class='virtualScreen virtualScreenContainer'>
+  <table id='systemMenu' class='virtualScreen menuContainer'>
     <tr>
       <td>System Menu</td><td>F-9</td><td>C#-4</td>
     </tr>
@@ -312,9 +323,119 @@
     </tr>
   </table>
 
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Automate Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='automateScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Automate Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+
+    
+  <!--------------------------------------------------------------------------------->
+  <!-- the Envelope Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='envelopeScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Envelope Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
   
   <!--------------------------------------------------------------------------------->
-  <!-- Startup. Display the Sequencer Screen -->
+  <!-- the I2C Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='i2cScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>I2C Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Input/Record Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='inputRecordSetupScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Input/Record Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Mapping Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='mappingScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Mapping Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Midi Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='midiScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Midi Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Random Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='randomScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Random Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- the Scale/Quantize Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='scaleQuantizeScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Scale/Quantize Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+
+  <!--------------------------------------------------------------------------------->
+  <!-- the Track Setup Screen -->
+  <!--------------------------------------------------------------------------------->
+  <table id='trackSetupScreen' class='virtualScreen virtualScreenContainer'>
+    <tr class='widerBorderOnBottom titleRow'>
+      <td></td><td class='screenTitle'>Track Setup</td>
+    </tr>
+    <tr style='height=100%'>
+      <td>This is where the content will go</td><td></td>
+    </tr>
+  </table>
+  
+  
+  <!--------------------------------------------------------------------------------->
+  <!-- Startup by displaying the Sequencer Screen -->
   <!--------------------------------------------------------------------------------->
   <script>
     // Display the current values of the project data

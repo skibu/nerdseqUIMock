@@ -86,21 +86,25 @@ let screenSelectMenuObject = {
         } else {
             // All choices besides closeMenu mean should jump to that screen
             switch(id) {
-                case 'automateScreen':
-                    break;
-                    displayAutomateScreen();
-                case 'patchScreen':
+                case 'patch':
                     displayPatchScreen();
                     break;
-                case 'patternScreen':
+                case 'pattern':
                     displayPatternScreen();
                     break;
-                case 'sequencerScreen':
+                case 'sequencer':
                     displaySequencerScreen();
                     break;
-                case 'tableScreen':
+                case 'table':
                     displayTableScreen();
                     break;
+                    
+                case 'automate':
+                    displayAutomateScreen();
+                    break;
+                case 'track':
+                    displayTrackScreen();
+                    break;                    
                 default:
                     alert('Not configured to handle displaying screen id=' + id);
             }

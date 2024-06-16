@@ -1,5 +1,11 @@
 /* css for all the menus */
 
+
+.menuContainer {
+    /* Want menus to be on top of other screens no matter what order they were created */
+    z-index: 50;
+}
+
 .menuContainer .screenTitle  {
     padding-left: 5px;
     padding-right: 5px;

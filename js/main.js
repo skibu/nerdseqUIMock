@@ -40,6 +40,11 @@ function makeScreenVisible(uiObject) {
     Array.from(allScreens).forEach(function(domTable) { 
         domTable.style.visibility = "hidden";});
 
+    // Also, hide any  menus that are being displayed since want to see the new screen only
+    var allMenus = $(".menuContainer");
+    Array.from(allMenus).forEach(function(domTable) { 
+        domTable.style.visibility = "hidden";});
+
     // Make the element with the specified id visible
     const screen = $("#" + uiObject.elementId)[0];
     screen.style.visibility = "visible";
