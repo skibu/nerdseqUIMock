@@ -13,12 +13,22 @@
     <script src="js/patternScreen.js"></script>    
     <script src="js/patchScreen.js"></script>    
     <script src="js/tableScreen.js"></script>   
-    <script src="js/automateScreen.js"></script> 
+
     <script src="js/contextMenu.js"></script>    
     <script src="js/screenSelectMenu.js"></script>    
     <script src="js/projectMenu.js"></script>    
     <script src="js/systemMenu.js"></script>    
-    
+
+    <script src="js/automateScreen.js"></script> 
+    <script src="js/envelopeScreen.js"></script> 
+    <script src="js/i2cScreen.js"></script> 
+    <script src="js/inputRecordScreen.js"></script> 
+    <script src="js/mappingScreen.js"></script> 
+    <script src="js/midiScreen.js"></script> 
+    <script src="js/randomRangesScreen.js"></script> 
+    <script src="js/scaleQuantizeScreen.js"></script> 
+    <script src="js/trackScreen.js"></script> 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -254,18 +264,18 @@
         <td id='projectLabelId'><span id='projectLabel' class='label'>Project:</span><span class='projectName changeable'></span></td><td class='screenTitle'>Screen Menu</td>
       </tr>
 
-      <tr><td class='label'>Patch</td><td><span id='patch' class='editable'>--></span></td></tr>
-      <tr><td class='label'>Pattern</td><td><span id='pattern' class='editable'>--></span></td></tr>
       <tr><td class='label'>Sequencer</td><td><span id='sequencer' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Pattern</td><td><span id='pattern' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Patch</td><td><span id='patch' class='editable'>--></span></td></tr>
       <tr class='endOfGroup'><td class='label'>Table</td><td><span id='table' class='editable'>--></span></td></tr>
       
-      <tr><td class='label'>Automate Setup</td><td><span id='automate' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Automation Setup</td><td><span id='automate' class='editable'>--></span></td></tr>
       <tr><td class='label'>Envelope Setup</td><td><span id='envelope' class='editable'>--></span></td></tr>
       <tr><td class='label'>I2C Setup</td><td><span id='i2c' class='editable'>--></span></td></tr>
       <tr><td class='label'>Input/Record Setup</td><td><span id='inputRecord' class='editable'>--></span></td></tr>
       <tr><td class='label'>Mapping Setup</td><td><span id='mapping' class='editable'>--></span></td></tr>
       <tr><td class='label'>Midi Setup</td><td><span id='midi' class='editable'>--></span></td></tr>
-      <tr><td class='label'>Random Setup</td><td><span id='random' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Random Ranges Setup</td><td><span id='randomRanges' class='editable'>--></span></td></tr>
       <tr><td class='label'>Scale/Quantize Setup</td><td><span id='scaleQuantize' class='editable'>--></span></td></tr>
       <tr class='endOfGroup'><td class='label'>Track Setup</td><td><span id='track' class='editable'>--></span></td></tr>
       
@@ -329,7 +339,7 @@
   <!--------------------------------------------------------------------------------->
   <table id='automateScreen' class='virtualScreen virtualScreenContainer'>
     <tr class='widerBorderOnBottom titleRow'>
-      <td></td><td class='screenTitle'>Automate Setup</td>
+      <td></td><td class='screenTitle'>Automation Setup</td>
     </tr>
     <tr style='height=100%'>
       <td>This is where the content will go</td><td></td>
@@ -364,7 +374,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Input/Record Setup Screen -->
   <!--------------------------------------------------------------------------------->
-  <table id='inputRecordSetupScreen' class='virtualScreen virtualScreenContainer'>
+  <table id='inputRecordScreen' class='virtualScreen virtualScreenContainer'>
     <tr class='widerBorderOnBottom titleRow'>
       <td></td><td class='screenTitle'>Input/Record Setup</td>
     </tr>
@@ -378,7 +388,7 @@
   <!--------------------------------------------------------------------------------->
   <table id='mappingScreen' class='virtualScreen virtualScreenContainer'>
     <tr class='widerBorderOnBottom titleRow'>
-      <td></td><td class='screenTitle'>Mapping Setup</td>
+      <td></td><td class='screenTitle'>Mapping      frandSetup</td>
     </tr>
     <tr style='height=100%'>
       <td>This is where the content will go</td><td></td>
@@ -400,9 +410,9 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Random Setup Screen -->
   <!--------------------------------------------------------------------------------->
-  <table id='randomScreen' class='virtualScreen virtualScreenContainer'>
+  <table id='randomRangesScreen' class='virtualScreen virtualScreenContainer'>
     <tr class='widerBorderOnBottom titleRow'>
-      <td></td><td class='screenTitle'>Random Setup</td>
+      <td></td><td class='screenTitle'>Random Ranges Setup</td>
     </tr>
     <tr style='height=100%'>
       <td>This is where the content will go</td><td></td>
@@ -424,7 +434,7 @@
   <!--------------------------------------------------------------------------------->
   <!-- the Track Setup Screen -->
   <!--------------------------------------------------------------------------------->
-  <table id='trackSetupScreen' class='virtualScreen virtualScreenContainer'>
+  <table id='trackScreen' class='virtualScreen virtualScreenContainer'>
     <tr class='widerBorderOnBottom titleRow'>
       <td></td><td class='screenTitle'>Track Setup</td>
     </tr>

@@ -8,7 +8,7 @@ let automateObject = {
 
   /* Displays the context menu for the Pattern Screen */
   displayContextMenu: function() {
-    makeScreenVisible("automateScreenContextMenu");
+    makeScreenVisible('automateScreenContextMenu');
   },
 
   leftArrowClicked: function(shift) {

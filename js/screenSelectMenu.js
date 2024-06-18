@@ -86,14 +86,14 @@ let screenSelectMenuObject = {
         } else {
             // All choices besides closeMenu mean should jump to that screen
             switch(id) {
-                case 'patch':
-                    displayPatchScreen();
+                case 'sequencer':
+                    displaySequencerScreen();
                     break;
                 case 'pattern':
                     displayPatternScreen();
                     break;
-                case 'sequencer':
-                    displaySequencerScreen();
+                case 'patch':
+                    displayPatchScreen();
                     break;
                 case 'table':
                     displayTableScreen();
@@ -101,6 +101,27 @@ let screenSelectMenuObject = {
                     
                 case 'automate':
                     displayAutomateScreen();
+                    break;
+                case 'envelope':
+                    displayEnvelopeScreen();
+                    break;
+                case 'i2c':
+                    displayI2cScreen();
+                    break;
+                case 'inputRecord':
+                    displayInputRecordScreen();
+                    break;
+                case 'mapping':
+                    displayMappingScreen();
+                    break;
+                case 'midi':
+                    displayMidiScreen();
+                    break;
+                case 'randomRanges':
+                    displayRandomRangesScreen();
+                    break;
+                case 'scaleQuantize':
+                    displayScaleQuantizeScreen();
                     break;
                 case 'track':
                     displayTrackScreen();
