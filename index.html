@@ -302,7 +302,7 @@
       <tr><td class='label'>Load Sampleblock</td><td><span id='loadSampleBlock' class='editable'>--></span></td></tr>
       <tr class='endOfGroup'><td class='label'>Save Sampleblock</td><td><span id='saveSampleBlock' class='editable'>--></span></td></tr>
 
-      <tr><td class='label'>Tempo</td><td id='tempoTd'><div><span id='tempo' class='tempo editable'></span> BPM</div></td></tr>
+      <tr><td class='label'>Tempo</td><td><div><span id='tempo' class='tempo editable'></span> BPM</div></td></tr>
       <tr><td class='label'>Swing</td><td><span id='swing' class='swing editable'></span></td></tr>
       <tr><td class='label'>Main Clock</td><td><span id='mainClock' class='mainClock editable'></span> steps</td></tr>
       <tr><td class='label'>Live Cue Points</td><td><span id='liveCuePoints' class='liveCuePoints editable'></span> steps</td></tr>
@@ -310,7 +310,7 @@
       <tr class='endOfGroup'><td class='label'>Clock Out</td><td><span id='clockOut' class='clockOut editable'></span></td></tr>
       
       <tr><td class='label'> Pitch Transpose</td><td><span id='transpose' class='transpose editable'></span></td></tr>
-      <tr class='endOfGroup'><td class='label'>Scale</td><td><span id='scale' class='scale editable'></span</td></tr>
+      <tr class='endOfGroup'><td class='label'>Scale</td><td id='scaleTd'><span id='scale' class='scale editable'></span</td></tr>
       
       <tr class='endOfGroup'><td class='label'>Editing</td><td><span id='editElement' class='editElement editable'></span</td></tr>
       
@@ -322,16 +322,80 @@
 
   
   <!--------------------------------------------------------------------------------->
-  <!-- the System Menu -->
+  <!-- the System Menu (for the "Setup" button) -->
   <!--------------------------------------------------------------------------------->
-  <table id='systemMenu' class='virtualScreen menuContainer'>
-    <tr>
-      <td>System Menu</td><td>F-9</td><td>C#-4</td>
-    </tr>
-    <tr>
-      <td>21</td><td>F-9</td><td>C#-4</td>
-    </tr>
-  </table>
+  <div id='systemMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+      <tr class='titleRow'>
+        <td class='screenTitle' colspan=2>System Parameters Menu</td>
+      </tr>
+
+      <tr><td class='label'>Screensaver</td><td><div><span id='screensaver' class='screensaver editable'></span></div></td></tr>
+      <tr><td class='label'>Autosave on Screensave</td><td><div><span id='autosaveScreensave' class='autosaveScreensaver editable'></span></div></td></tr>
+      <tr><td class='label'>Autoload Project</td><td><div><span id='autoloadProject' class='autoloadProject editable'></span></div></td></tr>
+      <tr class='endOfGroup'><td class='label'>Show backup folder</td><td><div><span id='showBackupFolder' class='autoloadProject editable'></span></div></td></tr>
+      
+      <tr><td class='label'>User interface setup</td><td><span id='userInterfaceSetup' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Key press delay</td><td><div><span id='keyPressDelay' class='keyPressDelay editable'></span></div></td></tr>
+      <tr><td class='label'>Key hold repeat</td><td><div><span id='keyHoldRepeat' class='keyHoldRepeat editable'></span></div></td></tr>
+      <tr class='endOfGroup'><td class='label'>Navigation wrap</td><td><div><span id='navigationWrap' class='navigationWrap editable'></span></div></td></tr>
+
+      <tr><td class='label'>Auto gate on note</td><td><div><span id='autoGateOnNote' class='autoGateOnNote editable'></span></div></td></tr>
+      <tr class='endOfGroup'><td class='label'>Auto gate timeout</td><td><div><span id='autoGateTimeout' class='autoGateTimeout editable'></span></div></td></tr>
+
+      <tr><td class='label'>Auto fill in trigger</td><td><div><span id='autoFillInTrigger' class='autoFillInTrigger editable'></span></div></td></tr>
+      <tr><td class='label'>Auto remove trigger</td><td><div><span id='autoRemoveTrigger' class='autoRemoveTrigger editable'></span></div></td></tr>
+      <tr><td class='label'>Default trigger type</td><td><div><span id='defaultTriggerType' class='defaultTriggerType editable'></span></div></td></tr>
+      <tr class='endOfGroup'><td class='label'>Trigger delay reach</td><td><div><span id='triggerDelayReach' class='triggerDelayReach editable'></span></div></td></tr>
+
+      <tr class='endOfGroup'><td class='label'>Reset FX on seq stop</td><td><div><span id='resetFxOnSeqStop' class='resetFxOnSeqStop editable'></span></div></td></tr>
+
+      <!-- Just for the Pattern Screen -->
+      <!-- use better name, like maybe "Highlight Nth Pattern step" instead of "Row highlight amount"-->
+      <tr><td class='label'>Highlight Nth step</td><td><div><span id='rowHighlightAmount' class='rowHighlightAmount editable'></span></div></td></tr>
+      <!-- use better name, like "Pattern step jump" instead of "Edit Steps" -->
+      <tr><td class='label'>Pattern step jump</td><td><div><span id='editSteps' class='editSteps editable'></span></div></td></tr>
+      <!-- FIXME use better name instead of 'Pattern scroll'. This is for the Pattern window for when playing. Auto scrolls to show current row being played. Useful only when playing but not editing a pattern -->
+      <tr><td class='label'>Auto scroll pattern</td><td><div><span id='patternScroll' class='patternScroll editable'></span></div></td></tr>
+      <tr><td class='label'>New Pattern length</td><td><div><span id='newPatternLength' class='newPatternLength editable'></span></div></td></tr>
+      <tr class='endOfGroup'><td class='label'>Pattern launch type</td><td><div><span id='patternLaunchType' class='patternLaunchType editable'></span></div></td></tr>
+
+      <tr class='endOfGroup'><td class='label'>Default Groove ticks</td><td><div><span id='defaultGrooveTicks' class='defaultGrooveTicks editable'></span></div></td></tr>
+
+      <!-- not needed because should always show decimal values if at all possible
+      <tr><td class='label'>Show decimal values</td><td><div><span id='showDecimalValues' class='showDecimalValues editable'></span></div></td></tr>
+      -->
+
+      <!-- OK to enter is such a useful feature it should always be on
+      <tr><td class='label'>Ok to enter Screens</td><td><div><span id='okToEnterScreens' class='okToEnterScreens editable'></span></div></td></tr>
+      -->
+      
+      <tr><td class='label'>Confirm Seq. Stop</td><td><div><span id='confirmSeqStop' class='confirmSeqStop editable'></span></div></td></tr>
+
+      <!-- FIXME use 'Play FX when editing' instead of 'Play editing FX'. This is for the Pattern or Table screens -->
+      <tr class='endOfGroup'><td class='label'>Play FX when editing</td><td><div><span id='playEditingFx' class='playEditingFx editable'></span></div></td></tr>
+      
+      <tr class='endOfGroup'><td class='label'>Calibrate</td><<td><span id='calibrate' class='editable'>--></span></td></tr>
+
+      <tr><td class='label'>Video Expander</td><td><div><span id='videoExpander' class='videoExpander editable'></span></div></td></tr>
+      <tr><td class='label'>Midi Expander</td><td><div><span id='midiExpander' class='midiExpander editable'></span></div></td></tr>
+      <tr><td class='label'>Sega Gamepad Setup</td><<td><span id='segaGamepadSetup' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Expander FW update</td><<td><span id='expanderFirmwareUpdate' class='editable'>--></span></td></tr>
+
+      <tr><td class='label'>Compact Patterns</td><td><span id='compacePatterns' class='editable'>--></span></td></tr>
+      <tr><td class='label'>Compact Tables</td><td><span id='compaceTables' class='editable'>--></span></td></tr>
+      <tr class='endOfGroup'><td class='label'>Compact Patches</td><td><span id='compacePatches' class='editable'>--></span></td></tr>
+
+      <!-- Just for internal use -->
+      <tr><td class='label'>Debug</td><td><div><span id='debug' class='debug editable'></span></div></td></tr>
+      <!-- Soft reset only works sif in debug mode -->
+      <tr class='endOfGroup'><td class='label'>Soft reset</td><<td><span id='softReset' class='editable'>--></span></td></tr>
+      
+      <tr><td class='label'></td><td id='closeMenu' class='editable'>Close Menu</td></tr>
+      
+      <tr class='helpRow'><td id='projectMenuHelp' class='help' colspan='2'></td></tr>
+    </table>
+  </div>
 
 
   <!--------------------------------------------------------------------------------->

@@ -7,7 +7,7 @@
     width: 701px;
 }
 
-#projectMenu #tempoTd {
-    /* Need to set the max width of the td for the tempo since it changes size and don't want the whole table to be adjusted */
+#projectMenu #scaleTd {
+    /* Need to set the max width of the td for the scale since it changes size and don't want the whole table to be adjusted */
     width: 275px;
 }
