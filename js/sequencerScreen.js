@@ -25,7 +25,8 @@ class Pattern {
   getId() {
     return this.id;
   }
-  
+
+  // Returns name of project so that it can be displayed
   getName() {
     return this.name ? this.name : "unnamed";
   }
@@ -51,7 +52,7 @@ let sequencerObject = {
   cursorTrack: 0,
 
   // For handling scrolling
-  rowNumOfFirstRow: 0,
+  rowNumOfFirstVisibleRow: 0,
   
   // Note that the constants are not yet set when the arrays are created. So need to create
   // the arrays in a constructor method. The nulls are just a placeholders.
@@ -118,7 +119,7 @@ let sequencerObject = {
     this.moveCursor(this.cursorRow, this.cursorTrack);
 
     // Make sure everything to do with scrolling is set
-    this.displayScrollingHints(this.rowNumOfFirstRow);
+    this.displayScrollingHints(this.rowNumOfFirstVisibleRow);
 
     // Handle visibility of special elements in the right side panel
     this.elementChangedSoUpdateVisibility();
@@ -128,12 +129,12 @@ let sequencerObject = {
   /* After cursor is moved then need to possibly scroll the screen */
   scrollScreenIfNeeded: function(newRow) {
     // If need to scroll down
-    if (newRow >= this.rowNumOfFirstRow + this.VISIBLE_ROWS) {
+    if (newRow >= this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS) {
       // Scroll down. First determine how many rows to scroll
-      let newRowOfFirstRow = newRow - this.VISIBLE_ROWS + 1;
+      let newRowOfFirstVisibleRow = newRow - this.VISIBLE_ROWS + 1;
 
       // Hide the top rows that were visible but no longer should be
-      for (var row = this.rowNumOfFirstRow; row < newRowOfFirstRow; ++row) {
+      for (var row = this.rowNumOfFirstVisibleRow; row < newRowOfFirstVisibleRow; ++row) {
         console.log('hiding row ' + row);
         // Hide that row
         let rowToHide = this.rows[row];
@@ -141,7 +142,7 @@ let sequencerObject = {
       }
 
       // Make visible the bottom rows that were not visible but now should be
-      for (var row = this.rowNumOfFirstRow + this.VISIBLE_ROWS; row <= newRow; ++row) {
+      for (var row = this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS; row <= newRow; ++row) {
         console.log('making visible row ' + row);
         // Make that row visible
         let rowToHide = this.rows[row];
@@ -149,13 +150,13 @@ let sequencerObject = {
       }
       
       // Remember where scrolled to
-      this.rowNumOfFirstRow = newRowOfFirstRow;  
-    } else if (newRow < this.rowNumOfFirstRow) {
+      this.rowNumOfFirstVisibleRow = newRowOfFirstVisibleRow;  
+    } else if (newRow < this.rowNumOfFirstVisibleRow) {
       // scroll up
-      let newRowOfFirstRow = newRow;
+      let newRowOfFirstVisibleRow = newRow;
 
       // Hide the bottom rows
-      for (var row = newRow + this.VISIBLE_ROWS; row < this.rowNumOfFirstRow + this.VISIBLE_ROWS; ++row) {
+      for (var row = newRow + this.VISIBLE_ROWS; row < this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS; ++row) {
         console.log('hiding row ' + row);
         // Hide that row
         let rowToHide = this.rows[row];
@@ -163,7 +164,7 @@ let sequencerObject = {
       }
 
       // Make visible the top rows
-      for (var row = newRow; row < this.rowNumOfFirstRow; ++row) {
+      for (var row = newRow; row < this.rowNumOfFirstVisibleRow; ++row) {
         console.log('making visible row ' + row);
         // Make that row visible
         let rowToHide = this.rows[row];
@@ -171,11 +172,11 @@ let sequencerObject = {
       }
 
       // Remember where scrolled to
-      this.rowNumOfFirstRow = newRowOfFirstRow;  
+      this.rowNumOfFirstVisibleRow = newRowOfFirstVisibleRow;  
     }
 
     // Update UI to indicate whether can scroll sequences window
-    this.displayScrollingHints(this.rowNumOfFirstRow);
+    this.displayScrollingHints(this.rowNumOfFirstVisibleRow);
   },
 
   /* For displaying info indicating whether can scroll up or down */
