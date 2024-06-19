@@ -109,9 +109,19 @@ let projectMenuObject = {
         }
     },
 
-    /* There is no context menu for the Project Menu so simply do nothing */
-    displayContextMenu: function() {
-        // do nothing
+    /* Updates help info. Called by menuSelectRow(). */
+    newRowSelected: function() {
+         // Determine current editable value and its ID.
+        const id = menuIdOfEditableElement(this);
+
+        // Handle depending on ID of the current editable value
+        switch(id) {
+            case 'closeMenu':
+                menuHelpStr('[OK] or [<-] to close', this);
+                break;
+            default:
+                menuHelpStr('', this);
+        }
     },
 
     /* Scroll down */

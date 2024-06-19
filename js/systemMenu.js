@@ -27,10 +27,22 @@ let systemMenuObject = {
                 return null;
         }
     },
-    /* There is no context menu for the System Menu so do nothing */
-    displayContextMenu: function() {
-    },
 
+    /* Updates help info. Called by menuSelectRow(). */
+    newRowSelected: function() {
+         // Determine current editable value and its ID.
+        const id = menuIdOfEditableElement(this);
+
+        // Handle depending on ID of the current editable value
+        switch(id) {
+            case 'closeMenu':
+                menuHelpStr('[OK] or [<-] to close', this);
+                break;
+            default:
+                menuHelpStr('', this);
+        }
+    },
+    
     /* Scroll down */
     upArrowClicked: function(shiftKey) {
         menuSelectRow(this.currentRow - 1, this);        

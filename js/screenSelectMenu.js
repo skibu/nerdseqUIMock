@@ -1,6 +1,6 @@
 function displayScreenSelectMenu() {
     // Initialize object
-    screenSelectMenuObject.initialize();
+    menuInitialize(screenSelectMenuObject);
     
     makeMenuVisible(screenSelectMenuObject);
 }
@@ -11,73 +11,9 @@ let screenSelectMenuObject = {
         // 1 based since row 0 is the header
     currentRow: null,
 
-    initialize: function() {
-        // Make sure a row is highlighted
-        this.selectRow();
-    },
-
-    /* Displays specified string in the help element */
-    helpStr: function(str) {
-      // If blank string used that can cause the html element to resize. Therefore use
-      // '&nbsp;' for that situation
-      const strToUse = (str == null || str === '') ? '&nbsp;' : str;
-    
-      $('#screenSelectMenuHelp').html(strToUse); 
-    },
-    
-    // Makes the specified row the active one
-    selectRow: function (rowNum) {
-        // If haven't used menu before then set
-        if (!this.currentRow) {
-            // If rowNum not set just use first eleemnt of menu
-            if (!rowNum)
-                rowNum = 1;
-
-            // Set currentRow to 2 so that it is different from rowNum so that classes get set
-            this.currentRow = 2;
-        } else {
-            // currentRow already set so use it if rowNum not specified
-            if (!rowNum)
-                rowNum = this.currentRow;
-        }
-        
-        // Get the row html elements of the table
-        const rowElements = $('#screenSelectMenu tr');
-
-        // Limit row number to valid range of 1 <> numberOfRows-1
-        rowNum = Math.min(rowElements.length - 2, Math.max(1, rowNum));
-
-        // If row is changing then ...
-        if (rowNum != this.currentRow) {
-            // array of editable cells doesn't include first tr. Therefore ues zero based index
-            const editableCells = rowElements.find('.editable');
-                        
-            // Restore the previously selected row to its initial look
-            rowElements[this.currentRow].classList.remove('menuSelectedItem');
-            const currentEditableElement = editableCells[this.currentRow-1];
-            currentEditableElement.classList.remove('selected');
-            
-            // Select the new row
-            this.currentRow = rowNum;
-            rowElements[this.currentRow].classList.add('menuSelectedItem');
-            const newEditableElement = editableCells[this.currentRow-1];
-            newEditableElement.classList.add('selected');
-        }
-    },
-
-    /* Returns id of the html element that is currently being edited */
-    idOfEditableElement: function() {
-        // Determine current editable value and its ID.
-        const rowElements = $('#screenSelectMenu tr');
-        const editableCells = rowElements.find('.editable');
-        const currentEditableElement = editableCells[this.currentRow-1];
-        const id = currentEditableElement.id;
-        return id;        
-    },
-
     /* User wants to go to specified screen */
     gotoScreen: function() {
-        const id = this.idOfEditableElement();
+        const id = menuIdOfEditableElement(this);;
         if (id === 'closeMenu') {
             // So that next time Project menu opened won't still be selecting the Close Window buttonn
             this.selectRow(1);
@@ -131,19 +67,30 @@ let screenSelectMenuObject = {
             }
         }
     },
-    
-    /* There is no context menu for the Screen Select Menu so do nothing */
-    displayContextMenu: function() {
-    },
 
+    /* Updates help info. Called by menuSelectRow(). */
+    newRowSelected: function() {
+         // Determine current editable value and its ID.
+        const id = menuIdOfEditableElement(this);
+
+        // Handle depending on ID of the current editable value
+        switch(id) {
+            case 'closeMenu':
+                menuHelpStr('[OK] or [<-] to close', this);
+                break;
+            default:
+                menuHelpStr('', this);
+        }
+    },
+    
     /* Scroll down */
     upArrowClicked: function(shiftKey) {
-        this.selectRow(this.currentRow - 1);        
+        menuSelectRow(this.currentRow - 1, this);        
     },
 
     /* Scroll up */
     downArrowClicked: function(shiftKey) {
-        this.selectRow(this.currentRow + 1);
+        menuSelectRow(this.currentRow + 1, this);
     },
 
     /* Hide the menu and have the last screen get UI events */

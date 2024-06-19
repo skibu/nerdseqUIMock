@@ -37,6 +37,10 @@ function menuSelectRow(rowNum, menuObject) {
         rowElements[menuObject.currentRow].classList.add('menuSelectedItem');
         const newEditableElement = editableCells[menuObject.currentRow-1];
         newEditableElement.classList.add('selected');
+
+        // Let the menu know that new row selected so can display help info or something
+        if (menuObject.newRowSelected)
+            menuObject.newRowSelected();
     }
 }
     
@@ -46,7 +50,7 @@ function menuHelpStr(str, menuObject) {
   // '&nbsp;' for that situation
   const strToUse = (str == null || str === '') ? '&nbsp;' : str;
 
-  $('#' + menuObject.elementId + ' #help').html(strToUse); 
+  $('#' + menuObject.elementId + ' .help').html(strToUse); 
 }
 
 function menuInitialize (menuObject) {

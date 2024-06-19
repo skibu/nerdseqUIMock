@@ -5,10 +5,10 @@
   font-family: "Space Mono", monospace;
   /* font-weight: bold; */ /* Though bold matches zoomed in picture, normal weight looks better */
   font-style: normal;
-  font-size: 28px;
+  font-size: 27px;
 
   /* Even using bold, need to add letter spacing to Space Mono to match the actual NerdSeq display */
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   
   background: var(--tableBackgroundColor);
   color: white; /* default font color. Should be overridden with a variable color */
@@ -69,12 +69,7 @@
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
-  border-left: 3px solid var(--borderColor);
-}
-
-.menu .screenTitle {
-  /* Use different color for menu titles */
-  color: var(--menuTitleColor);
+  border-left: 3px solid;
 }
 
 .label {

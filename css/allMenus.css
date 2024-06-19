@@ -9,6 +9,10 @@
 .menuContainer .screenTitle  {
     padding-left: 5px;
     padding-right: 5px;
+
+    /* Use different color for menu titles. This requires also setting border color */
+    color: var(--menuTitleColor);
+    border-color: var(--menuBorderColor);
 }
 
 .menuContainer .endOfGroup{
@@ -25,7 +29,7 @@
   line-height: 24px;
 }
 
-.menuContainer td {
+.menuContainer .editableTd {
     /* To make the .editable elements have proper height when using selected color need to hide the overflow */
     overflow: hidden;
 }
