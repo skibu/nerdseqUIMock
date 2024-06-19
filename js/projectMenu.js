@@ -2,7 +2,7 @@
 
 function displayProjectMenu() {
     // Initialize object
-    projectMenuObject.initialize();
+    menuInitialize(projectMenuObject);
 
     // Make Project Menu visible
     makeMenuVisible(projectMenuObject);
@@ -13,61 +13,7 @@ let projectMenuObject = {
 
     // 1 based since row 0 is the header
     currentRow: null,
-
-    initialize: function() {
-        // Make sure a row is highlighted
-        this.selectRow();
-    },
-
-      /* Displays specified string in the help element */
-    helpStr: function(str) {
-      // If blank string used that can cause the html element to resize. Therefore use
-      // '&nbsp;' for that situation
-      const strToUse = (str == null || str === '') ? '&nbsp;' : str;
     
-      $('#projectMenuHelp').html(strToUse); 
-    },
-    
-    // Makes the specified row the active one
-    selectRow: function (rowNum) {
-        // If haven't used menu before then set
-        if (!this.currentRow) {
-            // If rowNum not set just use first eleemnt of menu
-            if (!rowNum)
-                rowNum = 1;
-
-            // Set currentRow to 2 so that it is different from rowNum so that classes get set
-            this.currentRow = 2;
-        } else {
-            // currentRow already set so use it if rowNum not specified
-            if (!rowNum)
-                rowNum = this.currentRow;
-        }
-        
-        // Get the row html elements of the table
-        const rowElements = $('#projectMenu tr');
-
-        // Limit row number to valid range of 1 <> numberOfRows-1
-        rowNum = Math.min(rowElements.length - 2, Math.max(1, rowNum));
-
-        // If row is changing then ...
-        if (rowNum != this.currentRow) {
-            // array of editable cells doesn't include first tr. Therefore ues zero based index
-            const editableCells = rowElements.find('.editable');
-                        
-            // Restore the previously selected row to its initial look
-            rowElements[this.currentRow].classList.remove('menuSelectedItem');
-            const currentEditableElement = editableCells[this.currentRow-1];
-            currentEditableElement.classList.remove('selected');
-            
-            // Select the new row
-            this.currentRow = rowNum;
-            rowElements[this.currentRow].classList.add('menuSelectedItem');
-            const newEditableElement = editableCells[this.currentRow-1];
-            newEditableElement.classList.add('selected');
-        }
-    },
-
     handleTempoChange: function(increment, shiftKey) {
         // Set the new value and update UI
         _project.setTempo(_project.getTempo() + increment * (!shiftKey ? 1 : 10));
@@ -76,9 +22,9 @@ let projectMenuObject = {
     handleSwingChange: function(increment, shiftKey) {
         // Can only set swing if ClockIn is set to Internal
         if (_project.getClockIn() !== 'Internal') {
-            this.helpStr('Clock In must be Internal');
+            menuHelpStr('Clock In must be Internal', this);
             // Clear help message after 2.5 seconds
-            setTimeout(() => { this.helpStr(''); }, 2500);
+            setTimeout(() => { menuHelpStr('', this); }, 2500);
             return;
         }
         
@@ -122,21 +68,11 @@ let projectMenuObject = {
         // the item. So call its own display method for this param.
         sequencerObject.elementChangedSoUpdateVisibility();
     },
-
-    /* Returns id of the html element that is currently being edited */
-    idOfEditableElement: function() {
-        // Determine current editable value and its ID.
-        const rowElements = $('#projectMenu tr');
-        const editableCells = rowElements.find('.editable');
-        const currentEditableElement = editableCells[this.currentRow-1];
-        const id = currentEditableElement.id;
-        return id;        
-    },
     
     /* Handles incrementing or decrementing the curreent editable value */
     upOrDownClicked: function(increment, shiftKey) {
         // Determine current editable value and its ID.
-        const id = this.idOfEditableElement();
+        const id = menuIdOfEditableElement(this);
 
         // Handle depending on ID of the current editable value
         switch(id) {
@@ -180,12 +116,12 @@ let projectMenuObject = {
 
     /* Scroll down */
     upArrowClicked: function(shiftKey) {
-        this.selectRow(this.currentRow - 1);        
+        menuSelectRow(this.currentRow - 1, this);        
     },
 
     /* Scroll up */
     downArrowClicked: function(shiftKey) {
-        this.selectRow(this.currentRow + 1);
+        menuSelectRow(this.currentRow + 1, this);
     },
 
     /* Hide the menu and have the last screen get UI events */
@@ -203,12 +139,6 @@ let projectMenuObject = {
 
     /* If on Close Menu row then will close the menu. Otherwise does nothing */
     okClicked: function(shiftKey) { 
-        const id = this.idOfEditableElement();
-        if (id === 'closeMenu') {
-            // So that next time Project menu opened won't still be selecting the Close Window buttonn
-            this.selectRow(1);
-            
-            closeMenuAndRestoreScreen(this);
-        }
+        menuOkClicked(shiftKey, this);
     },
 };
