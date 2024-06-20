@@ -1,12 +1,35 @@
 /* css for all the menus */
 
-
+/* The menus are in divs called menuContainer so that can cover up the existing screen */
 .menuContainer {
     /* Want menus to be on top of other screens no matter what order they were created */
     z-index: 50;
+
+    /* For menus still displaying the previous window. But grey it out */
+    background-color: rgb(0,0,0,0.6);
 }
 
-.menuContainer .screenTitle  {
+.menu {
+  border: 4px solid var(--menuBorderColor);
+
+  background-color: var(--menuBackgroundColor);
+
+  /* center the menu within the div */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* For strange reason need to specify border color for rows of menus explicitly */
+.menu tr {
+  border-color: var(--menuBorderColor) !important;
+}
+
+/* For highlighting menu row of currently selected item */
+.menuSelectedItem {
+  background-color: var(--menuSelectedItemBackgroundColor);
+}
+
+.menu .screenTitle  {
     padding-left: 5px;
     padding-right: 5px;
 
@@ -15,44 +38,52 @@
     border-color: var(--menuBorderColor);
 }
 
-.menuContainer .endOfGroup{
+.menu .endOfGroup{
     border-bottom: 1px solid;    
 }
 
 /* projectLabel is special case where don't want border */
-.menuContainer #projectLabel {
+.menu #projectLabel {
     border-right: 0px;
 }
 
-.menuContainer tr {
+.menu tr {
   /* to get all rows to have small height */
   line-height: 24px;
 }
 
-.menuContainer .editableTd {
+.menu .editableTd {
     /* To make the .editable elements have proper height when using selected color need to hide the overflow */
     overflow: hidden;
+    
+    /* Set width to what is needed for "Close Menu" so that right column doesn't resize when scrolling */
+    width: 217px;
 }
 
-.menuContainer .editable {
+.menu .editable {
     /* Having bit of horizontal padding makes it look much nicer */
     padding-left: 8px;
     padding-right: 2px;
 }
 
-.menuContainer .helpRow{
+.menu .helpRow{
     border-top: 3px solid;
     /* So help row takes proper height even when no info to display */
     height: 32px;
 }
 
-.menuContainer #projectLabelId {
+.menu #projectLabelId {
     border-right: 3px solid var(--menuBorderColor);
 }
 
-.menuContainer .label {
+.menu .label {
     padding-left: 8px;
     padding-right: 4px;
 
     border-right: 1px solid var(--menuBorderColor);
+}
+
+/* Just for the systemMenu */
+#systemMenu .menu {
+    width: 701px;
 }

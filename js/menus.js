@@ -1,41 +1,37 @@
 // JS for all menus
 
 // Makes the specified row the active one. The menuObject manages the currentRow param.
+// rowNum param is zero based.
 function menuSelectRow(rowNum, menuObject) {
-    // If haven't used menu before then set
-    if (!menuObject.currentRow) {
-        // If rowNum not set just use first eleemnt of menu
-        if (!rowNum)
-            rowNum = 1;
+    // If haven't used menu before then set rowNum and currentRow properly
+    if (menuObject.currentRow === null || rowNum === null) {
+        // Select first row (rowNum is zero based)
+        rowNum = 0;
 
-        // Set currentRow to 2 so that it is different from rowNum so that classes get set
-        menuObject.currentRow = 2;
-    } else {
-        // currentRow already set so use it if rowNum not specified
-        if (!rowNum)
-            rowNum = menuObject.currentRow;
+        // Set currentRow to 1 so that it is different from rowNum so that classes get set
+        menuObject.currentRow = 1;
     }
     
-    // Get the row html elements of the table
+    // Get the row html elements of the table. Note that this includes the header.
     const rowElements = $('#' + menuObject.elementId + ' tr');
 
-    // Limit row number to valid range of 1 <> numberOfRows-1
-    rowNum = Math.min(rowElements.length - 2, Math.max(1, rowNum));
+    // Limit row number to valid range of 0 <> numberOfRows-3 (the header and help rows don't count)
+    rowNum = Math.min(rowElements.length - 3, Math.max(0, rowNum));
 
     // If row is changing then ...
     if (rowNum != menuObject.currentRow) {
-        // array of editable cells doesn't include first tr. Therefore ues zero based index
+        // array of editable cells doesn't include first tr. Therefore uses zero based index
         const editableCells = rowElements.find('.editable');
                     
         // Restore the previously selected row to its initial look
-        rowElements[menuObject.currentRow].classList.remove('menuSelectedItem');
-        const currentEditableElement = editableCells[menuObject.currentRow-1];
+        rowElements[menuObject.currentRow+1].classList.remove('menuSelectedItem');
+        const currentEditableElement = editableCells[menuObject.currentRow];
         currentEditableElement.classList.remove('selected');
         
         // Select the new row
         menuObject.currentRow = rowNum;
-        rowElements[menuObject.currentRow].classList.add('menuSelectedItem');
-        const newEditableElement = editableCells[menuObject.currentRow-1];
+        rowElements[menuObject.currentRow+1].classList.add('menuSelectedItem');
+        const newEditableElement = editableCells[menuObject.currentRow];
         newEditableElement.classList.add('selected');
 
         // Let the menu know that new row selected so can display help info or something
@@ -64,7 +60,7 @@ function menuIdOfEditableElement(menuObject) {
     // Determine current editable value and its ID.
     const rowElements = $('#' + menuObject.elementId + ' tr');
     const editableCells = rowElements.find('.editable');
-    const currentEditableElement = editableCells[menuObject.currentRow-1];
+    const currentEditableElement = editableCells[menuObject.currentRow];
     const id = currentEditableElement.id;
     return id;        
 }
