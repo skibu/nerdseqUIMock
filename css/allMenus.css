@@ -87,3 +87,22 @@
 #systemMenu .menu {
     width: 701px;
 }
+
+/* For setting style of a table row to indicate that can scroll. */
+.menu .menuBorderIndicatingCanScrollUp {
+  border-bottom-style: dotted;
+}
+.menu .menuBorderIndicatingCanScrollDown {
+  border-top-style: dotted;
+}
+
+#systemMenu .scrollbar {
+    position: absolute; 
+    right: 31px; /* From the full screen, not just from the menu */
+    width: 4px;
+
+    background-color: var(--menuScrollbarColor);
+
+    /* Make sure scrollbar always on top of menu */
+    z-index: 99;
+}

@@ -157,7 +157,6 @@ let sequencerObject = {
 
       // Hide the bottom rows
       for (var row = newRow + this.VISIBLE_ROWS; row < this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS; ++row) {
-        console.log('hiding row ' + row);
         // Hide that row
         let rowToHide = this.rows[row];
         rowToHide.style.display = 'none';
@@ -165,7 +164,6 @@ let sequencerObject = {
 
       // Make visible the top rows
       for (var row = newRow; row < this.rowNumOfFirstVisibleRow; ++row) {
-        console.log('making visible row ' + row);
         // Make that row visible
         let rowToHide = this.rows[row];
         rowToHide.style.display = 'table-row';  

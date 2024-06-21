@@ -13,7 +13,7 @@ let systemMenuObject = {
     currentRow: null,
 
     // For handling scrolling
-    rows: null,  // The html tr elements to be hidden or made visible
+    rows: null,  // Array of the html tr elements to be hidden or made visible. Does not include header or help rows.
     rowNumOfFirstVisibleRow: 0,   
     VISIBLE_ROWS: 16,
 
@@ -59,7 +59,6 @@ let systemMenuObject = {
         
           // Hide the top rows that were visible but no longer should be
           for (var row = this.rowNumOfFirstVisibleRow; row < newRowOfFirstVisibleRow; ++row) {
-            console.log('hiding row ' + row);
             // Hide that row
             let rowToHide = this.rows[row];
             rowToHide.style.display = 'none';
@@ -67,7 +66,6 @@ let systemMenuObject = {
         
           // Make visible the bottom rows that were not visible but now should be
           for (var row = this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS; row <= newRow; ++row) {
-            console.log('making visible row ' + row);
             // Make that row visible
             let rowToHide = this.rows[row];
             rowToHide.style.display = 'table-row';  
@@ -81,7 +79,6 @@ let systemMenuObject = {
         
           // Hide the bottom rows
           for (var row = newRow + this.VISIBLE_ROWS; row < this.rowNumOfFirstVisibleRow + this.VISIBLE_ROWS; ++row) {
-            console.log('hiding row ' + row);
             // Hide that row
             let rowToHide = this.rows[row];
             rowToHide.style.display = 'none';
@@ -89,7 +86,6 @@ let systemMenuObject = {
         
           // Make visible the top rows
           for (var row = newRow; row < this.rowNumOfFirstVisibleRow; ++row) {
-            console.log('making visible row ' + row);
             // Make that row visible
             let rowToHide = this.rows[row];
             rowToHide.style.display = 'table-row';  
@@ -104,20 +100,37 @@ let systemMenuObject = {
     },
 
     /* For displaying info indicating whether can scroll up or down */
-    displayScrollingHints: function(newRow) {
-        const seqTbl = $('#sequencesTable')[0];
+    displayScrollingHints: function(rowNumOfFirstVisibleRow) {
+        // Get dimensions of the titleRow and the helpRow
+        const titleRow = $('#' + this.elementId + ' .titleRow')[0];
+        var titleRowRect = titleRow.getBoundingClientRect();
+
+        const helpRow = $('#' + this.elementId + ' .helpRow')[0];
+        var helpRowRect = helpRow.getBoundingClientRect();
+
+        // Determine how much height is available, where the top should be, and what the height of scrollbar should be
+        const MARGIN = 5; // Want a bit of space
+        const availableHeight = helpRowRect.top - titleRowRect.bottom - 2*MARGIN;
         
-        // Handle whether cqn scroll up
-        if (newRow != 0)
-          seqTbl.classList.add('borderIndicatingCanScrollUp');
-        else
-          seqTbl.classList.remove('borderIndicatingCanScrollUp');
+        const top = (titleRowRect.bottom - titleRowRect.top) + MARGIN + (this.rowNumOfFirstVisibleRow / this.rows.length) * availableHeight;
+        const height = availableHeight * this.VISIBLE_ROWS / this.rows.length;
+
+        // Set the top and height of scrollbar
+        const scrollbar = $('#' + this.elementId + ' .scrollbar')[0];
+        scrollbar.style.top = top + 'px';
+        scrollbar.style.height = height + 'px';
         
-        // Handle whether can scroll down
-        if (newRow < this.ROWS - this.VISIBLE_ROWS)
-          seqTbl.classList.add('borderIndicatingCanScrollDown');
+        // Display borders appropriately depending on whether cqn scroll up
+        if (rowNumOfFirstVisibleRow != 0)
+          titleRow.classList.add('menuBorderIndicatingCanScrollUp');
         else
-          seqTbl.classList.remove('borderIndicatingCanScrollDown');
+          titleRow.classList.remove('menuBorderIndicatingCanScrollUp');
+        
+        // on whether can scroll down
+        if (rowNumOfFirstVisibleRow < this.rows.length - this.VISIBLE_ROWS)
+          helpRow.classList.add('menuBorderIndicatingCanScrollDown');
+        else
+          helpRow.classList.remove('menuBorderIndicatingCanScrollDown');
     },
 
     /* Updates help info. Called by menuSelectRow(). */
