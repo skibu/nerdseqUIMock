@@ -5,7 +5,7 @@
     /* Want menus to be on top of other screens no matter what order they were created */
     z-index: 50;
 
-    /* For menus still displaying the previous window. But grey it out */
+    /* For menus where previous window still displayed underneath, grey it out with semi-clear background */
     background-color: rgb(0,0,0,0.6);
 }
 
@@ -19,14 +19,9 @@
   margin-right: auto;
 }
 
-/* For strange reason need to specify border color for rows of menus explicitly */
-.menu tr {
-  border-color: var(--menuBorderColor) !important;
-}
-
-/* For highlighting menu row of currently selected item */
-.menuSelectedItem {
-  background-color: var(--menuSelectedItemBackgroundColor);
+.menu .titleRow {
+    /* Need to set border-color here because will be setting it for every row later */
+    border-bottom: 3px solid var(--menuBorderColor)
 }
 
 .menu .screenTitle  {
@@ -38,8 +33,19 @@
     border-color: var(--menuBorderColor);
 }
 
+/* For highlighting menu row of currently selected item */
+.menuSelectedItem {
+    background-color: var(--menuSelectedItemBackgroundColor);
+}
+
+.menu tr {
+    /* To make all rows same size so that height of table doesn't resize when scrolling, add a border-bottom to all rows */
+    border-bottom: 1px solid rgb(0,250,0,0.0);
+}
+
+/* Draw border line using menuBorderColor at bottom of .endOfGroup rows */
 .menu .endOfGroup{
-    border-bottom: 1px solid;    
+    border-bottom: 1px solid var(--menuBorderColor);
 }
 
 /* projectLabel is special case where don't want border */
@@ -48,8 +54,8 @@
 }
 
 .menu tr {
-  /* to get all rows to have small height */
-  line-height: 24px;
+    /* to get all rows to have small height */
+    line-height: 24px;
 }
 
 .menu .editableTd {
@@ -58,16 +64,20 @@
     
     /* Set width to what is needed for "Close Menu" so that right column doesn't resize when scrolling */
     width: 217px;
+
+    padding: 0px;
 }
 
 .menu .editable {
     /* Having bit of horizontal padding makes it look much nicer */
     padding-left: 8px;
     padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 1px;
 }
 
 .menu .helpRow{
-    border-top: 3px solid;
+    border-top: 3px solid var(--menuBorderColor);
     /* So help row takes proper height even when no info to display */
     height: 32px;
 }
@@ -79,7 +89,9 @@
 .menu .label {
     padding-left: 8px;
     padding-right: 4px;
-
+    padding-top: 0px;
+    padding-bottom: 1px;
+    
     border-right: 1px solid var(--menuBorderColor);
 }
 
@@ -90,10 +102,10 @@
 
 /* For setting style of a table row to indicate that can scroll. */
 .menu .menuBorderIndicatingCanScrollUp {
-  border-bottom-style: dotted;
+    border-bottom-style: dotted;
 }
 .menu .menuBorderIndicatingCanScrollDown {
-  border-top-style: dotted;
+    border-top-style: dotted;
 }
 
 #systemMenu .scrollbar {
