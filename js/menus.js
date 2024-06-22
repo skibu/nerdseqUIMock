@@ -39,19 +39,29 @@ function menuSelectRow(rowNum, menuObject) {
             menuObject.newRowSelected();
     }
 }
-    
-/* Displays specified string in the help element */
-function menuHelpStr(str, menuObject) {
-  // If blank string used that can cause the html element to resize. Therefore use
-  // '&nbsp;' for that situation
-  const strToUse = (str == null || str === '') ? '&nbsp;' : str;
 
-  $('#' + menuObject.elementId + ' .help').html(strToUse); 
+const MAX_HELP_STR_LENGTH = 33;
+
+/* Displays specified string in the help element. Can display 33 ir 34 characters */
+function menuHelpStr(str, menuObject) {
+    // If blank string used that can cause the html element to resize. Therefore use
+    // '&nbsp;' for that situation
+    const strToUse = (str == null || str === '') ? '&nbsp;' : str;
+
+    // Want to know if a help str has been defined that is too long
+    if (strToUse.length > MAX_HELP_STR_LENGTH)
+        alert('Warning: Menu help str "' + strToUse + '" is longer than limit of ' + MAX_HELP_STR_LENGTH + ' chars');
+        
+    $('#' + menuObject.elementId + ' .help').html(strToUse); 
 }
 
 function menuInitialize (menuObject) {
     // Make sure a row is highlighted
     menuSelectRow(null, menuObject);
+
+    // Call the objects initialize function if there is one defined
+    if (menuObject.initialize)
+        menuObject.initialize();
 }
 
 

@@ -17,6 +17,30 @@ let systemMenuObject = {
     rowNumOfFirstVisibleRow: 0,   
     VISIBLE_ROWS: 16,
 
+    /* Initializes the UI with all the editable values, setting them to their default value.
+       Called automatically at initialization by menuInitialize() */
+    initialize: function() {
+        this.handleVideoExpanderChange();
+    },
+        
+    videoExpander: 'OFF', // default
+    videoExpanderValues: ['OFF', 'USB', 'Clone ==>'],
+    getVideoExpanderIndex: function() { return this.videoExpanderValues.indexOf(this.videoExpander); },
+    getVideoExpander: function() { return this.videoExpander; },
+    
+    handleVideoExpanderChange: function(increment, shiftKey) {
+        // if not initializing
+        if (typeof increment === "number") {
+            // Limit the value and store it
+            let videoExpanderIndex = this.getVideoExpanderIndex() + increment;
+            videoExpanderIndex = Math.min(Math.max(videoExpanderIndex, 0), this.videoExpanderValues.length-1);
+            this.videoExpander = this.videoExpanderValues[videoExpanderIndex];
+        }
+        
+        // Update UI. Using className since there could be several elements that need to be updated
+        $('.videoExpander').html(this.getVideoExpander());
+    },
+    
     /* Handles incrementing or decrementing the curreent editable value */
     upOrDownClicked: function(increment, shiftKey) {
         // Determine current editable value and its ID.
@@ -24,8 +48,8 @@ let systemMenuObject = {
 
         // Handle depending on ID of the current editable value
         switch(id) {
-            case 'xxx':
-                this.handleTempoChange(increment, shiftKey);
+            case 'videoExpander':
+                this.handleVideoExpanderChange(increment, shiftKey);
                 break;
             default:
                 alert("systemMenu.js error: Don't have list of values for id=" + id);
@@ -144,6 +168,9 @@ let systemMenuObject = {
         switch(id) {
             case 'closeMenu':
                 menuHelpStr('[OK] or [<-] to close', this);
+                break;
+            case 'videoExpander':
+                menuHelpStr('Setup of Video Expander module', this);
                 break;
             default:
                 menuHelpStr('', this);
