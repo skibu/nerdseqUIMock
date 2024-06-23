@@ -61,7 +61,6 @@ function closeMenuAndRestoreScreen(menuObject) {
 // Allow use of arrow keys on keyboard in place of the virtual arrow buttons on the NerdSeq.
 // Using the keyboard can be faster and more like using the mechanical buttons of the NerdSeq.
 document.addEventListener('keydown', function(event) {
-    console.log('keydown');
     const shiftKeyState = shiftKey(event);
     
     switch (event.key) {

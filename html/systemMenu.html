@@ -1,0 +1,235 @@
+<!--------------------------------------------------------------------------------->
+<!-- the System Menu (for the "Setup" button) -->
+<!--------------------------------------------------------------------------------->
+
+<!-- Dynamically load in associated files -->
+<script> 
+    $.getScript("js/systemMenu.js"); 
+</script>
+
+<div id='systemMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+        <div class='scrollbar'></div>
+        <tr class='titleRow'>
+            <td class='screenTitle' colspan=2>System Parameters Menu</td>
+        </tr>
+        <tr>
+            <td class='label'>Screensaver</td>
+            <td class='editableTd'>
+                <span id='screensaver' class='screensaver editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Autosave on Screensave</td>
+            <td class='editableTd'>
+                <span id='autosaveScreensave' class='autosaveScreensaver editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Autoload Project</td>
+            <td class='editableTd'>
+                <span id='autoloadProject' class='autoloadProject editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Show backup folder</td>
+            <td class='editableTd'>
+                <span id='showBackupFolder' class='showBackupFolder editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>User interface setup</td>
+            <td class='editableTd'>
+                <span id='userInterfaceSetup' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Key press delay</td>
+            <td class='editableTd'>
+                <span id='keyPressDelay' class='keyPressDelay editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Key hold repeat</td>
+            <td class='editableTd'>
+                <span id='keyHoldRepeat' class='keyHoldRepeat editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Navigation wrap</td>
+            <td class='editableTd'>
+                <span id='navigationWrap' class='navigationWrap editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Auto gate on note</td>
+            <td class='editableTd'>
+                <span id='autoGateOnNote' class='autoGateOnNote editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Auto gate timeout</td>
+            <td class='editableTd'>
+                <span id='autoGateTimeout' class='autoGateTimeout editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Auto fill in trigger</td>
+            <td class='editableTd'>
+                <span id='autoFillInTrigger' class='autoFillInTrigger editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Auto remove trigger</td>
+            <td class='editableTd'>
+                <span id='autoRemoveTrigger' class='autoRemoveTrigger editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Default trigger type</td>
+            <td class='editableTd'>
+                <span id='defaultTriggerType' class='defaultTriggerType editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Trigger delay reach</td>
+            <td class='editableTd'>
+                <span id='triggerDelayReach' class='triggerDelayReach editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Reset FX on seq stop</td>
+            <td class='editableTd'>
+                <span id='resetFxOnSeqStop' class='resetFxOnSeqStop editable'></span>
+            </td>
+        </tr>
+        <!-- Just for the Pattern Screen -->
+        <!-- use better name, like maybe "Highlight Nth Pattern step" instead of "Row highlight amount"-->
+        <tr>
+            <td class='label'>Highlight Nth step</td>
+            <td class='editableTd'>
+                <span id='rowHighlightAmount' class='rowHighlightAmount editable'></span>
+            </td>
+        </tr>
+        <!-- using better name, like "Pattern step jump" instead of "Edit Steps" -->
+        <tr>
+            <td class='label'>Pattern step jump</td>
+            <td class='editableTd'>
+                <span id='editSteps' class='editSteps editable'></span>
+            </td>
+        </tr>
+        <!-- using better name instead of 'Pattern scroll'. This is for the Pattern window for when playing. Auto scrolls to show current row being played. Useful only when playing but not editing a pattern -->
+        <tr>
+            <td class='label'>Auto scroll pattern</td>
+            <td class='editableTd'>
+                <span id='patternScroll' class='patternScroll editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>New Pattern length</td>
+            <td class='editableTd'>
+                <span id='newPatternLength' class='newPatternLength editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Pattern launch type</td>
+            <td class='editableTd'>
+                <span id='patternLaunchType' class='patternLaunchType editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Default Groove ticks</td>
+            <td class='editableTd'>
+                <span id='defaultGrooveTicks' class='defaultGrooveTicks editable'></span>
+            </td>
+        </tr>
+        <!-- not needed because should always show decimal values if at all possible
+      <tr><td class='label'>Show decimal values</td><td class='editableTd'><span id='showDecimalValues' class='showDecimalValues editable'></span></td></tr>
+      -->
+        <!-- OK to enter is such a useful feature it should always be on
+      <tr><td class='label'>Ok to enter Screens</td><td class='editableTd'><span id='okToEnterScreens' class='okToEnterScreens editable'></span></td></tr>
+      -->
+        <tr>
+            <td class='label'>Confirm Seq. Stop</td>
+            <td class='editableTd'>
+                <span id='confirmSeqStop' class='confirmSeqStop editable'></span>
+            </td>
+        </tr>
+        <!-- using 'Play FX when editing' instead of 'Play editing FX'. This is for the Pattern or Table screens -->
+        <tr class='endOfGroup'>
+            <td class='label'>Play FX when editing</td>
+            <td class='editableTd'>
+                <span id='playEditingFx' class='playEditingFx editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Calibrate</td>
+            <td class='editableTd'>
+                <span id='calibrate' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Video Expander</td>
+            <td class='editableTd'>
+                <span id='videoExpander' class='videoExpander editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Midi Expander</td>
+            <td class='editableTd'>
+                <span id='midiExpander' class='midiExpander editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Sega Gamepad Setup</td>
+            <td class='editableTd'>
+                <span id='segaGamepadSetup' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Expander FW update</td>
+            <td class='editableTd'>
+                <span id='expanderFirmwareUpdate' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Compact Patterns</td>
+            <td class='editableTd'>
+                <span id='compacePatterns' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Compact Tables</td>
+            <td class='editableTd'>
+                <span id='compaceTables' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Compact Patches</td>
+            <td class='editableTd'>
+                <span id='compacePatches' class='editable'>==></span>
+            </td>
+        </tr>
+        <!-- Just for internal use -->
+        <tr>
+            <td class='label'>Debug</td>
+            <td class='editableTd'>
+                <span id='debug' class='debug editable'></span>
+            </td>
+        </tr>
+        <!-- Soft reset only works sif in debug mode -->
+        <tr class='endOfGroup'>
+            <td class='label'>Soft reset</td>
+            <td class='editableTd'>
+                <span id='softReset' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'></td>
+            <td id='closeMenu' class='editable'>Close Menu</td>
+        </tr>
+        <tr class='helpRow'>
+            <td class='help' colspan='2'></td>
+        </tr>
+    </table>
+</div>

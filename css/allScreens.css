@@ -56,7 +56,6 @@
 /* For properties that user can directly change */
 .editable {
   color: var(--editableColor);
-  /* not needed FIXME background-color: var(--editableBackgroundColor); */
 }
 
 .selected {

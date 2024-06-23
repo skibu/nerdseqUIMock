@@ -1,0 +1,105 @@
+<!--------------------------------------------------------------------------------->
+<!-- the Screen Select Menu (via the repurposed Automate button) -->
+<!--------------------------------------------------------------------------------->
+
+<!-- Dynamically load in associated files -->
+<script> 
+    $.getScript("js/screenSelectMenu.js"); 
+</script>
+
+<div id='screenSelectMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+        <tr class='titleRow'>
+            <td id='projectLabelId'>
+                <span id='projectLabel' class='label'>Project:</span>
+                <span class='projectName changeable'></span>
+            </td>
+            <td class='screenTitle'>Screen Menu</td>
+        </tr>
+        <tr>
+            <td class='label'>Sequencer</td>
+            <td class='editableTd'>
+                <span id='sequencer' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Pattern</td>
+            <td class='editableTd'>
+                <span id='pattern' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Patch</td>
+            <td class='editableTd'>
+                <span id='patch' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Table</td>
+            <td class='editableTd'>
+                <span id='table' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Automation Setup</td>
+            <td class='editableTd'>
+                <span id='automate' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Envelope Setup</td>
+            <td class='editableTd'>
+                <span id='envelope' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>I2C Setup</td>
+            <td class='editableTd'>
+                <span id='i2c' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Input/Record Setup</td>
+            <td class='editableTd'>
+                <span id='inputRecord' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Mapping Setup</td>
+            <td class='editableTd'>
+                <span id='mapping' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Midi Setup</td>
+            <td class='editableTd'>
+                <span id='midi' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Random Ranges Setup</td>
+            <td class='editableTd'>
+                <span id='randomRanges' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Scale/Quantize Setup</td>
+            <td class='editableTd'>
+                <span id='scaleQuantize' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Track Setup</td>
+            <td class='editableTd'>
+                <span id='track' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'></td>
+            <td id='closeMenu' class='editable'>Close Menu</td>
+        </tr>
+        <tr class='helpRow'>
+            <td class='help' colspan='2'></td>
+        </tr>
+    </table>
+</div>
