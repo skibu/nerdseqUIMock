@@ -20,13 +20,29 @@ let systemMenuObject = {
     /* Initializes the UI with all the editable values, setting them to their default value.
        Called automatically at initialization by menuInitialize() */
     initialize: function() {
+        this.handleScreensaverChange();
         this.handleAutoloadProjectChange();
         this.handleVideoExpanderChange();
     },
 
+    screensaver: 5, // default
+    getScreensaver: function() { return this.screensaver; },
+    getScreensaverStr: function() { return this.screensaver == 0 ? 'Off' : this.screensaver + ' minutes'},
+    handleScreensaverChange: function(increment, shiftKey) {
+        // if not initializing
+        if (typeof increment === 'number') {
+            // Limit the value and store it
+            let screensaver = this.screensaver + (shiftKey ? 5*increment : increment);
+            this.screensaver = Math.min(Math.max(screensaver, 0), 60);
+        }
+    
+        // Update UI. Using className since there could be several elements that need to be updated
+        $('.screensaver').html(this.getScreensaverStr());
+    },
+        
     autoloadProject: true,
     getAutoloadProject: function() { return this.autoloadProject; },
-    getAutoloadProjectStr: function() { return this.autoloadProject ? 'on' : 'off'; },
+    getAutoloadProjectStr: function() { return this.autoloadProject ? 'On' : 'Off'; },
     handleAutoloadProjectChange: function(increment, shiftKey) { 
         // if not initializing
         if (typeof increment === 'number') {
@@ -37,12 +53,24 @@ let systemMenuObject = {
         // Update UI. Using className since there could be several elements that need to be updated
         $('.autoloadProject').html(this.getAutoloadProjectStr());
     },
-    
+
+    incrementClockOut: function(increment) { 
+        // if not initializing
+        if (typeof increment === "number") {
+            // Limit the value and store it
+            let clockOutIndex = this.getClockOutIndex() + increment;
+            clockOutIndex = Math.min(Math.max(clockOutIndex, 0), this.clockOutValues.length-1);
+            this.clockOut = this.clockOutValues[clockOutIndex];
+        }
+        
+        // Update UI. Using className since there could be several elements that need to be updated
+        $('.clockOut').html(this.getClockOut());
+    },
+
     videoExpander: 'OFF', // default
     videoExpanderValues: ['OFF', 'USB', 'Clone ==>'],
     getVideoExpanderIndex: function() { return this.videoExpanderValues.indexOf(this.videoExpander); },
     getVideoExpander: function() { return this.videoExpander; },
-    
     handleVideoExpanderChange: function(increment, shiftKey) {
         // if not initializing
         if (typeof increment === 'number') {
@@ -63,6 +91,9 @@ let systemMenuObject = {
 
         // Handle depending on ID of the current editable value
         switch(id) {
+            case 'screensaver':
+                this.handleScreensaverChange(increment, shiftKey);
+                break;
             case 'autoloadProject':
                 this.handleAutoloadProjectChange(increment, shiftKey);
                 break;
@@ -84,6 +115,9 @@ let systemMenuObject = {
 
         // Handle depending on ID of the current editable value
         switch(id) {
+            case 'screensaver':
+                Menus.helpStr('Idle time till screensaver used', this);
+                break;
             case 'autoloadProject':
                 Menus.helpStr('Autoload last project at startup', this);
                 break;

@@ -177,7 +177,7 @@ let _project = {
 
     editing: true,
     getEditing: function() { return this.editing; },
-    getEditingStr: function() { return this.editing ? 'on' : 'off'; },
+    getEditingStr: function() { return this.editing ? 'On' : 'Off'; },
     setEditing: function(editing) { 
         // if not initializing
         if (typeof editing === "boolean") {
