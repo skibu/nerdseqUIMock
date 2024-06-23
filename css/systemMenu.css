@@ -1,0 +1,15 @@
+#systemMenu .scrollbar {
+    position: absolute; 
+    right: 31px; /* From the full screen, not just from the menu */
+    width: 4px;
+
+    background-color: var(--menuScrollbarColor);
+
+    /* Make sure scrollbar always on top of menu */
+    z-index: 99;
+}
+
+#systemMenu .virtualScreen {
+    /* wide enough so can handle largest help strings without changing size */
+    width: 704px;
+}
