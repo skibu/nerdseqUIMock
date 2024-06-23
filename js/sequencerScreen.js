@@ -70,6 +70,8 @@ let sequencerObject = {
 
   // Fill in the sequences table
   createSequences: function() {
+    console.log('FIXME in createSequences()');
+    
     // Initialize cells in this method so that constants are available
     this.cells = Array.from(Array(this.ROWS), () => new Array(this.TRACKS));
 

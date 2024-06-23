@@ -39,7 +39,7 @@
     text-transform: uppercase;
     text-align: center;
     white-space: nowrap;
-    border-left: 3px solid;
+    border-left: 3px solid var(--borderColor);
     line-height: 28px;
     height: 28px;
 }

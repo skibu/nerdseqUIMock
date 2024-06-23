@@ -1,9 +1,9 @@
 /* JS for the System Menu */
 function displaySystemMenu() {
     // Initialize object
-    menuInitialize(systemMenuObject);
+    Menus.initialize(systemMenuObject);
     
-    makeMenuVisible(systemMenuObject);
+    Menus.makeVisible(systemMenuObject);
 }
 
 let systemMenuObject = {
@@ -20,9 +20,24 @@ let systemMenuObject = {
     /* Initializes the UI with all the editable values, setting them to their default value.
        Called automatically at initialization by menuInitialize() */
     initialize: function() {
+        this.handleAutoloadProjectChange();
         this.handleVideoExpanderChange();
     },
-        
+
+    autoloadProject: true,
+    getAutoloadProject: function() { return this.autoloadProject; },
+    getAutoloadProjectStr: function() { return this.autoloadProject ? 'on' : 'off'; },
+    handleAutoloadProjectChange: function(increment, shiftKey) { 
+        // if not initializing
+        if (typeof increment === 'number') {
+            // Store it
+            this.autoloadProject = !this.autoloadProject; 
+        }
+    
+        // Update UI. Using className since there could be several elements that need to be updated
+        $('.autoloadProject').html(this.getAutoloadProjectStr());
+    },
+    
     videoExpander: 'OFF', // default
     videoExpanderValues: ['OFF', 'USB', 'Clone ==>'],
     getVideoExpanderIndex: function() { return this.videoExpanderValues.indexOf(this.videoExpander); },
@@ -30,7 +45,7 @@ let systemMenuObject = {
     
     handleVideoExpanderChange: function(increment, shiftKey) {
         // if not initializing
-        if (typeof increment === "number") {
+        if (typeof increment === 'number') {
             // Limit the value and store it
             let videoExpanderIndex = this.getVideoExpanderIndex() + increment;
             videoExpanderIndex = Math.min(Math.max(videoExpanderIndex, 0), this.videoExpanderValues.length-1);
@@ -44,10 +59,13 @@ let systemMenuObject = {
     /* Handles incrementing or decrementing the curreent editable value */
     upOrDownClicked: function(increment, shiftKey) {
         // Determine current editable value and its ID.
-        const id = menuIdOfEditableElement(this);
+        const id = Menus.idOfEditableElement(this);
 
         // Handle depending on ID of the current editable value
         switch(id) {
+            case 'autoloadProject':
+                this.handleAutoloadProjectChange(increment, shiftKey);
+                break;
             case 'videoExpander':
                 this.handleVideoExpanderChange(increment, shiftKey);
                 break;
@@ -57,6 +75,29 @@ let systemMenuObject = {
         }
     },
 
+    /* Updates help info. Called by Menus.selectRow(). */
+    newRowSelected: function() {
+        this.scrollScreenIfNeeded();
+        
+         // Determine current editable value and its ID.
+        const id = Menus.idOfEditableElement(this);
+
+        // Handle depending on ID of the current editable value
+        switch(id) {
+            case 'autoloadProject':
+                Menus.helpStr('Autoload last project at startup', this);
+                break;
+            case 'videoExpander':
+                Menus.helpStr('Setup of Video Expander module', this);
+                break;
+            case 'closeMenu':
+                Menus.helpStr('[OK] or [<-] to close', this);
+                break;
+            default:
+                Menus.helpStr('', this);
+        }
+    },
+    
     /* After cursor is moved then need to possibly scroll the screen */
     scrollScreenIfNeeded: function() {
         let newRow = this.currentRow;
@@ -157,42 +198,26 @@ let systemMenuObject = {
           helpRow.classList.remove('menuBorderIndicatingCanScrollDown');
     },
 
-    /* Updates help info. Called by menuSelectRow(). */
-    newRowSelected: function() {
-        this.scrollScreenIfNeeded();
-        
-         // Determine current editable value and its ID.
-        const id = menuIdOfEditableElement(this);
-
-        // Handle depending on ID of the current editable value
-        switch(id) {
-            case 'closeMenu':
-                menuHelpStr('[OK] or [<-] to close', this);
-                break;
-            case 'videoExpander':
-                menuHelpStr('Setup of Video Expander module', this);
-                break;
-            default:
-                menuHelpStr('', this);
-        }
-    },
-    
     /* Scroll down */
     upArrowClicked: function(shiftKey) {
-        menuSelectRow(this.currentRow - 1, this);        
+        Menus.selectRow(this.currentRow - 1, this);        
     },
 
     /* Scroll up */
     downArrowClicked: function(shiftKey) {
-        menuSelectRow(this.currentRow + 1, this);
+        Menus.selectRow(this.currentRow + 1, this);
     },
 
     /* Hide the menu and have the last screen get UI events */
     leftArrowClicked: function(shiftKey) {
+        Menus.handlePossibleCloseMenu(this);
+        
         closeMenuAndRestoreScreen(this);
     },
 
-    rightArrowClicked: function(shiftKey) { alert('RIGHT' + (shiftKey ? ' shift' : '')); }, 
+    rightArrowClicked: function(shiftKey) { 
+        Menus.handlePossibleCloseMenu(this);
+    }, 
 
     /* Increment the editable value */
     upClicked: function(shiftKey) { this.upOrDownClicked(1, shiftKey); },
@@ -202,6 +227,6 @@ let systemMenuObject = {
 
     /* If on Close Menu row then will close the menu. Otherwise does nothing */
     okClicked: function(shiftKey) { 
-        menuOkClicked(shiftKey, this);
+        Menus.handlePossibleCloseMenu(this);
     },
 };

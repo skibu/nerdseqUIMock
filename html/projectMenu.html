@@ -1,0 +1,119 @@
+<!--------------------------------------------------------------------------------->
+<!-- the Project Menu -->
+<!--------------------------------------------------------------------------------->
+
+<!-- Dynamically load in associated files -->
+<script> 
+    $.getScript("js/projectMenu.js"); 
+    $.getStylesheet('css/projectMenu.css');
+</script>
+
+<div id='projectMenu' class='virtualScreenContainer menuContainer'>
+    <table class='virtualScreen menu'>
+        <tr class='titleRow'>
+            <td id='projectLabelId'>
+                <span id='projectLabel' class='label'>Project:</span>
+                <span class='projectName changeable'></span>
+            </td>
+            <td class='screenTitle'>Project Menu</td>
+        </tr>
+        <tr>
+            <td class='label'>Load Project</td>
+            <td class='editableTd'>
+                <span id='loadProject' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Save Project</td>
+            <td class='editableTd'>
+                <span id='saveProject' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Clear Project data</td>
+            <td class='editableTd'>
+                <span id='clearProject' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Load Sample</td>
+            <td class='editableTd'>
+                <span id='loadSample' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Load Sampleblock</td>
+            <td class='editableTd'>
+                <span id='loadSampleBlock' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Save Sampleblock</td>
+            <td class='editableTd'>
+                <span id='saveSampleBlock' class='editable'>==></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Tempo</td>
+            <td class='editableTd'>
+                <span id='tempo' class='tempo editable'></span>
+                BPM
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Swing</td>
+            <td class='editableTd'>
+                <span id='swing' class='swing editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Main Clock</td>
+            <td class='editableTd'>
+                <span id='mainClock' class='mainClock editable'></span>
+                steps
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Live Cue Points</td>
+            <td class='editableTd'>
+                <span id='liveCuePoints' class='liveCuePoints editable'></span>
+                steps
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Clock In</td>
+            <td class='editableTd'>
+                <span id='clockIn' class='clockIn editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Clock Out</td>
+            <td class='editableTd'>
+                <span id='clockOut' class='clockOut editable'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>Pitch Transpose</td>
+            <td class='editableTd'>
+                <span id='transpose' class='transpose editable'></span>
+            </td>
+        </tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Scale</td>
+            <td id='scaleTd' class='editableTd'>
+                <span id='scale' class='scale editable'>
+        </span </td></tr>
+        <tr class='endOfGroup'>
+            <td class='label'>Editing</td>
+            <td class='editableTd'>
+                <span id='editElement' class='editElement editable'>
+        </span </td></tr>
+        <tr>
+            <td class='label'></td>
+            <td id='closeMenu' class='editable'>Close Menu</td>
+        </tr>
+        <tr class='helpRow'>
+            <td class='help' colspan='2'></td>
+        </tr>
+    </table>
+</div>

@@ -1,5 +1,5 @@
 function displayContextMenu() {
-    makeMenuVisible(contextMenuObject);
+    Menus.makeVisible(contextMenuObject);
 }
 
 let contextMenuObject = {

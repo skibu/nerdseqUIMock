@@ -2,10 +2,10 @@
 
 function displayProjectMenu() {
     // Initialize object
-    menuInitialize(projectMenuObject);
+    Menus.initialize(projectMenuObject);
 
     // Make Project Menu visible
-    makeMenuVisible(projectMenuObject);
+    Menus.makeVisible(projectMenuObject);
 }
 
 let projectMenuObject = {
@@ -22,9 +22,9 @@ let projectMenuObject = {
     handleSwingChange: function(increment, shiftKey) {
         // Can only set swing if ClockIn is set to Internal
         if (_project.getClockIn() !== 'Internal') {
-            menuHelpStr('Clock In must be Internal', this);
+            Menus.helpStr('Clock In must be Internal', this);
             // Clear help message after 2.5 seconds
-            setTimeout(() => { menuHelpStr('', this); }, 2500);
+            setTimeout(() => { enus.helpStr('', this); }, 2500);
             return;
         }
         
@@ -72,7 +72,7 @@ let projectMenuObject = {
     /* Handles incrementing or decrementing the curreent editable value */
     upOrDownClicked: function(increment, shiftKey) {
         // Determine current editable value and its ID.
-        const id = menuIdOfEditableElement(this);
+        const id = Menus.idOfEditableElement(this);
 
         // Handle depending on ID of the current editable value
         switch(id) {
@@ -112,34 +112,38 @@ let projectMenuObject = {
     /* Updates help info. Called by menuSelectRow(). */
     newRowSelected: function() {
          // Determine current editable value and its ID.
-        const id = menuIdOfEditableElement(this);
+        const id = Menus.idOfEditableElement(this);
 
         // Handle depending on ID of the current editable value
         switch(id) {
             case 'closeMenu':
-                menuHelpStr('[OK] or [<-] to close', this);
+                Menus.helpStr('[OK] or [<-] to close', this);
                 break;
             default:
-                menuHelpStr('', this);
+                Menus.helpStr('', this);
         }
     },
 
     /* Scroll down */
     upArrowClicked: function(shiftKey) {
-        menuSelectRow(this.currentRow - 1, this);        
+        Menus.selectRow(this.currentRow - 1, this);        
     },
 
     /* Scroll up */
     downArrowClicked: function(shiftKey) {
-        menuSelectRow(this.currentRow + 1, this);
+        Menus.selectRow(this.currentRow + 1, this);
     },
 
     /* Hide the menu and have the last screen get UI events */
     leftArrowClicked: function(shiftKey) {
+        Menus.handlePossibleCloseMenu(this);
+        
         closeMenuAndRestoreScreen(this);
     },
 
-    rightArrowClicked: function(shiftKey) { alert('RIGHT' + (shiftKey ? ' shift' : '')); }, 
+    rightArrowClicked: function(shiftKey) { 
+        Menus.handlePossibleCloseMenu(this);
+    }, 
 
     /* Increment the editable value */
     upClicked: function(shiftKey) { this.upOrDownClicked(1, shiftKey); },
@@ -149,6 +153,6 @@ let projectMenuObject = {
 
     /* If on Close Menu row then will close the menu. Otherwise does nothing */
     okClicked: function(shiftKey) { 
-        menuOkClicked(shiftKey, this);
+        Menus.handlePossibleCloseMenu(this);
     },
 };

@@ -50,22 +50,6 @@ function makeScreenVisible(uiObject) {
     screen.style.visibility = "visible";
 }
 
-/* A menu is different because want to still display the screen underneath it to
-   convey that will be returning to that screen when done with the menu. Therefore
-   doesn't first hide all screens. But should hide all menus */
-function makeMenuVisible(uiObject) {
-    currentUiObject = uiObject;
-    
-    // Hide any other menus that are being displayed (but don't hide screens)
-    var allMenus = $(".menuContainer");
-    Array.from(allMenus).forEach(function(domTable) { 
-        domTable.style.visibility = "hidden";});
-
-    // Make the element with the specified id visible
-    const menu = $("#" + uiObject.elementId)[0];
-    menu.style.visibility = "visible";
-}
-
 /* For when done with a menu. So that UI events are sent to the screen object again */
 function closeMenuAndRestoreScreen(menuObject) {
     currentUiObject = lastScreenObject;
@@ -104,3 +88,32 @@ function zeroPad(value) {
     // Return zero padded string
     return str.padStart(2, '0');
 }
+
+/* Convenience function for loading in css file dynamically. From https://gist.github.com/james2doyle/9456c3e145f8d0afbe25 
+   Simply call $.getStylesheet('css/file.css'); */
+(function($) {
+  $.getStylesheet = function (href) {
+		return $.ajax({
+			dataType: "text",
+			url: href,
+		}).done( function(text){
+			$("<style>").html(text).appendTo("head");
+		} );
+  };
+})(jQuery);
+
+/* So that can have multiple onload events, setup in different files.
+   From https://www.brefere.com/fbapps/bcom.nsf/cvbdate/D514491209EE5C848725801A0074AE6E?opendocument */
+function addLoadEvent(func) { 
+	var oldonload = window.onload; 
+	if (typeof window.onload != 'function') { 
+		window.onload = func; 
+	} else { 
+		window.onload = function() { 
+			if (oldonload) { 
+				oldonload(); 
+			} 
+			func(); 
+		} 
+	} 
+} 

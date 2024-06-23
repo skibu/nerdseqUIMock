@@ -1,0 +1,119 @@
+ <!--------------------------------------------------------------------------------->
+  <!-- the Sequencer Screen -->
+  <!--------------------------------------------------------------------------------->
+<script>
+  /* Dynamically load in the corresponding style sheet */
+  $.getStylesheet('css/sequencer.css');
+</script>
+  
+<table id='sequencerScreen' class='virtualScreen virtualScreenContainer'>
+  <tr>
+    <td id='topLeftCell' class='topCell columnHeader rowHeader'></td>
+    <td class='columnHeader trackHeader'>1</td>
+    <td class='columnHeader trackHeader'>2</td>
+    <td class='columnHeader trackHeader'>3</td>
+    <td class='columnHeader trackHeader'>4</td>
+    <td class='columnHeader trackHeader'>5</td>
+    <td class='columnHeader trackHeader'>6</td>
+    <td class='columnHeader trackHeader'>7</td>
+    <td class='columnHeader trackHeader widerBorderOnRight'>8</td>
+    <td class='screenTitle'>Sequencer</td>
+  </tr>
+  <tr>
+    <td colspan='9'>
+      <!-- The sequencesTable is created via javascript -->
+      <table id='sequencesTable' class='widerBorderOnBottom widerBorderOnTop widerBorderOnRight'></table>
+    </td>
+    <td>
+      <!-- The sequencerSideTable -->
+      <table id='sequencerSideTable' class='widerBorderOnBottom widerBorderOnTop'>
+        <!-- Display SEQUENCER as screen name, and the Project name -->
+        <tr class='smallerLineHeight'>
+          <td id='projectLabel' class='label rightAlignedLabel' colspan=5>Project:</td></td>
+        </tr>
+        <tr class='borderOnBottom'>
+          <td class='projectName changeable' colspan=5></td>
+        </tr>
+
+        <!-- Display BPM, Pitch, and Edit in a small table in sidebar called 'innerTable' -->
+        <tr class='borderOnBottom'><td colspan=5>
+          <table id='innerTable'>
+            <tr>
+              <td class='label rightAlignedLabel'>BPM:</td><td class='tempo changeable alignedChangeable'></td>
+            </tr>
+            <tr id='transposeRow'>
+              <td class='label rightAlignedLabel'>Pitch:</td><td id='transpose' class='transpose changeable alignedChangeable'></td>
+            </tr>
+            <tr id='editingRow'>
+              <td class='label rightAlignedLabel'>Edit:</td><td id='editElement' class='editElement changeable alignedChangeable'></td>
+            </tr>
+          </table>
+        </td></tr>
+  
+        <!-- Display of current note info per track -->
+        <tr class='smallerLineHeight'>
+          <td class='trackHeader'>1</td><td id='note1' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod1' class='modForeground'></div></div></td><td class='trigger'>t</td><td class='changeable clockDiv'>/7</td>
+        </tr>
+        <tr>
+          <td class='trackHeader'>2</td><td id='note2' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod2' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/7</td>
+        </tr>
+        <tr>
+          <td class='trackHeader'>3</td><td id='note3' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod3' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        <tr>
+          <td class='trackHeader'>4</td><td id='note4' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod4' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        <tr>
+          <td class='trackHeader'>5</td><td id='note5' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod5' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        <tr class='borderOnBottom'>
+          <td class='trackHeader'>6</td><td id='note6' class='changeable note'>---</td><td class='mod'><div class='modBackground'><div id='mod6' class='modForeground'></div></div></td><td class='trigger'></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        
+        <tr>
+          <td class='trackHeader'>7</td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        <tr class='borderOnBottom'>
+          <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
+        </tr>
+        <tr>
+          <td class='trackHeader'>8</td><td id='note8' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'>/8</td>
+        </tr>
+        <tr class='borderOnBottom'>
+          <td class='trackHeader'></td><td id='note7' class='changeable note'>---</td><td class='waveImage' colspan=2></td><td class='changeable clockDiv'></td>
+        </tr>
+      </table>
+    </td>
+  </tr>  
+  <tr>
+    <td id='sequencerHelp' class='help widerBorderOnRight' colspan='9'>This is help area</td>
+    <td id='clock' class='label'>
+      <span id='stopPlayRecordIcon' class='material-symbols-outlined'>stop_circle</span>&nbsp;Stopped
+    </td>
+  </tr>
+</table>
+
+<script>
+  // Need to load the js file after the HTML DOM is ready
+  $.getScript("js/sequencerScreen.js", function() {
+    console.log('FIXME in sequencerScreen js loaded');
+    
+    sequencerObject.createSequences();
+
+    // Make visible the Sequencer Screen here since we know it is loaded
+    displaySequencerScreen();
+  }); 
+</script>
+
+
+<!--------------------------------------------------------------------------------->
+<!-- the Sequencer Screen Context Menu -->
+<!--------------------------------------------------------------------------------->
+<table id='sequencerScreenContextMenu' class='virtualScreen virtualScreenContainer'>
+  <tr>
+    <td>Sequencer Screen Context Menu</td><td>F-9</td><td>C#-4</td>
+  </tr>
+  <tr>
+    <td>21</td><td>F-9</td><td>C#-4</td>
+  </tr>
+</table>
